@@ -1,6 +1,5 @@
 import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
-import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/left_info_section.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/right_info_section.dart';
 import 'package:flutter/material.dart';
