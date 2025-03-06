@@ -1,5 +1,6 @@
 import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/services/host_service.dart';
+import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
@@ -69,68 +70,7 @@ class _MainPageState extends State<MainPage> {
       builder: (context, constraints) {
         return Row(
           children: [
-            Drawer(
-              shape: Border.all(style: BorderStyle.none),
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: <Widget>[
-                      Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: SearchAnchor(
-                            viewElevation: (0),
-                            viewBackgroundColor: Colors.black.withOpacity(0.5),
-                            viewConstraints: BoxConstraints(
-                                maxWidth: constraints.maxWidth * 0.8,
-                                maxHeight: constraints.maxHeight * 0.26),
-                            builder: (BuildContext context,
-                                SearchController controller) {
-                              return SearchBar(
-                                elevation:
-                                    const MaterialStatePropertyAll<double>(0),
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.black.withOpacity(0.5)),
-                                controller: controller,
-                                hintText: 'Search repacks',
-                                leading: const Icon(Icons.search),
-                                onTap: () {
-                                  controller.openView();
-                                },
-                                onChanged: (value) {
-                                  controller.openView();
-                                },
-                              );
-                            },
-                            suggestionsBuilder: (BuildContext context,
-                                SearchController controller) {
-                              return allRepacksNames.keys
-                                  .where((name) => name
-                                      .toLowerCase()
-                                      .contains(controller.text.toLowerCase()))
-                                  .map((name) => ListTile(
-                                        title: Text(name),
-                                        onTap: () {
-                                          openDrawerWithRepack(
-                                              repackUrl:
-                                                  allRepacksNames[name] ?? '');
-                                          controller.closeView(name);
-                                        },
-                                      ))
-                                  .toList();
-                            },
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            LeftDrawer(constraints: constraints, allRepacksNames: allRepacksNames, openDrawerWithRepack: openDrawerWithRepack),
             Expanded(
               child: Padding(
                 padding:
