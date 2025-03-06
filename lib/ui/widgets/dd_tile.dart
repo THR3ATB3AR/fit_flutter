@@ -8,11 +8,13 @@ class DDTile extends StatefulWidget {
     required this.downloadManager,
     required this.plugin,
     required this.title,
+    required this.downloadFolder,
   });
 
   final DownloadManager downloadManager;
   final DownloadInfo plugin;
   final String title;
+  final String? downloadFolder;
 
   @override
   State<DDTile> createState() => DDTileState();
@@ -33,7 +35,7 @@ class DDTileState extends State<DDTile> {
       _isDownloading = true;
     });
     await widget.downloadManager.addDownload(
-        widget.plugin.downloadLink, 'A:/dupa/${sanitizeFileName(widget.title)}/${widget.plugin.fileName}');
+        widget.plugin.downloadLink, '${widget.downloadFolder}${sanitizeFileName(widget.title)}/${widget.plugin.fileName}');
     DownloadTask? task =
         widget.downloadManager.getDownload(widget.plugin.downloadLink);
     task?.progress.addListener(() {
@@ -41,6 +43,7 @@ class DDTileState extends State<DDTile> {
         _progress = task.progress.value;
       });
     });
+    
     task?.status.addListener(() {
       if (task.status.value == DownloadStatus.completed) {
         setState(() {
@@ -56,7 +59,20 @@ class DDTileState extends State<DDTile> {
     return ListTile(
       title: Text(widget.plugin.fileName),
       trailing: _isDownloading
-          ? CircularProgressIndicator(value: _progress)
+          ? Stack(
+            children: [
+              CircularProgressIndicator(value: _progress),
+              IconButton(
+                icon: const Icon(Icons.cancel),
+                onPressed: () async {
+                  await widget.downloadManager.cancelDownload(widget.plugin.downloadLink);
+                  setState(() {
+                    _isDownloading = false;
+                  });
+                },
+              ),
+            ],
+          )
           : _isDownloaded
               ? const Icon(Icons.download_done)
               : IconButton(

@@ -41,6 +41,7 @@ dependencies:
   system_theme: ^3.0.0
   flutter_acrylic: ^1.1.4
   flutter_download_manager: ^0.5.5
+  file_picker: ^8.0.5
 
 
 

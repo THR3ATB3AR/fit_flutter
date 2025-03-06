@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/host_service.dart';
@@ -24,6 +25,15 @@ class DownloadButton extends StatefulWidget {
 
 class _DownloadButtonState extends State<DownloadButton> {
   @override
+  void initState() {
+    super.initState();
+    directoryController.text = 'C:/Games/FitFlutter/';
+    selectedDirectory = directoryController.text;
+  }
+
+  TextEditingController directoryController = TextEditingController();
+  String? selectedDirectory;
+
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
@@ -45,6 +55,40 @@ class _DownloadButtonState extends State<DownloadButton> {
                         onSelected: (String host) {
                           widget.selectedHost = host;
                         },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(children: [
+                          TextField(
+                            controller: directoryController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Download Folder',
+                            ),
+                            onChanged: (String directory) {
+                              selectedDirectory = directory;
+                            },
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IconButton(
+                                icon: const Icon(Icons.folder),
+                                onPressed: () async {
+                                  selectedDirectory = await FilePicker.platform
+                                      .getDirectoryPath();
+                              
+                                  if (selectedDirectory != null) {
+                                    selectedDirectory =
+                                        '${selectedDirectory!.replaceAll('\\', '/')}/';
+                                    directoryController.text = selectedDirectory!;
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ]),
                       ),
                     ],
                   ),
@@ -93,6 +137,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                     builder: (BuildContext context) {
                       return DownloadFilesList(
                           findls: findls,
+                          downloadFolder: selectedDirectory,
                           downloadManager: widget.downloadManager,
                           title: widget.selectedRepack?.title ?? 'No title');
                     });
