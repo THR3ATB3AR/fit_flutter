@@ -1,8 +1,7 @@
 import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
-import 'package:fit_flutter/ui/pages/repack_drawer/download_button.dart';
-import 'package:fit_flutter/ui/pages/repack_drawer/repack_info_section.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/left_info_section.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
@@ -114,41 +113,7 @@ class _MainPageState extends State<MainPage> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      20.0),
-                                                  child: Column(
-                                                    children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                        child: Image.network(
-                                                          selectedRepack
-                                                                  ?.cover ??
-                                                              'https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg',
-                                                          width: constraints
-                                                                  .maxWidth *
-                                                              0.15,
-                                                        ),
-                                                      ),
-                                                      DownloadButton(
-                                                          constraints:
-                                                              constraints,
-                                                          downloadManager:
-                                                              downloadManager,
-                                                          selectedRepack:
-                                                              selectedRepack,
-                                                          selectedHost:
-                                                              selectedHost),
-                                                      RepackInfoSection(
-                                                          selectedRepack:
-                                                              selectedRepack,
-                                                          constraints:
-                                                              constraints),
-                                                    ],
-                                                  ),
-                                                ),
+                                                LeftInfoSection(selectedRepack: selectedRepack, downloadManager: downloadManager, selectedHost: selectedHost, constraints: constraints,),
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
