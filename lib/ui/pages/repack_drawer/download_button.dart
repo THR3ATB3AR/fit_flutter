@@ -1,6 +1,7 @@
 import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/host_service.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/folder_picker.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
@@ -26,14 +27,13 @@ class _DownloadButtonState extends State<DownloadButton> {
   @override
   void initState() {
     super.initState();
-    directoryController.text='C:/Games/FitFlutter/';
+    directoryController.text = 'C:/Games/FitFlutter/';
     selectedDirectory = directoryController.text;
-    }
+  }
 
   TextEditingController directoryController = TextEditingController();
   String? selectedDirectory;
-  
-  
+
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
@@ -56,20 +56,14 @@ class _DownloadButtonState extends State<DownloadButton> {
                           widget.selectedHost = host;
                         },
                       ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            controller: directoryController,
-
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Download Folder',
-                          ),
-                          onChanged: (String directory) {
-                            selectedDirectory = directory;
-                          },
-                          ),
-                        ),
+                      FolderPicker(
+                        constraints: widget.constraints,
+                        downloadManager: widget.downloadManager,
+                        selectedRepack: widget.selectedRepack,
+                        selectedHost: widget.selectedHost,
+                        selectedDirectory: selectedDirectory,
+                        directoryController: directoryController,
+                      ),
                     ],
                   ),
                   actions: [
