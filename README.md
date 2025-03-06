@@ -18,16 +18,23 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * **Updated Repacks:**  Displaying a list of recently updated repacks is not yet implemented.
 * **Torrent Downloads:** Downloading via torrent links is not currently supported.
 
+## Screenshots
+
+![Alt text](images\readme\1.png?raw=true "Home Page")
+![Alt text](images\readme\2.png?raw=true "Repack Info")
+![Alt text](images\readme\3.png?raw=true "Repack Screenshots")
+![Alt text](images\readme\4.png?raw=true "Repack Search")
+
 ## TODOs 📝
 
-* **🍝 Spaghetti Code Refactoring:**  The codebase needs significant refactoring to improve maintainability and readability (it's a bit of a mess right now).
-* **📥 Download Monitor:** Implement a dedicated section to monitor active downloads, show progress, and manage downloaded files.
-* **⬆️ Fix Updated Repacks:**  Implement the functionality to display updated repacks.
-* **💻Cross-Platform:** Make it cross-platform (for now it works on windows and maybe android)
-* **💅 GUI Improvements:**  Enhance the user interface to make it more visually appealing and user-friendly.  Consider adding:
-  * Better error handling and user feedback.
-  * Improved navigation and layout.
-  * Possibly a settings page.
+* [X] **🍝 Spaghetti Code Refactoring:**  The codebase needs significant refactoring to improve maintainability and readability (it's a bit of a mess right now).
+* [ ] **📥 Download Monitor:** Implement a dedicated section to monitor active downloads, show progress, and manage downloaded files.
+* [ ] **⬆️ Fix Updated Repacks:**  Implement the functionality to display updated repacks.
+* [ ] **💻Cross-Platform:** Make it cross-platform (for now it works on windows and maybe android)
+* [ ] **💅 GUI Improvements:**  Enhance the user interface to make it more visually appealing and user-friendly.  Consider adding:
+  * [ ] Better error handling and user feedback.
+  * [ ] Improved navigation and layout.
+  * [ ] Possibly a settings page.
 
 ## Installation and Building
 
