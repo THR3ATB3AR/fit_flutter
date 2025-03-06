@@ -3,6 +3,7 @@ import 'package:fit_flutter/services/host_service.dart';
 import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/repack_info_section.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
@@ -257,45 +258,7 @@ class _MainPageState extends State<MainPage> {
                                                           ),
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8.0),
-                                                        child: Card.filled(
-                                                          child: SizedBox(
-                                                            width: constraints
-                                                                    .maxWidth *
-                                                                0.15,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Text.rich(
-                                                                TextSpan(
-                                                                    text:
-                                                                        'Genres: ${selectedRepack?.genres}\n',
-                                                                    children: [
-                                                                      TextSpan(
-                                                                        text:
-                                                                            'Company: ${selectedRepack?.company}\n',
-                                                                      ),
-                                                                      TextSpan(
-                                                                        text:
-                                                                            'Language: ${selectedRepack?.language}\n',
-                                                                      ),
-                                                                      TextSpan(
-                                                                        text:
-                                                                            'Original Size: ${selectedRepack?.originalSize}\n',
-                                                                      ),
-                                                                      TextSpan(
-                                                                          text:
-                                                                              'Repack Size: ${selectedRepack?.repackSize}'),
-                                                                    ]),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
+                                                      RepackInfoSection(selectedRepack: selectedRepack, constraints: constraints),
                                                     ],
                                                   ),
                                                 ),
@@ -434,4 +397,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
