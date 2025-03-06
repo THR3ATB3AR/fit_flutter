@@ -24,6 +24,16 @@ class DownloadButton extends StatefulWidget {
 
 class _DownloadButtonState extends State<DownloadButton> {
   @override
+  void initState() {
+    super.initState();
+    directoryController.text='C:/Games/FitFlutter/';
+    selectedDirectory = directoryController.text;
+    }
+
+  TextEditingController directoryController = TextEditingController();
+  String? selectedDirectory;
+  
+  
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
@@ -46,6 +56,20 @@ class _DownloadButtonState extends State<DownloadButton> {
                           widget.selectedHost = host;
                         },
                       ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            controller: directoryController,
+
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Download Folder',
+                          ),
+                          onChanged: (String directory) {
+                            selectedDirectory = directory;
+                          },
+                          ),
+                        ),
                     ],
                   ),
                   actions: [
@@ -93,6 +117,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                     builder: (BuildContext context) {
                       return DownloadFilesList(
                           findls: findls,
+                          downloadFolder: selectedDirectory,
                           downloadManager: widget.downloadManager,
                           title: widget.selectedRepack?.title ?? 'No title');
                     });
