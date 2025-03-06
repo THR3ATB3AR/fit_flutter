@@ -2,6 +2,7 @@ import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/services/host_service.dart';
 import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
@@ -319,120 +320,8 @@ class _MainPageState extends State<MainPage> {
                                                               .visible,
                                                           maxLines: null,
                                                         ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  top: 8.0),
-                                                          child: SizedBox(
-                                                            height: constraints
-                                                                    .maxHeight *
-                                                                0.3,
-                                                            width: constraints
-                                                                .maxWidth,
-                                                            child: Card.filled(
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        8.0),
-                                                                child:
-                                                                    SingleChildScrollView(
-                                                                  child: Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      const Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                              'Game Description',
-                                                                              style: TextStyle(fontSize: 24)),
-                                                                        ],
-                                                                      ),
-                                                                      Text(
-                                                                        selectedRepack?.description ?? 
-                                                                            'No description available',
-                                                                        textAlign:
-                                                                            TextAlign.left,
-                                                                        style:
-                                                                            const TextStyle(
-                                                                          fontSize:
-                                                                              16,
-                                                                        ),
-                                                                        softWrap:
-                                                                            true,
-                                                                        overflow:
-                                                                            TextOverflow.visible,
-                                                                        maxLines:
-                                                                            null,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  top: 8.0),
-                                                          child: SizedBox(
-                                                            height: constraints
-                                                                    .maxHeight *
-                                                                0.3,
-                                                            width: constraints
-                                                                .maxWidth,
-                                                            child: Card.filled(
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        8.0),
-                                                                child:
-                                                                    SingleChildScrollView(
-                                                                  child: Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      const Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                              'Repack Features',
-                                                                              style: TextStyle(fontSize: 24)),
-                                                                        ],
-                                                                      ),
-                                                                      Text(
-                                                                        selectedRepack?.repackFeatures ?? 
-                                                                            'No features available',
-                                                                        textAlign:
-                                                                            TextAlign.left,
-                                                                        style:
-                                                                            const TextStyle(
-                                                                          fontSize:
-                                                                              16,
-                                                                        ),
-                                                                        softWrap:
-                                                                            true,
-                                                                        overflow:
-                                                                            TextOverflow.visible,
-                                                                        maxLines:
-                                                                            null,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
+                                                        DescriptionAndFeaturesSection(selectedRepack: selectedRepack, constraints: constraints, sectionType: SectionType.description),
+                                                        DescriptionAndFeaturesSection(selectedRepack: selectedRepack, constraints: constraints, sectionType: SectionType.features),
                                                       ],
                                                     ),
                                                   ),
