@@ -2,6 +2,7 @@ import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/left_info_section.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/right_info_section.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
@@ -114,47 +115,7 @@ class _MainPageState extends State<MainPage> {
                                                   MainAxisAlignment.start,
                                               children: [
                                                 LeftInfoSection(selectedRepack: selectedRepack, downloadManager: downloadManager, selectedHost: selectedHost, constraints: constraints,),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 15.0,
-                                                            right: 20),
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          selectedRepack
-                                                                  ?.title ??
-                                                              'No repack selected',
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 34,
-                                                          ),
-                                                          softWrap: true,
-                                                          overflow: TextOverflow
-                                                              .visible,
-                                                          maxLines: null,
-                                                        ),
-                                                        DescriptionAndFeaturesSection(
-                                                            selectedRepack:
-                                                                selectedRepack,
-                                                            constraints:
-                                                                constraints,
-                                                            sectionType:
-                                                                SectionType
-                                                                    .description),
-                                                        DescriptionAndFeaturesSection(
-                                                            selectedRepack:
-                                                                selectedRepack,
-                                                            constraints:
-                                                                constraints,
-                                                            sectionType:
-                                                                SectionType
-                                                                    .features),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
+                                                RightInfoSection(selectedRepack: selectedRepack, constraints: constraints,),
                                               ],
                                             ),
                                             Column(
