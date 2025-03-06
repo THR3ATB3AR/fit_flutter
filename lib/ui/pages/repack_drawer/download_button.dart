@@ -1,7 +1,7 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/host_service.dart';
-import 'package:fit_flutter/ui/pages/repack_drawer/folder_picker.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
@@ -56,13 +56,39 @@ class _DownloadButtonState extends State<DownloadButton> {
                           widget.selectedHost = host;
                         },
                       ),
-                      FolderPicker(
-                        constraints: widget.constraints,
-                        downloadManager: widget.downloadManager,
-                        selectedRepack: widget.selectedRepack,
-                        selectedHost: widget.selectedHost,
-                        selectedDirectory: selectedDirectory,
-                        directoryController: directoryController,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(children: [
+                          TextField(
+                            controller: directoryController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Download Folder',
+                            ),
+                            onChanged: (String directory) {
+                              selectedDirectory = directory;
+                            },
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IconButton(
+                                icon: const Icon(Icons.folder),
+                                onPressed: () async {
+                                  selectedDirectory = await FilePicker.platform
+                                      .getDirectoryPath();
+                              
+                                  if (selectedDirectory != null) {
+                                    selectedDirectory =
+                                        '${selectedDirectory!.replaceAll('\\', '/')}/';
+                                    directoryController.text = selectedDirectory!;
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ]),
                       ),
                     ],
                   ),
