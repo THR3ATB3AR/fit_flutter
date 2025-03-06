@@ -1,12 +1,12 @@
 import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/services/host_service.dart';
+import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
-import 'package:fit_flutter/ui/widgets/repack_slider.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class MainPage extends StatefulWidget {
@@ -123,7 +123,7 @@ class _MainPageState extends State<MainPage> {
                                                                 .circular(10.0),
                                                         child: Image.network(
                                                           selectedRepack
-                                                                  ?.cover ??
+                                                                  ?.cover ?? 
                                                               'https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg',
                                                           width: constraints
                                                                   .maxWidth *
@@ -308,7 +308,7 @@ class _MainPageState extends State<MainPage> {
                                                       children: [
                                                         Text(
                                                           selectedRepack
-                                                                  ?.title ??
+                                                                  ?.title ?? 
                                                               'No repack selected',
                                                           style:
                                                               const TextStyle(
@@ -353,7 +353,7 @@ class _MainPageState extends State<MainPage> {
                                                                         ],
                                                                       ),
                                                                       Text(
-                                                                        selectedRepack?.description ??
+                                                                        selectedRepack?.description ?? 
                                                                             'No description available',
                                                                         textAlign:
                                                                             TextAlign.left,
@@ -410,8 +410,8 @@ class _MainPageState extends State<MainPage> {
                                                                         ],
                                                                       ),
                                                                       Text(
-                                                                        selectedRepack?.repackFeatures ??
-                                                                            'No feeatures available',
+                                                                        selectedRepack?.repackFeatures ?? 
+                                                                            'No features available',
                                                                         textAlign:
                                                                             TextAlign.left,
                                                                         style:
@@ -451,7 +451,7 @@ class _MainPageState extends State<MainPage> {
                                                     child: Image.network(
                                                       selectedRepack
                                                                   ?.screenshots[
-                                                              screenshotIndex] ??
+                                                              screenshotIndex] ?? 
                                                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaGldo0q0bGnxdCbIic3mY4g2PjqQgRIQhiQ&s',
                                                       height: constraints
                                                               .maxHeight *
@@ -498,7 +498,7 @@ class _MainPageState extends State<MainPage> {
                                                                         0.08,
                                                                     fit: BoxFit
                                                                         .cover,
-                                                                    color: entry.key ==
+                                                                    color: entry.key == 
                                                                             screenshotIndex
                                                                         ? Colors
                                                                             .blue
@@ -510,7 +510,7 @@ class _MainPageState extends State<MainPage> {
                                                                   ),
                                                                 ),
                                                               ));
-                                                        }).toList() ??
+                                                        }).toList() ?? 
                                                         [],
                                                   ),
                                                 ),
@@ -523,41 +523,17 @@ class _MainPageState extends State<MainPage> {
                             ],
                           )),
                     ),
-                    body: Container(
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        color: Colors.black.withOpacity(0.2),
-                      ),
-                      child: Builder(
-                        builder: (BuildContext context) {
-                          scaffoldContext = context;
-                          return SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                RepackSlider(
-                                    repacksList: newRepacks,
-                                    title: 'New Repacks',
-                                    onRepackTap: (repack) {
-                                      openDrawerWithRepack(repack: repack);
-                                    }),
-                                RepackSlider(
-                                    repacksList: popularRepacks,
-                                    title: 'Popular Repacks',
-                                    onRepackTap: (repack) {
-                                      openDrawerWithRepack(repack: repack);
-                                    }),
-                                RepackSlider(
-                                    repacksList: updatedRepacks,
-                                    title: 'Updated Repacks',
-                                    onRepackTap: (repack) {
-                                      openDrawerWithRepack(repack: repack);
-                                    }),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                    body: Builder(
+                      builder: (BuildContext context) {
+                        scaffoldContext = context;
+                        return HomePageWidget(
+                          scaffoldContext: scaffoldContext,
+                          newRepacks: newRepacks,
+                          popularRepacks: popularRepacks,
+                          updatedRepacks: updatedRepacks,
+                          openDrawerWithRepack: openDrawerWithRepack,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -569,3 +545,4 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
