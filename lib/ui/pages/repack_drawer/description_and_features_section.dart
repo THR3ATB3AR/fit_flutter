@@ -1,21 +1,18 @@
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:flutter/material.dart';
+
 enum SectionType {
-      description,
-      features,
-    }
+  description,
+  features,
+}
 
 class DescriptionAndFeaturesSection extends StatelessWidget {
-  
   const DescriptionAndFeaturesSection({
     super.key,
     required this.selectedRepack,
     required this.constraints,
     required this.sectionType,
-    });
-
-    
-  
+  });
 
   final Repack? selectedRepack;
   final BoxConstraints constraints;
@@ -48,8 +45,10 @@ class DescriptionAndFeaturesSection extends StatelessWidget {
                   ),
                   Text(
                     sectionType == SectionType.description
-                        ? selectedRepack?.description ?? 'No description available'
-                        : selectedRepack?.repackFeatures ?? 'No features available',
+                        ? selectedRepack?.description ??
+                            'No description available'
+                        : selectedRepack?.repackFeatures ??
+                            'No features available',
                     textAlign: TextAlign.left,
                     style: const TextStyle(fontSize: 16),
                     softWrap: true,
@@ -65,4 +64,3 @@ class DescriptionAndFeaturesSection extends StatelessWidget {
     );
   }
 }
-
