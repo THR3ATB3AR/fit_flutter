@@ -1,7 +1,6 @@
 import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
-import 'package:fit_flutter/ui/pages/repack_drawer/left_info_section.dart';
-import 'package:fit_flutter/ui/pages/repack_drawer/right_info_section.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/repack_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
@@ -100,104 +99,7 @@ class _MainPageState extends State<MainPage> {
                                   icon: const Icon(Icons.arrow_forward_ios),
                                 ),
                               ),
-                              Expanded(
-                                child: selectedRepack == null
-                                    ? const Center(
-                                        child: CircularProgressIndicator())
-                                    : SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                LeftInfoSection(selectedRepack: selectedRepack, downloadManager: downloadManager, selectedHost: selectedHost, constraints: constraints,),
-                                                RightInfoSection(selectedRepack: selectedRepack, constraints: constraints,),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    child: Image.network(
-                                                      selectedRepack
-                                                                  ?.screenshots[
-                                                              screenshotIndex] ??
-                                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaGldo0q0bGnxdCbIic3mY4g2PjqQgRIQhiQ&s',
-                                                      height: constraints
-                                                              .maxHeight *
-                                                          0.8,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: selectedRepack
-                                                            ?.screenshots
-                                                            .asMap()
-                                                            .entries
-                                                            .map((entry) {
-                                                          return GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  screenshotIndex =
-                                                                      entry.key;
-                                                                });
-                                                              },
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        8.0),
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10.0),
-                                                                  child: Image
-                                                                      .network(
-                                                                    entry.value,
-                                                                    width: constraints
-                                                                            .maxWidth *
-                                                                        0.08,
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                    color: entry.key ==
-                                                                            screenshotIndex
-                                                                        ? Colors
-                                                                            .blue
-                                                                            .withOpacity(0.5)
-                                                                        : null,
-                                                                    colorBlendMode:
-                                                                        BlendMode
-                                                                            .colorBurn,
-                                                                  ),
-                                                                ),
-                                                              ));
-                                                        }).toList() ??
-                                                        [],
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                              ),
+                              RepackDrawer(constraints: constraints, screenshotIndex: screenshotIndex, selectedRepack: selectedRepack, downloadManager: downloadManager, selectedHost: selectedHost)
                             ],
                           )),
                     ),
