@@ -43,6 +43,7 @@ class DDTileState extends State<DDTile> {
         _progress = task.progress.value;
       });
     });
+    
     task?.status.addListener(() {
       if (task.status.value == DownloadStatus.completed) {
         setState(() {
@@ -58,7 +59,20 @@ class DDTileState extends State<DDTile> {
     return ListTile(
       title: Text(widget.plugin.fileName),
       trailing: _isDownloading
-          ? CircularProgressIndicator(value: _progress)
+          ? Stack(
+            children: [
+              CircularProgressIndicator(value: _progress),
+              IconButton(
+                icon: const Icon(Icons.cancel),
+                onPressed: () async {
+                  await widget.downloadManager.cancelDownload(widget.plugin.downloadLink);
+                  setState(() {
+                    _isDownloading = false;
+                  });
+                },
+              ),
+            ],
+          )
           : _isDownloaded
               ? const Icon(Icons.download_done)
               : IconButton(
