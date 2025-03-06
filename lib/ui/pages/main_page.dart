@@ -1,11 +1,8 @@
-import 'package:fit_flutter/data_classes/download_info.dart';
-import 'package:fit_flutter/services/host_service.dart';
 import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/download_button.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/repack_info_section.dart';
-import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
-import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
@@ -72,7 +69,10 @@ class _MainPageState extends State<MainPage> {
       builder: (context, constraints) {
         return Row(
           children: [
-            LeftDrawer(constraints: constraints, allRepacksNames: allRepacksNames, openDrawerWithRepack: openDrawerWithRepack),
+            LeftDrawer(
+                constraints: constraints,
+                allRepacksNames: allRepacksNames,
+                openDrawerWithRepack: openDrawerWithRepack),
             Expanded(
               child: Padding(
                 padding:
@@ -125,140 +125,27 @@ class _MainPageState extends State<MainPage> {
                                                                 .circular(10.0),
                                                         child: Image.network(
                                                           selectedRepack
-                                                                  ?.cover ?? 
+                                                                  ?.cover ??
                                                               'https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg',
                                                           width: constraints
                                                                   .maxWidth *
                                                               0.15,
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8),
-                                                        child: SizedBox(
-                                                          width: constraints
-                                                                  .maxWidth *
-                                                              0.15,
-                                                          child: FilledButton
-                                                              .tonal(
-                                                            onPressed:
-                                                                () async {
-                                                              List<DownloadInfo>
-                                                                  findls = [];
-                                                              bool
-                                                                  isHostSelected =
-                                                                  await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return AlertDialog(
-                                                                    title: const Text(
-                                                                        'Select Download Options'),
-                                                                    content:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        DownloadDropdown(
-                                                                          repack:
-                                                                              selectedRepack!,
-                                                                          onSelected:
-                                                                              (String host) {
-                                                                            selectedHost =
-                                                                                host;
-                                                                          },
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.of(context)
-                                                                              .pop(false);
-                                                                        },
-                                                                        child: const Text(
-                                                                            'Cancel'),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () async {
-                                                                          if (selectedHost !=
-                                                                              null) {
-                                                                            showDialog(
-                                                                              context: context,
-                                                                              barrierDismissible: false,
-                                                                              builder: (BuildContext context) {
-                                                                                return const Center(
-                                                                                  child: CircularProgressIndicator(),
-                                                                                );
-                                                                              },
-                                                                            );
-                                                                            List
-                                                                                dls =
-                                                                                selectedHost!.split(', ');
-                                                                            for (var i
-                                                                                in dls) {
-                                                                              try {
-                                                                                findls.add(await HostService().getDownloadPlugin(i));
-                                                                              } catch (e) {
-                                                                                print('Failed to load plugin for host: $i');
-                                                                              }
-                                                                            }
-                                                                            Navigator.of(context).pop();
-                                                                            Navigator.of(context).pop(true);
-                                                                          }
-                                                                        },
-                                                                        child: const Text(
-                                                                            'Select'),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              );
-                                                              if (isHostSelected) {
-                                                                setState(() {
-                                                                  showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (BuildContext
-                                                                              context) {
-                                                                        return DownloadFilesList(findls: findls, downloadManager: downloadManager, title: selectedRepack?.title ?? 'No title');
-                                                                      });
-                                                                });
-                                                              }
-                                                            },
-                                                            style: ButtonStyle(
-                                                              shape: MaterialStateProperty
-                                                                  .all<
-                                                                      RoundedRectangleBorder>(
-                                                                const RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .all(
-                                                                    Radius
-                                                                        .circular(
-                                                                            10),
-                                                                  ),
-                                                                  side:
-                                                                      BorderSide(
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            child: const Text(
-                                                                'Download'),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      RepackInfoSection(selectedRepack: selectedRepack, constraints: constraints),
+                                                      DownloadButton(
+                                                          constraints:
+                                                              constraints,
+                                                          downloadManager:
+                                                              downloadManager,
+                                                          selectedRepack:
+                                                              selectedRepack,
+                                                          selectedHost:
+                                                              selectedHost),
+                                                      RepackInfoSection(
+                                                          selectedRepack:
+                                                              selectedRepack,
+                                                          constraints:
+                                                              constraints),
                                                     ],
                                                   ),
                                                 ),
@@ -272,7 +159,7 @@ class _MainPageState extends State<MainPage> {
                                                       children: [
                                                         Text(
                                                           selectedRepack
-                                                                  ?.title ?? 
+                                                                  ?.title ??
                                                               'No repack selected',
                                                           style:
                                                               const TextStyle(
@@ -283,8 +170,22 @@ class _MainPageState extends State<MainPage> {
                                                               .visible,
                                                           maxLines: null,
                                                         ),
-                                                        DescriptionAndFeaturesSection(selectedRepack: selectedRepack, constraints: constraints, sectionType: SectionType.description),
-                                                        DescriptionAndFeaturesSection(selectedRepack: selectedRepack, constraints: constraints, sectionType: SectionType.features),
+                                                        DescriptionAndFeaturesSection(
+                                                            selectedRepack:
+                                                                selectedRepack,
+                                                            constraints:
+                                                                constraints,
+                                                            sectionType:
+                                                                SectionType
+                                                                    .description),
+                                                        DescriptionAndFeaturesSection(
+                                                            selectedRepack:
+                                                                selectedRepack,
+                                                            constraints:
+                                                                constraints,
+                                                            sectionType:
+                                                                SectionType
+                                                                    .features),
                                                       ],
                                                     ),
                                                   ),
@@ -303,7 +204,7 @@ class _MainPageState extends State<MainPage> {
                                                     child: Image.network(
                                                       selectedRepack
                                                                   ?.screenshots[
-                                                              screenshotIndex] ?? 
+                                                              screenshotIndex] ??
                                                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaGldo0q0bGnxdCbIic3mY4g2PjqQgRIQhiQ&s',
                                                       height: constraints
                                                               .maxHeight *
@@ -350,7 +251,7 @@ class _MainPageState extends State<MainPage> {
                                                                         0.08,
                                                                     fit: BoxFit
                                                                         .cover,
-                                                                    color: entry.key == 
+                                                                    color: entry.key ==
                                                                             screenshotIndex
                                                                         ? Colors
                                                                             .blue
@@ -362,7 +263,7 @@ class _MainPageState extends State<MainPage> {
                                                                   ),
                                                                 ),
                                                               ));
-                                                        }).toList() ?? 
+                                                        }).toList() ??
                                                         [],
                                                   ),
                                                 ),
