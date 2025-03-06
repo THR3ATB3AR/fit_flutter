@@ -9,11 +9,13 @@ class DownloadFilesList extends StatefulWidget {
     required this.findls,
     required this.downloadManager,
     required this.title,
+    required this.downloadFolder,
   });
 
   final List<DownloadInfo> findls;
   final DownloadManager downloadManager;
   final String title;
+  final String? downloadFolder;
 
   @override
   State<DownloadFilesList> createState() => _DownloadFilesListState();
@@ -67,6 +69,7 @@ class _DownloadFilesListState extends State<DownloadFilesList> {
               downloadManager: widget.downloadManager,
               plugin: plugin,
               title: widget.title,
+              downloadFolder: widget.downloadFolder,
             );
           }).toList(),
         ),
