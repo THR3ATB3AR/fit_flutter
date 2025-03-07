@@ -32,6 +32,7 @@ class _MainPageState extends State<MainPage> {
   int screenshotIndex = 0;
   String? selectedHost;
   final DownloadManager downloadManager = DownloadManager();
+  String currentWidget = 'home'; // Dodaj zmienną stanu do przechowywania aktualnie wybranego widgetu
 
   @override
   void initState() {
@@ -61,6 +62,12 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  void changeWidget(String widgetName) {
+    setState(() {
+      currentWidget = widgetName;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -70,7 +77,8 @@ class _MainPageState extends State<MainPage> {
             LeftDrawer(
                 constraints: constraints,
                 allRepacksNames: allRepacksNames,
-                openDrawerWithRepack: openDrawerWithRepack),
+                openDrawerWithRepack: openDrawerWithRepack,
+                changeWidget: changeWidget), // Przekaż funkcję changeWidget do LeftDrawer
             Expanded(
               child: Padding(
                 padding:
@@ -106,13 +114,22 @@ class _MainPageState extends State<MainPage> {
                     body: Builder(
                       builder: (BuildContext context) {
                         scaffoldContext = context;
-                        return HomePageWidget(
-                          scaffoldContext: scaffoldContext,
-                          newRepacks: newRepacks,
-                          popularRepacks: popularRepacks,
-                          updatedRepacks: updatedRepacks,
-                          openDrawerWithRepack: openDrawerWithRepack,
-                        );
+                        // Wyświetl odpowiedni widget w zależności od stanu currentWidget
+                        if (currentWidget == 'home') {
+                          return HomePageWidget(
+                            scaffoldContext: scaffoldContext,
+                            newRepacks: newRepacks,
+                            popularRepacks: popularRepacks,
+                            updatedRepacks: updatedRepacks,
+                            openDrawerWithRepack: openDrawerWithRepack,
+                          );
+                        } else if (currentWidget == 'settings') {
+                          return Center(child: Text('Settings Page'));
+                        } else if (currentWidget == 'downloads') {
+                          return Center(child: Text('Downloads Page'));
+                        } else {
+                          return Center(child: Text('Unknown Page'));
+                        }
                       },
                     ),
                   ),

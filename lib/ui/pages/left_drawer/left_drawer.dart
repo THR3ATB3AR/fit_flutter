@@ -6,10 +6,12 @@ class LeftDrawer extends StatefulWidget {
       {super.key,
       required this.constraints,
       required this.allRepacksNames,
-      required this.openDrawerWithRepack});
+      required this.openDrawerWithRepack,
+      required this.changeWidget}); // Dodaj parametr changeWidget
   final BoxConstraints constraints;
   final Map<String, String> allRepacksNames;
   final Function openDrawerWithRepack;
+  final Function(String) changeWidget; // Dodaj parametr changeWidget
 
   @override
   State<LeftDrawer> createState() => _LeftDrawerState();
@@ -72,7 +74,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                   },
                 ),
               ),
-              const MenuSection(),
+              MenuSection(changeWidget: widget.changeWidget), // Przekaż funkcję changeWidget do MenuSection
             ],
           ),
         ),
