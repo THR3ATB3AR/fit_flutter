@@ -33,10 +33,10 @@ class _LeftDrawerState extends State<LeftDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: SearchAnchor(
                   viewElevation: (0),
-                  viewBackgroundColor: Colors.black.withOpacity(0.5),
+                  viewBackgroundColor: Colors.black.withOpacity(0.2),
                   viewConstraints: BoxConstraints(
                       maxWidth: widget.constraints.maxWidth * 0.8,
                       maxHeight: widget.constraints.maxHeight * 0.26),
@@ -44,7 +44,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                     return SearchBar(
                       elevation: const MaterialStatePropertyAll<double>(0),
                       backgroundColor: MaterialStateProperty.all(
-                          Colors.black.withOpacity(0.5)),
+                          Colors.black.withOpacity(0.2)),
                       controller: controller,
                       hintText: 'Search repacks',
                       leading: const Icon(Icons.search),
