@@ -1,15 +1,17 @@
-import 'package:fit_flutter/data_classes/repack.dart';
-import 'package:fit_flutter/services/scraper_service.dart';
-import 'package:fit_flutter/ui/pages/main_page.dart';
+import 'dart:io';
+import 'package:fit_flutter/services/settings_service.dart';
 import 'package:flutter/material.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
-import 'dart:io' show Platform;
+import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/services/scraper_service.dart';
+import 'package:fit_flutter/ui/pages/main_page.dart';
 
 late List<Repack> newRepacks;
 late List<Repack> popularRepacks;
 late List<Repack> updatedRepacks;
 late Map<String, String> allRepacksNames;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemTheme.accentColor.load();
@@ -31,12 +33,15 @@ class _MyAppState extends State<MyApp> {
   late Future<void> _initialization;
   String loadingMessage = 'Initializing...';
   final ScraperService _scraperService = ScraperService();
+  String? defaultDownloadPath;
 
   Future<void> loadInitialData() async {
     setState(() {
       loadingMessage = 'Initializing...';
     });
-    
+
+    await _checkSettings();
+
     newRepacks =
         await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
       setState(() {
@@ -51,16 +56,6 @@ class _MyAppState extends State<MyApp> {
             'Loading popular repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
       });
     });
-    // updatedRepacks =
-    //     await _scraperService.scrapeUpdatedRepacks(onProgress: (loaded, total) {
-    //   setState(() {
-    //     loadingMessage =
-    //         'Loading updated repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
-    //   });
-    // });
-    
-    // newRepacks = [];
-    // popularRepacks = [];
     updatedRepacks = [];
     allRepacksNames = await _scraperService.scrapeAllRepacksNames(
         onProgress: (loaded, total) {
@@ -71,6 +66,10 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> _checkSettings() async {
+    SettingsService().checkAndCopySettings();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -79,10 +78,8 @@ class _MyAppState extends State<MyApp> {
     }
 
     _initialization = loadInitialData();
-    // pastebin.main();
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return SystemThemeBuilder(builder: (context, accent) {
@@ -116,8 +113,8 @@ class _MyAppState extends State<MyApp> {
                 ),
                 scaffoldBackgroundColor: colorScheme.surface,
                 brightness: Brightness.dark,
-                drawerTheme:  DrawerThemeData(
-                  backgroundColor: colorScheme.surface
+                drawerTheme: DrawerThemeData(
+                  backgroundColor: colorScheme.surface,
                 ),
               ),
         home: FutureBuilder<void>(
@@ -153,6 +150,7 @@ class _MyAppState extends State<MyApp> {
                 popularRepacks: popularRepacks,
                 updatedRepacks: updatedRepacks,
                 allRepacksNames: allRepacksNames,
+                downloadFolder: defaultDownloadPath,
               );
             }
           },
