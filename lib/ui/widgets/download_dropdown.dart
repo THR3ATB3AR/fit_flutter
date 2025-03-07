@@ -11,7 +11,7 @@ class DownloadDropdown extends StatefulWidget {
 }
 
 class _DownloadDropdownState extends State<DownloadDropdown> {
-  // Zmienna stanu przechowująca aktualnie wybrane wartości dla każdego klucza
+  
   Map<String, String?> selectedValues = {};
   String? initialValue;
   String? secondDropdownValue;
@@ -24,6 +24,7 @@ class _DownloadDropdownState extends State<DownloadDropdown> {
       initialValue = widget.repack.downloadLinks.keys.first;
       selectedValues['key'] = initialValue;
       secondDropdownValue = widget.repack.downloadLinks[initialValue]?.first['url'];
+      widget.onSelected(secondDropdownValue!); 
     }
   }
 
@@ -66,15 +67,15 @@ class _DownloadDropdownState extends State<DownloadDropdown> {
               value: secondDropdownValue,
               items: widget.repack.downloadLinks[initialValue]!.map((link) {
                 return DropdownMenuItem<String>(
-            value: link['url'],
-            child: Text(link['hostName']!),
+                  value: link['url'],
+                  child: Text(link['hostName']!),
                 );
               }).toList(),
               onChanged: (String? newValue) {
                 setState(() {
-            secondDropdownValue = newValue;
-            selectedValues['url'] = newValue;
-            widget.onSelected(newValue!);
+                  secondDropdownValue = newValue;
+                  selectedValues['url'] = newValue;
+                  widget.onSelected(newValue!);
                 });
               },
             ),

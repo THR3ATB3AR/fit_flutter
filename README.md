@@ -40,7 +40,6 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 These issues have been reported by testers and may not affect all users:
 
-* **Host Selection:** When selecting a download host, you *must* manually select "FuckingFast" in the dropdown, even if it appears to be pre-selected.
 * **Windows 10 Transparency:** On Windows 10, the entire application window may appear transparent.
 * **Windows 10 Drag Lag/Cursor Copying:** On Windows 10, dragging the application window can be slow and may create visual artifacts, like multiple copies of the cursor.  This seems to be related to window redrawing.
 * **Limited Testing:** The application has had limited testing (only one tester), these issues might not reproduce on all devices.
