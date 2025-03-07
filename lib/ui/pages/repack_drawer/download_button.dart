@@ -80,8 +80,10 @@ class _DownloadButtonState extends State<DownloadButton> {
                                       .getDirectoryPath();
                               
                                   if (selectedDirectory != null) {
-                                    selectedDirectory =
-                                        '${selectedDirectory!.replaceAll('\\', '/')}/';
+                                    selectedDirectory = selectedDirectory!.replaceAll('\\', '/');
+                                    if (!selectedDirectory!.endsWith('/')) {
+                                      selectedDirectory = '$selectedDirectory/';
+                                    }
                                     directoryController.text = selectedDirectory!;
                                   }
                                 },
