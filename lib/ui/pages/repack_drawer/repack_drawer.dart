@@ -6,18 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class RepackDrawer extends StatefulWidget {
-  const RepackDrawer(
+  RepackDrawer(
       {super.key,
       required this.constraints,
       required this.screenshotIndex,
       required this.selectedRepack,
       required this.downloadManager,
-      required this.selectedHost});
+      required this.selectedHost,
+      required this.downloadFolder});
   final DownloadManager downloadManager;
   final String? selectedHost;
   final BoxConstraints constraints;
   final int screenshotIndex;
   final Repack? selectedRepack;
+  String? downloadFolder;
 
   @override
   State<RepackDrawer> createState() => _RepackDrawerState();

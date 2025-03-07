@@ -2,18 +2,20 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/host_service.dart';
+import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class DownloadButton extends StatefulWidget {
-  DownloadButton(
-      {super.key,
-      required this.constraints,
-      required this.downloadManager,
-      required this.selectedRepack,
-      required this.selectedHost});
+  DownloadButton({
+    super.key,
+    required this.constraints,
+    required this.downloadManager,
+    required this.selectedRepack,
+    required this.selectedHost,
+  });
   final BoxConstraints constraints;
   final DownloadManager downloadManager;
   final Repack? selectedRepack;
@@ -27,12 +29,19 @@ class _DownloadButtonState extends State<DownloadButton> {
   @override
   void initState() {
     super.initState();
-    directoryController.text = 'C:/Games/FitFlutter/';
-    selectedDirectory = directoryController.text;
+    setDefaultDownloadFolder();
   }
 
   TextEditingController directoryController = TextEditingController();
   String? selectedDirectory;
+  void setDefaultDownloadFolder() async {
+    SettingsService().loadDownloadPathSettings().then((String? downloadPath) {
+      if (downloadPath != null) {
+        directoryController.text = downloadPath;
+        selectedDirectory = downloadPath;
+      }
+    });
+  }
 
   Widget build(BuildContext context) {
     return Padding(
@@ -78,13 +87,15 @@ class _DownloadButtonState extends State<DownloadButton> {
                                 onPressed: () async {
                                   selectedDirectory = await FilePicker.platform
                                       .getDirectoryPath();
-                              
+
                                   if (selectedDirectory != null) {
-                                    selectedDirectory = selectedDirectory!.replaceAll('\\', '/');
+                                    selectedDirectory = selectedDirectory!
+                                        .replaceAll('\\', '/');
                                     if (!selectedDirectory!.endsWith('/')) {
                                       selectedDirectory = '$selectedDirectory/';
                                     }
-                                    directoryController.text = selectedDirectory!;
+                                    directoryController.text =
+                                        selectedDirectory!;
                                   }
                                 },
                               ),
