@@ -1,4 +1,5 @@
 import 'package:fit_flutter/data_classes/download_info.dart';
+import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
@@ -24,20 +25,27 @@ class DDTileState extends State<DDTile> {
   double _progress = 0.0;
   bool _isDownloading = false;
   bool _isDownloaded = false;
+  DdManager ddManager = DdManager.instance;
 
   String sanitizeFileName(String fileName) {
     final RegExp regExp = RegExp(r'[<>:"/\\|?*]');
     return fileName.replaceAll(regExp, '_');
   }
 
+  Future<void> addLink(){
+    return ddManager.addDdLink(widget.plugin, widget.downloadFolder!, widget.title);
+  }
+
+  DownloadTask? getDownloadTask(){
+    return ddManager.getDownloadTask(widget.plugin);
+  }
+
   Future<void> startDownload() async {
     setState(() {
       _isDownloading = true;
     });
-    await widget.downloadManager.addDownload(
-        widget.plugin.downloadLink, '${widget.downloadFolder}${sanitizeFileName(widget.title)}/${widget.plugin.fileName}');
-    DownloadTask? task =
-        widget.downloadManager.getDownload(widget.plugin.downloadLink);
+    await addLink();
+    DownloadTask? task = getDownloadTask();
     task?.progress.addListener(() {
       setState(() {
         _progress = task.progress.value;
