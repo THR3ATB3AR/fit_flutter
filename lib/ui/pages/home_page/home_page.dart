@@ -2,25 +2,25 @@ import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/ui/widgets/repack_slider.dart';
 import 'package:flutter/material.dart';
 
-class HomePageWidget extends StatefulWidget {
-  HomePageWidget(
+class HomePage extends StatefulWidget {
+  HomePage(
       {super.key,
       required this.scaffoldContext,
       required this.newRepacks,
       required this.popularRepacks,
       required this.updatedRepacks,
-      required this.openDrawerWithRepack});
+      required this.openRepackPage});
   BuildContext scaffoldContext;
   final List<Repack> newRepacks;
   final List<Repack> popularRepacks;
   final List<Repack> updatedRepacks;
-  final Function openDrawerWithRepack;
+  final Function openRepackPage;
 
   @override
-  State<HomePageWidget> createState() => _HomePageWidgetState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,19 +38,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     repacksList: widget.newRepacks,
                     title: 'New Repacks',
                     onRepackTap: (repack) {
-                      widget.openDrawerWithRepack(repack: repack);
+                      widget.openRepackPage(repack: repack);
                     }),
                 RepackSlider(
                     repacksList: widget.popularRepacks,
                     title: 'Popular Repacks',
                     onRepackTap: (repack) {
-                      widget.openDrawerWithRepack(repack: repack);
+                      widget.openRepackPage(repack: repack);
                     }),
                 RepackSlider(
                     repacksList: widget.updatedRepacks,
                     title: 'Updated Repacks',
                     onRepackTap: (repack) {
-                      widget.openDrawerWithRepack(repack: repack);
+                      widget.openRepackPage(repack: repack);
                     }),
               ],
             ),

@@ -33,7 +33,7 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * [ ] **💻Cross-Platform:** Make it cross-platform (for now it works only on windows)
 * [ ] **💅 GUI Improvements:**  Enhance the user interface to make it more visually appealing and user-friendly.  Consider adding:
   * [ ] Better error handling and user feedback.
-  * [ ] Improved navigation and layout.
+  * [X] Improved navigation and layout.
   * [X] Possibly a settings page.
 
 ## Known Issues 🐛

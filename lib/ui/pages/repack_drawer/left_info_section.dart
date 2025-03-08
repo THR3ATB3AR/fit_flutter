@@ -7,48 +7,34 @@ class LeftInfoSection extends StatelessWidget {
   const LeftInfoSection({
     super.key,
     required this.selectedRepack,
-    required this.selectedHost,
-    required this.constraints,
   });
 
   final Repack? selectedRepack;
-  final String? selectedHost;
-  final BoxConstraints constraints;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(
-          20.0),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius:
-                BorderRadius
-                    .circular(10.0),
-            child: Image.network(
-              selectedRepack
-                      ?.cover ??
-                  'https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg',
-              width: constraints
-                      .maxWidth *
-                  0.15,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Image.network(
+            selectedRepack!.cover,
           ),
-          DownloadButton(
-              constraints:
-                  constraints,
-              selectedRepack:
-                  selectedRepack,
-              selectedHost:
-                  selectedHost),
-          RepackInfoSection(
-              selectedRepack:
-                  selectedRepack,
-              constraints:
-                  constraints),
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          child: DownloadButton(selectedRepack: selectedRepack),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          child: RepackInfoSection(selectedRepack: selectedRepack),
+        ),
+      ],
     );
   }
 }
