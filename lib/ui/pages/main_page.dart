@@ -1,11 +1,11 @@
-import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
+import 'package:fit_flutter/ui/pages/home_page/download_manager_page.dart';
+import 'package:fit_flutter/ui/pages/home_page/home_page.dart';
+import 'package:fit_flutter/ui/pages/home_page/repack_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/settings_page.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
-import 'package:fit_flutter/ui/pages/repack_drawer/repack_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
-import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class MainPage extends StatefulWidget {
   final List<Repack> newRepacks;
@@ -33,8 +33,6 @@ class _MainPageState extends State<MainPage> {
   Repack? selectedRepack;
   late BuildContext scaffoldContext;
   int screenshotIndex = 0;
-  String? selectedHost;
-  final DownloadManager downloadManager = DownloadManager();
   String currentWidget = 'home'; 
 
   @override
@@ -46,7 +44,7 @@ class _MainPageState extends State<MainPage> {
     allRepacksNames = widget.allRepacksNames;
   }
 
-  void openDrawerWithRepack({String repackUrl = '', Repack? repack}) {
+  void openRepackPage({String repackUrl = '', Repack? repack}) {
     setState(() {
       selectedRepack = null;
     });
@@ -54,16 +52,17 @@ class _MainPageState extends State<MainPage> {
       setState(() {
         selectedRepack = repack;
       });
-      Scaffold.of(scaffoldContext).openEndDrawer();
+      changeWidget('repack');
       return;
     }
-    Scaffold.of(scaffoldContext).openEndDrawer();
+    changeWidget('repack');
     ScraperService().scrapeRepackFromSearch(repackUrl).then((repack) {
       setState(() {
         selectedRepack = repack;
       });
     });
   }
+
 
   void changeWidget(String widgetName) {
     setState(() {
@@ -80,8 +79,8 @@ class _MainPageState extends State<MainPage> {
             LeftDrawer(
                 constraints: constraints,
                 allRepacksNames: allRepacksNames,
-                openDrawerWithRepack: openDrawerWithRepack,
-                changeWidget: changeWidget), // Przekaż funkcję changeWidget do LeftDrawer
+                openRepackPage: openRepackPage,
+                changeWidget: changeWidget), 
             Expanded(
               child: Padding(
                 padding:
@@ -110,29 +109,19 @@ class _MainPageState extends State<MainPage> {
                                   icon: const Icon(Icons.arrow_forward_ios),
                                 ),
                               ),
-                              RepackDrawer(constraints: constraints, screenshotIndex: screenshotIndex, selectedRepack: selectedRepack, downloadManager: downloadManager, selectedHost: selectedHost, downloadFolder: widget.downloadFolder),
                             ],
                           )),
                     ),
                     body: Builder(
                       builder: (BuildContext context) {
                         scaffoldContext = context;
-                        // Wyświetl odpowiedni widget w zależności od stanu currentWidget
-                        if (currentWidget == 'home') {
-                          return HomePageWidget(
-                            scaffoldContext: scaffoldContext,
-                            newRepacks: newRepacks,
-                            popularRepacks: popularRepacks,
-                            updatedRepacks: updatedRepacks,
-                            openDrawerWithRepack: openDrawerWithRepack,
-                          );
-                        } else if (currentWidget == 'settings') {
-                          return SettingsPage();
-                        } else if (currentWidget == 'downloads') {
-                          return Center(child: Text('Downloads Page'));
-                        } else {
-                          return Center(child: Text('Unknown Page'));
-                        }
+                        return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 200),
+                          transitionBuilder: (Widget child, Animation<double> animation) {
+                            return FadeTransition(opacity: animation, child: child);
+                          },
+                          child: _getCurrentWidget(),
+                        );
                       },
                     ),
                   ),
@@ -143,5 +132,32 @@ class _MainPageState extends State<MainPage> {
         );
       },
     );
+  }
+
+  Widget _getCurrentWidget() {
+    switch (currentWidget) {
+      case 'home':
+        return HomePage(
+          key: const ValueKey('home'),
+          scaffoldContext: scaffoldContext,
+          newRepacks: newRepacks,
+          popularRepacks: popularRepacks,
+          updatedRepacks: updatedRepacks,
+          openRepackPage: openRepackPage,
+        );
+      case 'repack':
+        return RepackPage(
+          key: const ValueKey('repack'),
+          selectedRepack: selectedRepack,
+          goHome: changeWidget,
+        );
+        
+      case 'settings':
+        return SettingsPage(key: const ValueKey('settings'));
+      case 'downloads':
+        return const DownloadManagerPage(key: ValueKey('downloads'));
+      default:
+        return const Center(key: ValueKey('unknown'), child: Text('Unknown Page'));
+    }
   }
 }

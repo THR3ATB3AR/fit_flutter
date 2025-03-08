@@ -6,11 +6,11 @@ class LeftDrawer extends StatefulWidget {
       {super.key,
       required this.constraints,
       required this.allRepacksNames,
-      required this.openDrawerWithRepack,
+      required this.openRepackPage,
       required this.changeWidget}); // Dodaj parametr changeWidget
   final BoxConstraints constraints;
   final Map<String, String> allRepacksNames;
-  final Function openDrawerWithRepack;
+  final Function openRepackPage;
   final Function(String) changeWidget; // Dodaj parametr changeWidget
 
   @override
@@ -65,7 +65,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                         .map((name) => ListTile(
                               title: Text(name),
                               onTap: () {
-                                widget.openDrawerWithRepack(
+                                widget.openRepackPage(
                                     repackUrl: widget.allRepacksNames[name] ?? '');
                                 controller.closeView(name);
                               },

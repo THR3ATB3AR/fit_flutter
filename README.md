@@ -28,12 +28,12 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 ## TODOs 📝
 
 * [X] **🍝 Spaghetti Code Refactoring:**  The codebase needs significant refactoring to improve maintainability and readability (it's a bit of a mess right now).
-* [ ] **📥 Download Monitor:** Implement a dedicated section to monitor active downloads, show progress, and manage downloaded files.
+* [X] **📥 Download Monitor:** Implement a dedicated section to monitor active downloads, show progress, and manage downloaded files.
 * [ ] **⬆️ Fix Updated Repacks:**  Implement the functionality to display updated repacks.
 * [ ] **💻Cross-Platform:** Make it cross-platform (for now it works only on windows)
 * [ ] **💅 GUI Improvements:**  Enhance the user interface to make it more visually appealing and user-friendly.  Consider adding:
   * [ ] Better error handling and user feedback.
-  * [ ] Improved navigation and layout.
+  * [X] Improved navigation and layout.
   * [X] Possibly a settings page.
 
 ## Known Issues 🐛
