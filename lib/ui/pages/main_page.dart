@@ -6,7 +6,6 @@ import 'package:fit_flutter/ui/pages/repack_drawer/repack_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
-import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class MainPage extends StatefulWidget {
   final List<Repack> newRepacks;
@@ -35,7 +34,6 @@ class _MainPageState extends State<MainPage> {
   late BuildContext scaffoldContext;
   int screenshotIndex = 0;
   String? selectedHost;
-  final DownloadManager downloadManager = DownloadManager();
   String currentWidget = 'home'; 
 
   @override
@@ -82,7 +80,7 @@ class _MainPageState extends State<MainPage> {
                 constraints: constraints,
                 allRepacksNames: allRepacksNames,
                 openDrawerWithRepack: openDrawerWithRepack,
-                changeWidget: changeWidget), // Przekaż funkcję changeWidget do LeftDrawer
+                changeWidget: changeWidget), 
             Expanded(
               child: Padding(
                 padding:
@@ -111,7 +109,7 @@ class _MainPageState extends State<MainPage> {
                                   icon: const Icon(Icons.arrow_forward_ios),
                                 ),
                               ),
-                              RepackDrawer(constraints: constraints, screenshotIndex: screenshotIndex, selectedRepack: selectedRepack, downloadManager: downloadManager, selectedHost: selectedHost, downloadFolder: widget.downloadFolder),
+                              RepackDrawer(constraints: constraints, screenshotIndex: screenshotIndex, selectedRepack: selectedRepack, selectedHost: selectedHost, downloadFolder: widget.downloadFolder),
                             ],
                           )),
                     ),

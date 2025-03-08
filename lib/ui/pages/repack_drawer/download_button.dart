@@ -12,12 +12,10 @@ class DownloadButton extends StatefulWidget {
   DownloadButton({
     super.key,
     required this.constraints,
-    required this.downloadManager,
     required this.selectedRepack,
     required this.selectedHost,
   });
   final BoxConstraints constraints;
-  final DownloadManager downloadManager;
   final Repack? selectedRepack;
   String? selectedHost;
 
@@ -151,7 +149,6 @@ class _DownloadButtonState extends State<DownloadButton> {
                       return DownloadFilesList(
                           findls: findls,
                           downloadFolder: selectedDirectory,
-                          downloadManager: widget.downloadManager,
                           title: widget.selectedRepack?.title ?? 'No title');
                     });
               });

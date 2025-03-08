@@ -3,7 +3,6 @@ import 'package:fit_flutter/ui/pages/repack_drawer/left_info_section.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/right_info_section.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/screenhots_section.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class RepackDrawer extends StatefulWidget {
   RepackDrawer(
@@ -11,10 +10,8 @@ class RepackDrawer extends StatefulWidget {
       required this.constraints,
       required this.screenshotIndex,
       required this.selectedRepack,
-      required this.downloadManager,
       required this.selectedHost,
       required this.downloadFolder});
-  final DownloadManager downloadManager;
   final String? selectedHost;
   final BoxConstraints constraints;
   final int screenshotIndex;
@@ -40,7 +37,6 @@ class _RepackDrawerState extends State<RepackDrawer> {
                     children: [
                       LeftInfoSection(
                         selectedRepack: widget.selectedRepack,
-                        downloadManager: widget.downloadManager,
                         selectedHost: widget.selectedHost,
                         constraints: widget.constraints,
                       ),

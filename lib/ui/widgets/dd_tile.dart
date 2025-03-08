@@ -6,13 +6,11 @@ import 'package:flutter_download_manager/flutter_download_manager.dart';
 class DDTile extends StatefulWidget {
   const DDTile({
     super.key,
-    required this.downloadManager,
     required this.plugin,
     required this.title,
     required this.downloadFolder,
   });
 
-  final DownloadManager downloadManager;
   final DownloadInfo plugin;
   final String title;
   final String? downloadFolder;
@@ -84,7 +82,7 @@ class DDTileState extends State<DDTile> {
                 IconButton(
                   icon: const Icon(Icons.cancel),
                   onPressed: () async {
-                    await widget.downloadManager.cancelDownload(widget.plugin.downloadLink);
+                    await ddManager.cancelDownload(widget.plugin.downloadLink);
                     setState(() {
                       _isDownloading = false;
                     });
