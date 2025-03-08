@@ -39,7 +39,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                   viewBackgroundColor: Colors.black.withOpacity(0.2),
                   viewConstraints: BoxConstraints(
                       maxWidth: widget.constraints.maxWidth * 0.8,
-                      maxHeight: widget.constraints.maxHeight * 0.26),
+                      maxHeight: widget.constraints.maxHeight * 0.4),
                   builder: (BuildContext context, SearchController controller) {
                     return SearchBar(
                       elevation: const MaterialStatePropertyAll<double>(0),

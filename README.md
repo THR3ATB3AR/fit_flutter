@@ -31,6 +31,7 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * [X] **📥 Download Monitor:** Implement a dedicated section to monitor active downloads, show progress, and manage downloaded files.
 * [ ] **⬆️ Fix Updated Repacks:**  Implement the functionality to display updated repacks.
 * [ ] **💻Cross-Platform:** Make it cross-platform (for now it works only on windows)
+* [ ] **⬇️ Fix Cancelling Downloads:** Fix cancelling ongoing downloads in download manager.
 * [ ] **💅 GUI Improvements:**  Enhance the user interface to make it more visually appealing and user-friendly.  Consider adding:
   * [ ] Better error handling and user feedback.
   * [X] Improved navigation and layout.
@@ -43,6 +44,7 @@ These issues have been reported by testers and may not affect all users:
 * **Windows 10 Transparency:** On Windows 10, the entire application window may appear transparent.
 * **Windows 10 Drag Lag/Cursor Copying:** On Windows 10, dragging the application window can be slow and may create visual artifacts, like multiple copies of the cursor.  This seems to be related to window redrawing.
 * **Limited Testing:** The application has had limited testing (only one tester), these issues might not reproduce on all devices.
+* **Cancelling Downloads** When canceling ongoing downloads in download manager, the gui starts showing old data.
 
 ## Installation and Building
 
