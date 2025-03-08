@@ -7,7 +7,10 @@ class RepackSlider extends StatefulWidget {
   final String title;
   final Function(Repack) onRepackTap;
   const RepackSlider(
-      {super.key, required this.repacksList, required this.title, required this.onRepackTap});
+      {super.key,
+      required this.repacksList,
+      required this.title,
+      required this.onRepackTap});
 
   @override
   State<RepackSlider> createState() => _RepackSliderState();
@@ -34,68 +37,78 @@ class _RepackSliderState extends State<RepackSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                widget.title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              widget.title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          Builder(
-            builder: (context) {
-              return ConstrainedBox(
-                constraints: const BoxConstraints(maxHeight: 200),
-                child: ListView.builder(
-                  controller: _scrollController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: widget.repacksList.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      child: RepackItem(repack: widget.repacksList[index]),
-                      onTap: () {
-                        widget.onRepackTap(widget.repacksList[index]);
-                      },
-                    );
-                  },
-                ),
-              );
-            },
-            
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton.filledTonal(
-                    icon: const Icon(Icons.arrow_left),
-                    onPressed: _scrollLeft,
+        ),
+        Builder(
+          builder: (context) {
+            return ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: ListView.builder(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.repacksList.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    child: RepackItem(repack: widget.repacksList[index]),
+                    onTap: () {
+                      widget.onRepackTap(widget.repacksList[index]);
+                    },
+                  );
+                },
+              ),
+            );
+          },
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
+                  onPressed: _scrollLeft,
+                  child: const Icon(Icons.keyboard_arrow_left_outlined,
+                      size: 30),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton.filledTonal(
-                    icon: const Icon(Icons.arrow_right),
-                    onPressed: _scrollRight,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
+                  onPressed: _scrollRight,
+                  child: const Icon(Icons.keyboard_arrow_right_outlined,
+                      size: 30),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

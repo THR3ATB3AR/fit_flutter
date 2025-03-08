@@ -34,12 +34,15 @@ class _HomePageState extends State<HomePage> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                RepackSlider(
-                    repacksList: widget.newRepacks,
-                    title: 'New Repacks',
-                    onRepackTap: (repack) {
-                      widget.openRepackPage(repack: repack);
-                    }),
+                Padding(
+                  padding: const EdgeInsets.only(top:24),
+                  child: RepackSlider(
+                      repacksList: widget.newRepacks,
+                      title: 'New Repacks',
+                      onRepackTap: (repack) {
+                        widget.openRepackPage(repack: repack);
+                      }),
+                ),
                 RepackSlider(
                     repacksList: widget.popularRepacks,
                     title: 'Popular Repacks',
