@@ -26,17 +26,18 @@ class DDTileState extends State<DDTile> {
   bool _isDownloading = false;
   bool _isDownloaded = false;
   DdManager ddManager = DdManager.instance;
+  DownloadTask? task;
 
   String sanitizeFileName(String fileName) {
     final RegExp regExp = RegExp(r'[<>:"/\\|?*]');
     return fileName.replaceAll(regExp, '_');
   }
 
-  Future<void> addLink(){
+  Future<void> addLink() {
     return ddManager.addDdLink(widget.plugin, widget.downloadFolder!, widget.title);
   }
 
-  DownloadTask? getDownloadTask(){
+  DownloadTask? getDownloadTask() {
     return ddManager.getDownloadTask(widget.plugin);
   }
 
@@ -45,21 +46,31 @@ class DDTileState extends State<DDTile> {
       _isDownloading = true;
     });
     await addLink();
-    DownloadTask? task = getDownloadTask();
-    task?.progress.addListener(() {
+    task = getDownloadTask();
+    task?.progress.addListener(_updateProgress);
+    task?.status.addListener(_updateStatus);
+  }
+
+  void _updateProgress() {
+    setState(() {
+      _progress = task?.progress.value ?? 0.0;
+    });
+  }
+
+  void _updateStatus() {
+    if (task?.status.value == DownloadStatus.completed) {
       setState(() {
-        _progress = task.progress.value;
+        _isDownloading = false;
+        _isDownloaded = true;
       });
-    });
-    
-    task?.status.addListener(() {
-      if (task.status.value == DownloadStatus.completed) {
-        setState(() {
-          _isDownloading = false;
-          _isDownloaded = true;
-        });
-      }
-    });
+    }
+  }
+
+  @override
+  void dispose() {
+    task?.progress.removeListener(_updateProgress);
+    task?.status.removeListener(_updateStatus);
+    super.dispose();
   }
 
   @override
@@ -68,19 +79,19 @@ class DDTileState extends State<DDTile> {
       title: Text(widget.plugin.fileName),
       trailing: _isDownloading
           ? Stack(
-            children: [
-              CircularProgressIndicator(value: _progress),
-              IconButton(
-                icon: const Icon(Icons.cancel),
-                onPressed: () async {
-                  await widget.downloadManager.cancelDownload(widget.plugin.downloadLink);
-                  setState(() {
-                    _isDownloading = false;
-                  });
-                },
-              ),
-            ],
-          )
+              children: [
+                CircularProgressIndicator(value: _progress),
+                IconButton(
+                  icon: const Icon(Icons.cancel),
+                  onPressed: () async {
+                    await widget.downloadManager.cancelDownload(widget.plugin.downloadLink);
+                    setState(() {
+                      _isDownloading = false;
+                    });
+                  },
+                ),
+              ],
+            )
           : _isDownloaded
               ? const Icon(Icons.download_done)
               : IconButton(

@@ -35,6 +35,29 @@ class DdManager {
     return downloadManager.getDownload(ddInfo.downloadLink);
   }
 
+  Future<void> cancelDownload(String url) async {
+    await downloadManager.cancelDownload(url);
+  }
+
+  Future<void> pauseDownload(String url) async {
+    await downloadManager.pauseDownload(url);
+  }
+
+  Future<void> resumeDownload(String url) async {
+    await downloadManager.resumeDownload(url);
+  }
+
+  Map<String, List<Map<String, dynamic>>> getDownloadTasks() {
+    return downloadTasks;
+  }
+
+  void removeDownloadTask(String url) {
+    downloadTasks.forEach((title, tasks) {
+      tasks.removeWhere((task) => task['task'].request.url == url);
+    });
+    downloadTasks.removeWhere((title, tasks) => tasks.isEmpty);
+  }
+
   void printDownloadTasks() {
     downloadTasks.forEach((title, tasks) {
       print('Title: $title');
