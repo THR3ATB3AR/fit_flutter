@@ -128,7 +128,11 @@ class _DownloadTileState extends State<DownloadTile> {
             valueColor: AlwaysStoppedAnimation<Color>(
                 Theme.of(context).colorScheme.primary),
             backgroundColor: Colors.transparent,
-            minHeight: 10, // Increase the height of the progress bar
+            minHeight: 10,
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
           ),
         ],
       ),

@@ -33,37 +33,52 @@ class _DownloadManagerPageState extends State<DownloadManagerPage> {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: Colors.black.withOpacity(0.2),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: downloadTasks.entries.expand((entry) {
-            String title = entry.key;
-            List<Map<String, dynamic>> tasks = entry.value;
-            return [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Download Manager',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
               ),
-              ...tasks.map((task) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: DownloadTile(
-                    fileName: task['fileName'],
-                    task: task['task'],
-                    updateDownloadTasks: updateDownloadTasks,
-                  ),
-                );
-              }).toList(),
-            ];
-          }).toList(),
-        ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                children: downloadTasks.entries.expand((entry) {
+                  String title = entry.key;
+                  List<Map<String, dynamic>> tasks = entry.value;
+                  return [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    ...tasks.map((task) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: DownloadTile(
+                          fileName: task['fileName'],
+                          task: task['task'],
+                          updateDownloadTasks: updateDownloadTasks,
+                        ),
+                      );
+                    }).toList(),
+                  ];
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
