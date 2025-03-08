@@ -1,3 +1,4 @@
+import 'package:fit_flutter/ui/pages/home_page/download_manager_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/home_page_widget.dart';
 import 'package:fit_flutter/ui/pages/home_page/settings_page.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
@@ -129,7 +130,7 @@ class _MainPageState extends State<MainPage> {
                         } else if (currentWidget == 'settings') {
                           return SettingsPage();
                         } else if (currentWidget == 'downloads') {
-                          return Center(child: Text('Downloads Page'));
+                          return const DownloadManagerPage();
                         } else {
                           return Center(child: Text('Unknown Page'));
                         }
