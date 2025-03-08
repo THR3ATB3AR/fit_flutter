@@ -118,22 +118,13 @@ class _MainPageState extends State<MainPage> {
                     body: Builder(
                       builder: (BuildContext context) {
                         scaffoldContext = context;
-                        // Wyświetl odpowiedni widget w zależności od stanu currentWidget
-                        if (currentWidget == 'home') {
-                          return HomePageWidget(
-                            scaffoldContext: scaffoldContext,
-                            newRepacks: newRepacks,
-                            popularRepacks: popularRepacks,
-                            updatedRepacks: updatedRepacks,
-                            openDrawerWithRepack: openDrawerWithRepack,
-                          );
-                        } else if (currentWidget == 'settings') {
-                          return SettingsPage();
-                        } else if (currentWidget == 'downloads') {
-                          return const DownloadManagerPage();
-                        } else {
-                          return Center(child: Text('Unknown Page'));
-                        }
+                        return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 200),
+                          transitionBuilder: (Widget child, Animation<double> animation) {
+                            return FadeTransition(opacity: animation, child: child);
+                          },
+                          child: _getCurrentWidget(),
+                        );
                       },
                     ),
                   ),
@@ -144,5 +135,25 @@ class _MainPageState extends State<MainPage> {
         );
       },
     );
+  }
+
+  Widget _getCurrentWidget() {
+    switch (currentWidget) {
+      case 'home':
+        return HomePageWidget(
+          key: ValueKey('home'),
+          scaffoldContext: scaffoldContext,
+          newRepacks: newRepacks,
+          popularRepacks: popularRepacks,
+          updatedRepacks: updatedRepacks,
+          openDrawerWithRepack: openDrawerWithRepack,
+        );
+      case 'settings':
+        return SettingsPage(key: ValueKey('settings'));
+      case 'downloads':
+        return DownloadManagerPage(key: ValueKey('downloads'));
+      default:
+        return Center(key: ValueKey('unknown'), child: Text('Unknown Page'));
+    }
   }
 }
