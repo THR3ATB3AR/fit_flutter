@@ -1,5 +1,6 @@
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
+import 'package:fit_flutter/ui/pages/repack_drawer/screenshots_section.dart';
 import 'package:flutter/material.dart';
 
 class RightInfoSection extends StatelessWidget {
@@ -14,44 +15,51 @@ class RightInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding:
-            const EdgeInsets.only(
-                top: 15.0,
-                right: 20),
-        child: Column(
-          children: [
-            Text(
-              selectedRepack
-                      ?.title ??
-                  'No repack selected',
-              style:
-                  const TextStyle(
-                fontSize: 34,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: Colors.black.withOpacity(0.2),
+      ),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: constraints.maxHeight,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  selectedRepack!.title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-              softWrap: true,
-              overflow: TextOverflow
-                  .visible,
-              maxLines: null,
-            ),
-            DescriptionAndFeaturesSection(
-                selectedRepack:
-                    selectedRepack,
-                constraints:
-                    constraints,
-                sectionType:
-                    SectionType
-                        .description),
-            DescriptionAndFeaturesSection(
-                selectedRepack:
-                    selectedRepack,
-                constraints:
-                    constraints,
-                sectionType:
-                    SectionType
-                        .features),
-          ],
+              ScreenshotsSection(
+                selectedRepack: selectedRepack,
+                constraints: constraints,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DescriptionAndFeaturesSection(
+                  selectedRepack: selectedRepack,
+                  constraints: constraints,
+                  sectionType: SectionType.description,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DescriptionAndFeaturesSection(
+                  selectedRepack: selectedRepack,
+                  constraints: constraints,
+                  sectionType: SectionType.features,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
