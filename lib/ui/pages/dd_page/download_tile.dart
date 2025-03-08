@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class DownloadTile extends StatefulWidget {
-  const DownloadTile({super.key, required this.fileName, required this.task, required this.updateDownloadTasks});
+  const DownloadTile(
+      {super.key,
+      required this.fileName,
+      required this.task,
+      required this.updateDownloadTasks});
   final String fileName;
   final DownloadTask task;
   final Function updateDownloadTasks;
@@ -19,6 +23,11 @@ class _DownloadTileState extends State<DownloadTile> {
 
   void pauseDownload() {
     ddManager.pauseDownload(widget.task.request.url);
+    setState(() {});
+  }
+
+  void resumeDownload() {
+    ddManager.resumeDownload(widget.task.request.url);
     setState(() {});
   }
 
@@ -96,13 +105,17 @@ class _DownloadTileState extends State<DownloadTile> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: pauseDownload,
+                      onPressed: status == DownloadStatus.paused
+                            ? resumeDownload
+                            : pauseDownload,
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(15), // Increase the size
                       ),
                       child: Icon(
-                        status == DownloadStatus.paused ? Icons.play_arrow : Icons.pause,
+                        status == DownloadStatus.paused
+                            ? Icons.play_arrow
+                            : Icons.pause,
                         size: 25, // Increase the icon size
                       ),
                     ),

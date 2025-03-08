@@ -1,8 +1,6 @@
 import 'package:fit_flutter/data_classes/download_info.dart';
-import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/ui/widgets/dd_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class DownloadFilesList extends StatefulWidget {
   const DownloadFilesList({
