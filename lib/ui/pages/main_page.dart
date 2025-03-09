@@ -12,13 +12,15 @@ class MainPage extends StatefulWidget {
   final List<Repack> popularRepacks;
   final List<Repack> updatedRepacks;
   final Map<String, String> allRepacksNames;
+  final Function scrapeSync;
   MainPage(
       {super.key,
       required this.newRepacks,
       required this.popularRepacks,
       required this.updatedRepacks,
       required this.allRepacksNames,
-      required this.downloadFolder});
+      required this.downloadFolder,
+      required this.scrapeSync});
   String? downloadFolder;
 
   @override
@@ -56,7 +58,7 @@ class _MainPageState extends State<MainPage> {
       return;
     }
     changeWidget('repack');
-    ScraperService().scrapeRepackFromSearch(repackUrl).then((repack) {
+    ScraperService.instance.scrapeRepackFromSearch(repackUrl).then((repack) {
       setState(() {
         selectedRepack = repack;
       });
@@ -80,7 +82,8 @@ class _MainPageState extends State<MainPage> {
                 constraints: constraints,
                 allRepacksNames: allRepacksNames,
                 openRepackPage: openRepackPage,
-                changeWidget: changeWidget), 
+                changeWidget: changeWidget,
+                scrapeSync: widget.scrapeSync,), 
             Expanded(
               child: Padding(
                 padding:

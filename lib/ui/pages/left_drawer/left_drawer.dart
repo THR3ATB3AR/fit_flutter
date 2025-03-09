@@ -7,11 +7,13 @@ class LeftDrawer extends StatefulWidget {
       required this.constraints,
       required this.allRepacksNames,
       required this.openRepackPage,
-      required this.changeWidget}); // Dodaj parametr changeWidget
+      required this.changeWidget,
+      required this.scrapeSync}); 
   final BoxConstraints constraints;
   final Map<String, String> allRepacksNames;
   final Function openRepackPage;
-  final Function(String) changeWidget; // Dodaj parametr changeWidget
+  final Function(String) changeWidget; 
+  final Function scrapeSync;
 
   @override
   State<LeftDrawer> createState() => _LeftDrawerState();
@@ -74,7 +76,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                   },
                 ),
               ),
-              MenuSection(changeWidget: widget.changeWidget), // Przekaż funkcję changeWidget do MenuSection
+              MenuSection(changeWidget: widget.changeWidget, scrapeSync: widget.scrapeSync,), // Przekaż funkcję changeWidget do MenuSection
             ],
           ),
         ),

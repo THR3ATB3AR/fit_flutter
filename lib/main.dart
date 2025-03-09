@@ -32,8 +32,18 @@ class _MyAppState extends State<MyApp> {
   final accentColor = SystemTheme.accentColor.accent;
   late Future<void> _initialization;
   String loadingMessage = 'Initializing...';
-  final ScraperService _scraperService = ScraperService();
+  ValueNotifier<double> loadingProgress = ValueNotifier<double>(0.0);
+  final ScraperService _scraperService = ScraperService.instance;
   String? defaultDownloadPath;
+
+  Future<void> syncRepacks() async {
+    setState(() {
+      newRepacks = _scraperService.newRepackList;
+      popularRepacks = _scraperService.popularRepackList;
+      // updatedRepacks = _scraperService.updatedRepackList;
+      allRepacksNames = _scraperService.allRepackList;
+    });
+  }
 
   Future<void> loadInitialData() async {
     setState(() {
@@ -42,28 +52,51 @@ class _MyAppState extends State<MyApp> {
 
     await _checkSettings();
 
-    newRepacks =
-        await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
+    if (await _scraperService.allFilesExist()) {
       setState(() {
-        loadingMessage =
-            'Loading new repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        loadingMessage = 'Loading cached repacks...';
       });
-    });
-    popularRepacks =
-        await _scraperService.scrapePopularRepacks(onProgress: (loaded, total) {
-      setState(() {
-        loadingMessage =
-            'Loading popular repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+      await _scraperService.loadCashedRepacks();
+      newRepacks = _scraperService.oldNewRepackList;
+      popularRepacks = _scraperService.oldPopularRepackList;
+      updatedRepacks=[];
+      // updatedRepacks = _scraperService.oldUpdatedRepackList;
+      allRepacksNames = _scraperService.oldAllRepackList;
+    } else {
+      newRepacks =
+          await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
+        setState(() {
+          loadingProgress = _scraperService.newLoadingProgress;
+          loadingMessage =
+              'Loading new repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        });
       });
-    });
-    updatedRepacks = [];
-    allRepacksNames = await _scraperService.scrapeAllRepacksNames(
-        onProgress: (loaded, total) {
-      setState(() {
-        loadingMessage =
-            'Indexing all repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+      popularRepacks = await _scraperService
+          .scrapePopularRepacks(onProgress: (loaded, total) {
+        setState(() {
+          loadingProgress = _scraperService.popularLoadingProgress;
+          loadingMessage =
+              'Loading popular repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        });
       });
-    });
+      updatedRepacks =[];
+      // updatedRepacks = await _scraperService
+      //     .scrapeUpdatedRepacks(onProgress: (loaded, total) {
+      //   setState(() {
+      //     loadingProgress = _scraperService.updatedLoadingProgress;
+      //     loadingMessage =
+      //         'Loading updated repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+      //   });
+      // });
+      allRepacksNames = await _scraperService
+          .scrapeAllRepacksNames(onProgress: (loaded, total) {
+        setState(() {
+          loadingProgress = _scraperService.allLoadingProgress;
+          loadingMessage =
+              'Indexing all repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        });
+      });
+    }
   }
 
   Future<void> _checkSettings() async {
@@ -127,7 +160,7 @@ class _MyAppState extends State<MyApp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ValueListenableBuilder<double>(
-                        valueListenable: _scraperService.loadingProgress,
+                        valueListenable: loadingProgress,
                         builder: (context, progress, child) {
                           return CircularProgressIndicator(value: progress);
                         },
@@ -151,6 +184,7 @@ class _MyAppState extends State<MyApp> {
                 updatedRepacks: updatedRepacks,
                 allRepacksNames: allRepacksNames,
                 downloadFolder: defaultDownloadPath,
+                scrapeSync: syncRepacks,
               );
             }
           },

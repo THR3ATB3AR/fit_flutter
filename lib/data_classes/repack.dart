@@ -7,10 +7,10 @@ class Repack {
   final String company;
   final String originalSize;
   final String repackSize;
-  final Map<String, List<Map<String, String>>>downloadLinks;
+  final Map<String, List<Map<String, String>>> downloadLinks;
   final String repackFeatures;
   final String description;
-  List<String> screenshots; 
+  List<String> screenshots;
 
   Repack({
     required this.title,
@@ -27,4 +27,46 @@ class Repack {
     required this.screenshots,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'releaseDate': releaseDate.toIso8601String(),
+      'cover': cover,
+      'genres': genres,
+      'language': language,
+      'company': company,
+      'originalSize': originalSize,
+      'repackSize': repackSize,
+      'downloadLinks': downloadLinks,
+      'repackFeatures': repackFeatures,
+      'description': description,
+      'screenshots': screenshots,
+    };
+  }
+
+  factory Repack.fromJson(Map<String, dynamic> json) {
+    return Repack(
+      title: json['title'],
+      releaseDate: DateTime.parse(json['releaseDate']),
+      cover: json['cover'],
+      genres: json['genres'],
+      language: json['language'],
+      company: json['company'],
+      originalSize: json['originalSize'],
+      repackSize: json['repackSize'],
+      downloadLinks: (json['downloadLinks'] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(
+          key,
+          List<Map<String, String>>.from(
+            (value as List).map(
+              (item) => Map<String, String>.from(item as Map),
+            ),
+          ),
+        ),
+      ),
+      repackFeatures: json['repackFeatures'],
+      description: json['description'],
+      screenshots: List<String>.from(json['screenshots']),
+    );
+  }
 }
