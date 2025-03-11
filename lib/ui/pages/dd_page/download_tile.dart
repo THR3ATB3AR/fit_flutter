@@ -53,10 +53,9 @@ class _DownloadTileState extends State<DownloadTile> {
   }
 
   void _updateStatus() {
-    if (widget.task.status.value == DownloadStatus.completed) {
-      setState(() {
-      });
-    }
+    setState(() {
+      _status = widget.task.status.value;
+    });
   }
 
   @override
