@@ -58,6 +58,25 @@ class _DownloadTileState extends State<DownloadTile> {
     });
   }
 
+  String _getStatusText(DownloadStatus status) {
+    switch (status) {
+      case DownloadStatus.downloading:
+        return 'Downloading';
+      case DownloadStatus.paused:
+        return 'Paused';
+      case DownloadStatus.completed:
+        return 'Complete';
+      case DownloadStatus.failed:
+        return 'Failed';
+      case DownloadStatus.canceled:
+        return 'Canceled';
+      case DownloadStatus.queued:
+        return 'Queued';
+      default:
+        return 'Unknown';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -99,7 +118,7 @@ class _DownloadTileState extends State<DownloadTile> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          'Status: $_status',
+                          'Status: ${_getStatusText(_status)}',
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
@@ -117,8 +136,8 @@ class _DownloadTileState extends State<DownloadTile> {
                     ),
                     ElevatedButton(
                       onPressed: _status == DownloadStatus.paused
-                            ? resumeDownload
-                            : pauseDownload,
+                          ? resumeDownload
+                          : pauseDownload,
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(15), // Increase the size
