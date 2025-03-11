@@ -43,6 +43,7 @@ dependencies:
   flutter_download_manager: ^0.5.5
   file_picker: ^8.0.5
   path_provider: ^2.1.4
+  package_info_plus: ^8.0.2
 
 
 
