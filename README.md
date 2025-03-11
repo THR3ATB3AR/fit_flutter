@@ -65,11 +65,13 @@ To install and run the latest setup of Fit Flutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
+
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
+
 4. **Run the App:**
 
    ```bash
