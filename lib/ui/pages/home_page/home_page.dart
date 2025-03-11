@@ -49,12 +49,12 @@ class _HomePageState extends State<HomePage> {
                     onRepackTap: (repack) {
                       widget.openRepackPage(repack: repack);
                     }),
-                RepackSlider(
-                    repacksList: widget.updatedRepacks,
-                    title: 'Updated Repacks',
-                    onRepackTap: (repack) {
-                      widget.openRepackPage(repack: repack);
-                    }),
+                // RepackSlider(
+                //     repacksList: widget.updatedRepacks,
+                //     title: 'Updated Repacks',
+                //     onRepackTap: (repack) {
+                //       widget.openRepackPage(repack: repack);
+                //     }),
               ],
             ),
           );
