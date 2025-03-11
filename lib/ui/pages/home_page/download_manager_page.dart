@@ -67,6 +67,7 @@ class _DownloadManagerPageState extends State<DownloadManagerPage> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: DownloadTile(
+                          key: ValueKey(task['fileName']), // Dodanie klucza
                           fileName: task['fileName'],
                           task: task['task'],
                           updateDownloadTasks: updateDownloadTasks,

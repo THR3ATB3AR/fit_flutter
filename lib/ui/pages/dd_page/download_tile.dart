@@ -17,8 +17,8 @@ class DownloadTile extends StatefulWidget {
 }
 
 class _DownloadTileState extends State<DownloadTile> {
-  late double progress;
-  late DownloadStatus status;
+  late double _progress;
+  late DownloadStatus _status;
   DdManager ddManager = DdManager.instance;
 
   void pauseDownload() {
@@ -40,21 +40,33 @@ class _DownloadTileState extends State<DownloadTile> {
   }
 
   @override
+  void dispose() {
+    widget.task.progress.removeListener(_updateProgress);
+    widget.task.status.removeListener(_updateStatus);
+    super.dispose();
+  }
+
+  void _updateProgress() {
+    setState(() {
+      _progress = widget.task.progress.value;
+    });
+  }
+
+  void _updateStatus() {
+    if (widget.task.status.value == DownloadStatus.completed) {
+      setState(() {
+      });
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
-    progress = widget.task.progress.value;
-    status = widget.task.status.value;
+    _progress = widget.task.progress.value;
+    _status = widget.task.status.value;
 
-    widget.task.progress.addListener(() {
-      setState(() {
-        progress = widget.task.progress.value;
-      });
-    });
-    widget.task.status.addListener(() {
-      setState(() {
-        status = widget.task.status.value;
-      });
-    });
+    widget.task.progress.addListener(_updateProgress);
+    widget.task.status.addListener(_updateStatus);
   }
 
   @override
@@ -88,7 +100,7 @@ class _DownloadTileState extends State<DownloadTile> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          'Status: $status',
+                          'Status: $_status',
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
@@ -100,12 +112,12 @@ class _DownloadTileState extends State<DownloadTile> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        '${(progress * 100).toStringAsFixed(0)}%',
+                        '${(_progress * 100).toStringAsFixed(0)}%',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: status == DownloadStatus.paused
+                      onPressed: _status == DownloadStatus.paused
                             ? resumeDownload
                             : pauseDownload,
                       style: ElevatedButton.styleFrom(
@@ -113,7 +125,7 @@ class _DownloadTileState extends State<DownloadTile> {
                         padding: const EdgeInsets.all(15), // Increase the size
                       ),
                       child: Icon(
-                        status == DownloadStatus.paused
+                        _status == DownloadStatus.paused
                             ? Icons.play_arrow
                             : Icons.pause,
                         size: 25, // Increase the icon size
@@ -137,7 +149,7 @@ class _DownloadTileState extends State<DownloadTile> {
           ),
           const SizedBox(height: 10), // Add some spacing
           LinearProgressIndicator(
-            value: progress,
+            value: _progress,
             valueColor: AlwaysStoppedAnimation<Color>(
                 Theme.of(context).colorScheme.primary),
             backgroundColor: Colors.transparent,
