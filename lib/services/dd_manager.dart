@@ -67,4 +67,7 @@ class DdManager {
     });
   }
 
+  void setMaxConcurrentDownloads(int maxDownloads) {
+    downloadManager.maxConcurrentTasks = maxDownloads;
+  }
 }
