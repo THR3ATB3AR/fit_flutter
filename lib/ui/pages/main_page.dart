@@ -1,3 +1,4 @@
+import 'package:fit_flutter/services/updater.dart';
 import 'package:fit_flutter/ui/pages/home_page/download_manager_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/home_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/repack_page.dart';
@@ -33,11 +34,49 @@ class _MainPageState extends State<MainPage> {
   Repack? selectedRepack;
   late BuildContext scaffoldContext;
   int screenshotIndex = 0;
-  String currentWidget = 'home'; 
+  String currentWidget = 'home';
+
+  Future<void> _checkForUpdates() async {
+    final updater = Updater();
+    final isUpdateAvailable = await updater.isUpdateAvailable();
+    if (isUpdateAvailable) {
+      _showUpdateDialog(updater);
+    }
+  }
+
+  void _showUpdateDialog(Updater updater) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Update Available'),
+          content: const Text(
+              'A new version of the app is available. Would you like to update now?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                final filePath = await updater.downloadLatestRelease();
+                await updater.runDownloadedSetup(filePath);
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
     super.initState();
+    _checkForUpdates();
     newRepacks = widget.newRepacks;
     popularRepacks = widget.popularRepacks;
     updatedRepacks = widget.updatedRepacks;
@@ -63,7 +102,6 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-
   void changeWidget(String widgetName) {
     setState(() {
       currentWidget = widgetName;
@@ -80,7 +118,7 @@ class _MainPageState extends State<MainPage> {
                 constraints: constraints,
                 allRepacksNames: allRepacksNames,
                 openRepackPage: openRepackPage,
-                changeWidget: changeWidget), 
+                changeWidget: changeWidget),
             Expanded(
               child: Padding(
                 padding:
@@ -117,8 +155,10 @@ class _MainPageState extends State<MainPage> {
                         scaffoldContext = context;
                         return AnimatedSwitcher(
                           duration: const Duration(milliseconds: 200),
-                          transitionBuilder: (Widget child, Animation<double> animation) {
-                            return FadeTransition(opacity: animation, child: child);
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return FadeTransition(
+                                opacity: animation, child: child);
                           },
                           child: _getCurrentWidget(),
                         );
@@ -151,13 +191,14 @@ class _MainPageState extends State<MainPage> {
           selectedRepack: selectedRepack,
           goHome: changeWidget,
         );
-        
+
       case 'settings':
         return SettingsPage(key: const ValueKey('settings'));
       case 'downloads':
         return const DownloadManagerPage(key: ValueKey('downloads'));
       default:
-        return const Center(key: ValueKey('unknown'), child: Text('Unknown Page'));
+        return const Center(
+            key: ValueKey('unknown'), child: Text('Unknown Page'));
     }
   }
 }
