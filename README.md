@@ -12,10 +12,12 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * **"FuckingFast" Downloads:** Download repacks directly using the "FuckingFast" (direct download) links (if available).
 * **Popular Repacks:** See a list of the most popular repacks.
 * **New Repacks:**  Browse the latest repacks added to the site.
+* **Auto Updates:** The application can automatically check for and download updates to ensure you always have the latest features and fixes.
+* **Windows 11 Acrylic Design:** The app features a modern Windows 11 acrylic design for a sleek and visually appealing interface.
+* **Windows Accent Color:** The application adapts to the user's Windows accent color for a more integrated and personalized experience.
 
 ## Features (Not Working Yet) 🚧
 
-* **Updated Repacks:**  Displaying a list of recently updated repacks is not yet implemented.
 * **Torrent Downloads:** Downloading via torrent links is not currently supported.
 
 ## Screenshots
@@ -27,25 +29,30 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 ## TODOs 📝
 
-* [X] **🍝 Spaghetti Code Refactoring:**  The codebase needs significant refactoring to improve maintainability and readability (it's a bit of a mess right now).
-* [X] **📥 Download Monitor:** Implement a dedicated section to monitor active downloads, show progress, and manage downloaded files.
 * [ ] 🔄️**Cashe Repacks:**  Implement the functionality to use previusly scraped data.
-* [X] **⬇️ Fix Cancelling Downloads:** Fix cancelling ongoing downloads in download manager.
-* [ ] **💅 GUI Improvements:**  Enhance the user interface to make it more visually appealing and user-friendly.  Consider adding:
-
-  * [ ] Better error handling and user feedback.
-  * [X] Improved navigation and layout.
-  * [X] Possibly a settings page.
+* [ ] ⬇️**Torrent Support:** Implement the functionality to download repacks via torrent links.
 
 ## Known Issues 🐛
 
-These issues have been reported by testers and may not affect all users:
+These issues have been reported by tester and may not affect all users:
 
 * **Windows 10 Transparency:** On Windows 10, the entire application window may appear transparent.
 * **Windows 10 Drag Lag/Cursor Copying:** On Windows 10, dragging the application window can be slow and may create visual artifacts, like multiple copies of the cursor.  This seems to be related to window redrawing.
 * **Limited Testing:** The application has had limited testing (only one tester), these issues might not reproduce on all devices.
 
-## Installation and Building
+## Installation
+
+To install and run the latest setup of Fit Flutter, follow these steps:
+
+1. **Download the Latest Release:**
+
+   * Visit the [Releases](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) page on GitHub.
+   * Download the latest release for your operating system.
+2. **Run Setup:**
+
+   * Install app to a directory of your choice.
+
+## Building
 
 1. **Prerequisites:**
 
@@ -75,7 +82,6 @@ These issues have been reported by testers and may not affect all users:
 
    ```bash
    flutter build windows # for windows
-   flutter build linux # for linux
    ```
 
    See [Flutter build documentation](https://docs.flutter.dev/deployment/build-guides)
