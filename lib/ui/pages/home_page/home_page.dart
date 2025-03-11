@@ -21,9 +21,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  BoxConstraints constraints =const BoxConstraints.expand();
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: constraints,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: Colors.black.withOpacity(0.2),
