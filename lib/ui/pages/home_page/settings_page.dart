@@ -4,6 +4,7 @@ import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/services/updater.dart';
 import 'package:fit_flutter/ui/widgets/settings_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({super.key});
@@ -59,9 +60,9 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> checkForUpdates() async {
     final latestReleaseInfo = await updater.getLatestReleaseInfo();
     appVersion = await updater.getAppVersion();
-    latestVersion = latestReleaseInfo['tag_name']!;
+    latestVersion = latestReleaseInfo['tag_name']!.substring(1);
     releaseNotes = latestReleaseInfo['release_notes']!;
-    isUpdateAvailable = appVersion != latestVersion.substring(1);
+    isUpdateAvailable = await updater.isUpdateAvailable();
     setState(() {});
   }
 
@@ -158,7 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: const TextStyle(fontSize: 18),
                     ),
                     Text(
-                      'Latest version: ${latestVersion.substring(1)}',
+                      'Latest version: $latestVersion',
                       style: const TextStyle(fontSize: 18),
                     ),
                     if (isUpdateAvailable)
@@ -174,9 +175,27 @@ class _SettingsPageState extends State<SettingsPage> {
                             children: [
                               const Text(
                                 'A new version of the app is available. Would you like to update now?',
-                                style: TextStyle(color: Colors.white),
                               ),
                               const SizedBox(height: 8),
+                              MarkdownBody(
+                                  data: '''
+$releaseNotes
+                                  ''',
+                                  styleSheet: MarkdownStyleSheet(
+                                    textAlign: WrapAlignment.center,
+                                    h1Align: WrapAlignment.center,
+                                    h2Align: WrapAlignment.center,
+                                    h3Align: WrapAlignment.center,
+                                    h4Align: WrapAlignment.center,
+                                    h5Align: WrapAlignment.center,
+                                    h6Align: WrapAlignment.center,
+                                    unorderedListAlign: WrapAlignment.center,
+                                    orderedListAlign: WrapAlignment.center,
+                                    blockquoteAlign: WrapAlignment.center,
+                                    codeblockAlign: WrapAlignment.center,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -187,25 +206,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                             BorderRadius.circular(10.0),
                                       )),
                                     onPressed: () async {
-                                      final filePath = await updater.downloadLatestRelease();
-                                      await updater.runDownloadedSetup(filePath);
-                                    },
-                                    child: const Text('Yes'),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      )),
-                                    onPressed: () {
                                       setState(() {
                                         isUpdateAvailable = false;
                                       });
+                                      final filePath = await updater.downloadLatestRelease();
+                                      await updater.runDownloadedSetup(filePath);
                                     },
-                                    child: const Text('No'),
+                                    child: const Text('Update'),
                                   ),
+                                  
                                 ],
                               ),
                             ],
