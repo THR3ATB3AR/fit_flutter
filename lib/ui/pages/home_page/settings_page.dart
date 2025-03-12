@@ -5,6 +5,7 @@ import 'package:fit_flutter/services/updater.dart';
 import 'package:fit_flutter/ui/widgets/settings_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({super.key});
@@ -178,43 +179,53 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               const SizedBox(height: 8),
                               MarkdownBody(
-                                  data: '''
+                                data: '''
 $releaseNotes
                                   ''',
-                                  styleSheet: MarkdownStyleSheet(
-                                    textAlign: WrapAlignment.center,
-                                    h1Align: WrapAlignment.center,
-                                    h2Align: WrapAlignment.center,
-                                    h3Align: WrapAlignment.center,
-                                    h4Align: WrapAlignment.center,
-                                    h5Align: WrapAlignment.center,
-                                    h6Align: WrapAlignment.center,
-                                    unorderedListAlign: WrapAlignment.center,
-                                    orderedListAlign: WrapAlignment.center,
-                                    blockquoteAlign: WrapAlignment.center,
-                                    codeblockAlign: WrapAlignment.center,
-                                  ),
+                                styleSheet: MarkdownStyleSheet(
+                                  textAlign: WrapAlignment.center,
+                                  h1Align: WrapAlignment.center,
+                                  h2Align: WrapAlignment.center,
+                                  h3Align: WrapAlignment.center,
+                                  h4Align: WrapAlignment.center,
+                                  h5Align: WrapAlignment.center,
+                                  h6Align: WrapAlignment.center,
+                                  unorderedListAlign: WrapAlignment.center,
+                                  orderedListAlign: WrapAlignment.center,
+                                  blockquoteAlign: WrapAlignment.center,
+                                  codeblockAlign: WrapAlignment.center,
                                 ),
-                                const SizedBox(height: 8),
+                                onTapLink: (text, href, title) async {
+                                  if (href != null) {
+                                    final Uri uri = Uri.parse(href);
+                                    if (await canLaunchUrl(uri)) {
+                                      await launchUrl(uri);
+                                    } else {
+                                      throw 'Could not launch $href';
+                                    }
+                                  }
+                                },
+                              ),
+                              const SizedBox(height: 8),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      )),
+                                        shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    )),
                                     onPressed: () async {
                                       setState(() {
                                         isUpdateAvailable = false;
                                       });
-                                      final filePath = await updater.downloadLatestRelease();
-                                      await updater.runDownloadedSetup(filePath);
+                                      final filePath =
+                                          await updater.downloadLatestRelease();
+                                      await updater
+                                          .runDownloadedSetup(filePath);
                                     },
                                     child: const Text('Update'),
                                   ),
-                                  
                                 ],
                               ),
                             ],

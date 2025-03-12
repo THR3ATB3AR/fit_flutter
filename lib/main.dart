@@ -8,6 +8,7 @@ import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
 import 'package:fit_flutter/ui/pages/main_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 late List<Repack> newRepacks;
 late List<Repack> popularRepacks;
@@ -187,6 +188,16 @@ $releaseNotes
                                     blockquoteAlign: WrapAlignment.center,
                                     codeblockAlign: WrapAlignment.center,
                                   ),
+                                  onTapLink: (text, href, title) async {
+                                    if (href != null) {
+                                      final Uri uri = Uri.parse(href);
+                                      if (await canLaunchUrl(uri)) {
+                                        await launchUrl(uri);
+                                      } else {
+                                        throw 'Could not launch $href';
+                                      }
+                                    }
+                                  },
                                 ),
                                 const SizedBox(height: 8),
                                 Row(
