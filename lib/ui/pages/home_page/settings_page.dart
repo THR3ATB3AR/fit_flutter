@@ -182,6 +182,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     SwitchListTile(
                       title: const Text('Auto check for updates at start'),
                       value: autoCheckForUpdates,
+                      thumbColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.selected)) {
+                            return Theme.of(context)
+                                .colorScheme
+                                .primaryContainer;
+                          }
+                          return null; // Use the default thumb color
+                        },
+                      ),
                       onChanged: (bool value) {
                         setState(() {
                           autoCheckForUpdates = value;
