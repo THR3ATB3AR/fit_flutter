@@ -5,14 +5,18 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Updater {
-  Future<String> getLatestReleaseVersion() async {
-    const url =
-        'https://api.github.com/repos/THR3ATB3AR/fit_flutter/releases/latest';
+  Future<Map<String, String>> getLatestReleaseInfo() async {
+    const url = 'https://api.github.com/repos/THR3ATB3AR/fit_flutter/releases/latest';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      return jsonResponse['tag_name'];
+      final tagName = jsonResponse['tag_name'];
+      final releaseNotes = jsonResponse['body'];
+      return {
+        'tag_name': tagName,
+        'release_notes': releaseNotes,
+      };
     } else {
       throw Exception('Failed to fetch latest release version from GitHub');
     }
@@ -24,15 +28,15 @@ class Updater {
   }
 
   Future<bool> isUpdateAvailable() async {
-    final latestVersion = (await getLatestReleaseVersion()).substring(1);
+    final latestReleaseInfo = await getLatestReleaseInfo();
+    final latestVersion = latestReleaseInfo['tag_name']!.substring(1);
     final appVersion = await getAppVersion();
     print("$latestVersion $appVersion");
     return latestVersion != appVersion;
   }
 
   Future<String> downloadLatestRelease() async {
-    const url =
-        'https://api.github.com/repos/THR3ATB3AR/fit_flutter/releases/latest';
+    const url = 'https://api.github.com/repos/THR3ATB3AR/fit_flutter/releases/latest';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
