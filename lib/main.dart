@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
   String appVersion = '';
   String latestVersion = '';
   String releaseNotes = '';
+  
 
   Future<void> loadInitialData() async {
     setState(() {
@@ -50,7 +51,10 @@ class _MyAppState extends State<MyApp> {
 
     await _checkSettings();
 
-    await _checkForUpdates();
+    if(await SettingsService().loadAutoCheckForUpdates()) {
+      await _checkForUpdates();
+    }
+
 
     newRepacks =
         await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {

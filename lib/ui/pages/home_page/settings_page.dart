@@ -22,6 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
   String latestVersion = '';
   String releaseNotes = '';
   bool isUpdateAvailable = false;
+  bool autoCheckForUpdates = true;
   Updater updater = Updater();
 
   @override
@@ -29,7 +30,10 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
     setDefaultDownloadFolder();
     loadMaxConcurrentDownloads();
-    checkForUpdates();
+    loadAutoCheckForUpdates();
+    if (autoCheckForUpdates) {
+      checkForUpdates();
+    }
   }
 
   void setDefaultDownloadFolder() async {
@@ -56,6 +60,18 @@ class _SettingsPageState extends State<SettingsPage> {
   void saveMaxConcurrentDownloads(double value) {
     SettingsService().saveMaxTasksSettings(value);
     DdManager.instance.setMaxConcurrentDownloads(value.toInt());
+  }
+
+  void loadAutoCheckForUpdates() async {
+    SettingsService().loadAutoCheckForUpdates().then((bool value) {
+      setState(() {
+        autoCheckForUpdates = value;
+      });
+    });
+  }
+
+  void saveAutoCheckForUpdates(bool value) {
+    SettingsService().saveAutoCheckForUpdates(value);
   }
 
   Future<void> checkForUpdates() async {
@@ -162,6 +178,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     Text(
                       'Latest version: $latestVersion',
                       style: const TextStyle(fontSize: 18),
+                    ),
+                    SwitchListTile(
+                      title: const Text('Auto check for updates at start'),
+                      value: autoCheckForUpdates,
+                      onChanged: (bool value) {
+                        setState(() {
+                          autoCheckForUpdates = value;
+                        });
+                        saveAutoCheckForUpdates(value);
+                      },
                     ),
                     if (isUpdateAvailable)
                       Padding(
