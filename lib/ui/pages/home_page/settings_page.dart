@@ -181,6 +181,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      )),
                                     onPressed: () async {
                                       final filePath = await updater.downloadLatestRelease();
                                       await updater.runDownloadedSetup(filePath);
@@ -189,6 +194,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                   const SizedBox(width: 16),
                                   ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      )),
                                     onPressed: () {
                                       setState(() {
                                         isUpdateAvailable = false;

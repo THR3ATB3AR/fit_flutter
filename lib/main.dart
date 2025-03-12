@@ -193,6 +193,11 @@ $releaseNotes
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      )),
                                       onPressed: () async {
                                         setState(() {
                                           isUpdateAvailable = false;
@@ -206,6 +211,11 @@ $releaseNotes
                                     ),
                                     const SizedBox(width: 16),
                                     ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      )),
                                       onPressed: () {
                                         setState(() {
                                           isUpdateAvailable = false;
