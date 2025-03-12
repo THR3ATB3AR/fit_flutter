@@ -1,4 +1,3 @@
-import 'package:fit_flutter/services/updater.dart';
 import 'package:fit_flutter/ui/pages/home_page/download_manager_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/home_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/repack_page.dart';
@@ -36,47 +35,10 @@ class _MainPageState extends State<MainPage> {
   int screenshotIndex = 0;
   String currentWidget = 'home';
 
-  Future<void> _checkForUpdates() async {
-    final updater = Updater();
-    final isUpdateAvailable = await updater.isUpdateAvailable();
-    if (isUpdateAvailable) {
-      _showUpdateDialog(updater);
-    }
-  }
-
-  void _showUpdateDialog(Updater updater) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Update Available'),
-          content: const Text(
-              'A new version of the app is available. Would you like to update now?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('No'),
-            ),
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop();
-                final filePath = await updater.downloadLatestRelease();
-                await updater.runDownloadedSetup(filePath);
-              },
-              child: const Text('Yes'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   void initState() {
     super.initState();
-    _checkForUpdates();
     newRepacks = widget.newRepacks;
     popularRepacks = widget.popularRepacks;
     updatedRepacks = widget.updatedRepacks;
