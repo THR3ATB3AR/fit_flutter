@@ -18,14 +18,17 @@ class _MenuSectionState extends State<MenuSection> {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
+            padding:
+                const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
                   isDownloads = !isDownloads;
                   isSettings = false;
                 });
-                widget.changeWidget(isDownloads ? 'downloads' : 'home'); // Zmień widget na 'downloads' lub 'home'
+                widget.changeWidget(isDownloads
+                    ? 'downloads'
+                    : 'home'); // Zmień widget na 'downloads' lub 'home'
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -33,20 +36,25 @@ class _MenuSectionState extends State<MenuSection> {
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
               ),
-              child: Icon(isDownloads ? Icons.close : Icons.downloading_outlined, size: 30.0),
+              child: Icon(
+                  isDownloads ? Icons.close : Icons.downloading_outlined,
+                  size: 30.0),
             ),
           ),
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 4, right: 8, top: 8, bottom: 8),
+            padding:
+                const EdgeInsets.only(left: 4, right: 8, top: 8, bottom: 8),
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
                   isSettings = !isSettings;
                   isDownloads = false;
                 });
-                widget.changeWidget(isSettings ? 'settings' : 'home'); // Zmień widget na 'settings' lub 'home'
+                widget.changeWidget(isSettings
+                    ? 'settings'
+                    : 'home'); // Zmień widget na 'settings' lub 'home'
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -54,7 +62,8 @@ class _MenuSectionState extends State<MenuSection> {
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
               ),
-              child: Icon(isSettings ? Icons.close : Icons.settings, size: 30.0),
+              child:
+                  Icon(isSettings ? Icons.close : Icons.settings, size: 30.0),
             ),
           ),
         ),

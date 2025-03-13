@@ -1,5 +1,6 @@
 import 'package:fit_flutter/ui/pages/left_drawer/menu_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LeftDrawer extends StatefulWidget {
   const LeftDrawer(
@@ -46,7 +47,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                       backgroundColor: MaterialStateProperty.all(
                           Colors.black.withOpacity(0.2)),
                       controller: controller,
-                      hintText: 'Search repacks',
+                      hintText: AppLocalizations.of(context)!.searchRepacks,
                       leading: const Icon(Icons.search),
                       onTap: () {
                         controller.openView();
@@ -66,7 +67,8 @@ class _LeftDrawerState extends State<LeftDrawer> {
                               title: Text(name),
                               onTap: () {
                                 widget.openRepackPage(
-                                    repackUrl: widget.allRepacksNames[name] ?? '');
+                                    repackUrl:
+                                        widget.allRepacksNames[name] ?? '');
                                 controller.closeView(name);
                               },
                             ))
@@ -74,7 +76,9 @@ class _LeftDrawerState extends State<LeftDrawer> {
                   },
                 ),
               ),
-              MenuSection(changeWidget: widget.changeWidget), // Przekaż funkcję changeWidget do MenuSection
+              MenuSection(
+                  changeWidget: widget
+                      .changeWidget), // Przekaż funkcję changeWidget do MenuSection
             ],
           ),
         ),

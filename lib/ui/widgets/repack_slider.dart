@@ -87,8 +87,8 @@ class _RepackSliderState extends State<RepackSlider> {
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
                   onPressed: _scrollLeft,
-                  child: const Icon(Icons.keyboard_arrow_left_outlined,
-                      size: 30),
+                  child:
+                      const Icon(Icons.keyboard_arrow_left_outlined, size: 30),
                 ),
               ),
               Padding(
@@ -101,8 +101,8 @@ class _RepackSliderState extends State<RepackSlider> {
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
                   onPressed: _scrollRight,
-                  child: const Icon(Icons.keyboard_arrow_right_outlined,
-                      size: 30),
+                  child:
+                      const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
                 ),
               ),
             ],

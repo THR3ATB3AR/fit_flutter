@@ -35,7 +35,6 @@ class _MainPageState extends State<MainPage> {
   int screenshotIndex = 0;
   String currentWidget = 'home';
 
-
   @override
   void initState() {
     super.initState();

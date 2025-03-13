@@ -6,6 +6,7 @@ import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DownloadButton extends StatefulWidget {
   DownloadButton({
@@ -48,7 +49,8 @@ class _DownloadButtonState extends State<DownloadButton> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text('Select Download Options'),
+                title:
+                    Text(AppLocalizations.of(context)!.selectDownloadOptions),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -63,9 +65,10 @@ class _DownloadButtonState extends State<DownloadButton> {
                       child: Stack(children: [
                         TextField(
                           controller: directoryController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Download Folder',
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText:
+                                AppLocalizations.of(context)!.downloadFolder,
                           ),
                           onChanged: (String directory) {
                             selectedDirectory = directory;
@@ -81,13 +84,12 @@ class _DownloadButtonState extends State<DownloadButton> {
                                 selectedDirectory = await FilePicker.platform
                                     .getDirectoryPath();
                                 if (selectedDirectory != null) {
-                                  selectedDirectory = selectedDirectory!
-                                      .replaceAll('\\', '/');
+                                  selectedDirectory =
+                                      selectedDirectory!.replaceAll('\\', '/');
                                   if (!selectedDirectory!.endsWith('/')) {
                                     selectedDirectory = '$selectedDirectory/';
                                   }
-                                  directoryController.text =
-                                      selectedDirectory!;
+                                  directoryController.text = selectedDirectory!;
                                 }
                               },
                             ),
@@ -102,7 +104,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: const Text('Cancel'),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                   ),
                   TextButton(
                     onPressed: () async {
@@ -119,8 +121,8 @@ class _DownloadButtonState extends State<DownloadButton> {
                         List dls = selectedHost!.split(', ');
                         for (var i in dls) {
                           try {
-                            findls.add(
-                                await HostService().getDownloadPlugin(i));
+                            findls
+                                .add(await HostService().getDownloadPlugin(i));
                           } catch (e) {
                             print('Failed to load plugin for host: $i');
                           }
@@ -129,7 +131,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                         Navigator.of(context).pop(true);
                       }
                     },
-                    child: const Text('Select'),
+                    child: Text(AppLocalizations.of(context)!.select),
                   ),
                 ],
               );
@@ -143,7 +145,8 @@ class _DownloadButtonState extends State<DownloadButton> {
                     return DownloadFilesList(
                         findls: findls,
                         downloadFolder: selectedDirectory,
-                        title: widget.selectedRepack?.title ?? 'No title');
+                        title: widget.selectedRepack?.title ??
+                            AppLocalizations.of(context)!.noTitle);
                   });
             });
           }
@@ -155,7 +158,11 @@ class _DownloadButtonState extends State<DownloadButton> {
           ),
           padding: const EdgeInsets.symmetric(vertical: 20.0),
         ),
-        child: const Text('Download', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)),
+        child: Text(AppLocalizations.of(context)!.download,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            )),
       ),
     );
   }

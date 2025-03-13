@@ -1,6 +1,7 @@
 import 'package:fit_flutter/data_classes/download_info.dart';
 import 'package:fit_flutter/ui/widgets/dd_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DownloadFilesList extends StatefulWidget {
   const DownloadFilesList({
@@ -47,11 +48,13 @@ class _DownloadFilesListState extends State<DownloadFilesList> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Download Links'),
+          Text(AppLocalizations.of(context)!.downloadLinks),
           IconButton(
-            onPressed: _isButtonDisabled ? null : () async {
-              await startAllDownloads();
-            },
+            onPressed: _isButtonDisabled
+                ? null
+                : () async {
+                    await startAllDownloads();
+                  },
             icon: const Icon(Icons.download_for_offline),
           ),
         ],
@@ -75,7 +78,7 @@ class _DownloadFilesListState extends State<DownloadFilesList> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Ok'),
+          child: Text(AppLocalizations.of(context)!.ok),
         ),
       ],
     );

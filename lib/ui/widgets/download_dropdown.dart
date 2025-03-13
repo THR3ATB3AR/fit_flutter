@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DownloadDropdown extends StatefulWidget {
   final Repack repack;
   final Function(String) onSelected;
-  const DownloadDropdown({super.key, required this.repack, required this.onSelected});
+  const DownloadDropdown(
+      {super.key, required this.repack, required this.onSelected});
 
   @override
   State<DownloadDropdown> createState() => _DownloadDropdownState();
 }
 
 class _DownloadDropdownState extends State<DownloadDropdown> {
-  
   Map<String, String?> selectedValues = {};
   String? initialValue;
   String? secondDropdownValue;
@@ -23,8 +24,9 @@ class _DownloadDropdownState extends State<DownloadDropdown> {
     if (widget.repack.downloadLinks.isNotEmpty) {
       initialValue = widget.repack.downloadLinks.keys.first;
       selectedValues['key'] = initialValue;
-      secondDropdownValue = widget.repack.downloadLinks[initialValue]?.first['url'];
-      widget.onSelected(secondDropdownValue!); 
+      secondDropdownValue =
+          widget.repack.downloadLinks[initialValue]?.first['url'];
+      widget.onSelected(secondDropdownValue!);
     }
   }
 
@@ -35,9 +37,9 @@ class _DownloadDropdownState extends State<DownloadDropdown> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: DropdownButtonFormField<String>(
-            decoration: const InputDecoration(
-              labelText: 'Select Download Option',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.selectDownloadOption,
+              border: const OutlineInputBorder(),
             ),
             value: initialValue,
             items: widget.repack.downloadLinks.keys.map((String key) {
@@ -50,19 +52,22 @@ class _DownloadDropdownState extends State<DownloadDropdown> {
               setState(() {
                 initialValue = newValue;
                 selectedValues['key'] = newValue;
-                secondDropdownValue = widget.repack.downloadLinks[newValue]?.first['url'];
-                widget.onSelected(widget.repack.downloadLinks[newValue]!.first['url']!);
+                secondDropdownValue =
+                    widget.repack.downloadLinks[newValue]?.first['url'];
+                widget.onSelected(
+                    widget.repack.downloadLinks[newValue]!.first['url']!);
               });
             },
           ),
         ),
-        if (initialValue != null && widget.repack.downloadLinks[initialValue] != null)
+        if (initialValue != null &&
+            widget.repack.downloadLinks[initialValue] != null)
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                labelText: 'Select Hoster',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.selectHoster,
+                border: const OutlineInputBorder(),
               ),
               value: secondDropdownValue,
               items: widget.repack.downloadLinks[initialValue]!.map((link) {

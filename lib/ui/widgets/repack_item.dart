@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RepackItem extends StatelessWidget {
   final Repack repack;
@@ -22,20 +23,25 @@ class RepackItem extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
           children: [
             TextSpan(
-              text: '${_overflowText('Genre: ${repack.genres},', 30)}\n',
-            ),
-            TextSpan(
-              text: '${_overflowText('Company: ${repack.company}', 30)}\n',
-            ),
-            TextSpan(
-              text: '${_overflowText('Language: ${repack.language}', 30)}\n',
-            ),
-            TextSpan(
               text:
-                  '${_overflowText('Original Size: ${repack.originalSize}', 30)}\n',
-            ),
-            TextSpan(
-                text: _overflowText('Repack Size: ${repack.repackSize}', 30)),
+                  '${AppLocalizations.of(context)!.genres}: ${repack.genres}\n',
+              children: [
+                TextSpan(
+                  text:
+                      '${AppLocalizations.of(context)!.company}: ${repack.company}\n',
+                ),
+                TextSpan(
+                  text:
+                      '${AppLocalizations.of(context)!.language}: ${repack.language}\n',
+                ),
+                TextSpan(
+                  text:
+                      '${AppLocalizations.of(context)!.originalSize}: ${repack.originalSize}\n',
+                ),
+                TextSpan(
+                    text:
+                        '${AppLocalizations.of(context)!.repackSize}: ${repack.repackSize}'),
+              ]),
           ],
         ),
         child: Card(
