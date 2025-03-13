@@ -1,5 +1,8 @@
 # FitFlutter 🏋️‍♀️🦋
 
+| [![Crowdin](https://badges.crowdin.net/fit-flutter/localized.svg)](https://crowdin.com/project/fit-flutter) | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) | [![GitHub downloads](https://img.shields.io/github/downloads/THR3ATB3AR/fit_flutter/total)](https://github.com/THR3ATB3AR/fit_flutter/issues) | [![GitHub forks](https://img.shields.io/github/forks/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/forks) | [![GitHub stars](https://img.shields.io/github/stars/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/stargazers) |
+|---|---|---|---|---|
+
 FitFlutter is a Flutter-based application designed to browse and download FitGirl Repacks.  It provides a convenient, cross-platform way to access FitGirl's extensive library of compressed game installers.  Think of it as a *very* unofficial FitGirl client.  This project is intended for educational purposes and to improve my Flutter skills.
 
 **Disclaimer:**  This application is not affiliated with or endorsed by FitGirl.  Using this application to download copyrighted material without permission is illegal in many jurisdictions.  You are solely responsible for complying with all applicable laws and regulations.  Use this application at your own risk. I am not responsible for how you use it.
@@ -48,55 +51,45 @@ To install and run the latest setup of Fit Flutter, follow these steps:
 
 1. **Download the Latest Release:**
 
-   * Visit the [Releases](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) page on GitHub.
-   * Download the latest release for your operating system.
+    * Visit the [Releases](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) page on GitHub.
+    * Download the latest release for your operating system.
 2. **Run Setup:**
 
-   * Install app to a directory of your choice.
+    * Install app to a directory of your choice.
 
 ## Building
 
 1. **Prerequisites:**
 
-   * Flutter SDK installed and configured. (See [Flutter Installation Guide](https://docs.flutter.dev/get-started/install))
-   * Dart SDK (usually comes with Flutter).
-   * An emulator or physical device for testing.
+    * Flutter SDK installed and configured. (See [Flutter Installation Guide](https://docs.flutter.dev/get-started/install))
+    * Dart SDK (usually comes with Flutter).
+    * An emulator or physical device for testing.
 2. **Clone the Repository:**
 
-   ```bash
-   git clone https://github.com/THR3ATB3AR/fit_flutter.git
-   cd fit_flutter
-   ```
+    ```bash
+    git clone https://github.com/THR3ATB3AR/fit_flutter.git
+    cd fit_flutter
+    ```
+
 3. **Get Dependencies:**
 
-   ```bash
-   flutter pub get
-   ```
+    ```bash
+    flutter pub get
+    ```
+
 4. **Run the App:**
 
-   ```bash
-   flutter run
-   ```
+    ```bash
+    flutter run
+    ```
 
-   or to build:
+    or to build:
 
-   ```bash
-   flutter build windows # for windows
-   ```
+    ```bash
+    flutter build windows # for windows
+    ```
 
-   See [Flutter build documentation](https://docs.flutter.dev/deployment/build-guides)
-
-## Contributing
-
-Contributions are welcome!  If you'd like to contribute, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature-name`
-3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push your branch: `git push origin feature/your-feature-name`
-5. Create a pull request.
-
-Please make sure your code follows the Flutter style guide and is well-documented.
+    See [Flutter build documentation](https://docs.flutter.dev/deployment/build-guides)
 
 ## Acknowledgements
 
