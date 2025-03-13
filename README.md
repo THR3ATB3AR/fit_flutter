@@ -4,7 +4,7 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 **Disclaimer:**  This application is not affiliated with or endorsed by FitGirl.  Using this application to download copyrighted material without permission is illegal in many jurisdictions.  You are solely responsible for complying with all applicable laws and regulations.  Use this application at your own risk. I am not responsible for how you use it.
 
-## Features (Working) ✨
+## Features ✨
 
 * **Search Repacks:** Quickly find the repack you're looking for using a built-in search function.
 * **Repack Details:** View detailed information about each repack, including game title, original size, repack size, compression details, and more.
@@ -16,10 +16,6 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * **Windows 11 Acrylic Design:** The app features a modern Windows 11 acrylic design for a sleek and visually appealing interface.
 * **Windows Accent Color:** The application adapts to the user's Windows accent color for a more integrated and personalized experience.
 
-## Features (Not Working Yet) 🚧
-
-* **Torrent Downloads:** Downloading via torrent links is not currently supported.
-
 ## Screenshots
 
 ![Alt text](images/readme/1.png?raw=true "Home Page")
@@ -27,12 +23,16 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 ![Alt text](images/readme/3.png?raw=true "Repack Screenshots")
 ![Alt text](images/readme/4.png?raw=true "Repack Search")
 
-## TODOs (Checked items will be included in the next update) 📝
+## Roadmap & Future Enhancements 🚀
 
-* [X] ⚙️**Settings Page Redesign:** Add a more settings to allow users to customize their experience.
-* [ ] 🌐**Language Support:** Implement multi-language support for a more inclusive user experience.
-* [ ] 🔄️**Cashe Repacks:**  Implement the functionality to use previusly scraped data.
-* [ ] ⬇️**Torrent Support:** Implement the functionality to download repacks via torrent links.
+FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
+
+[x] ⚙️ **Enhanced Settings:**  A redesigned settings page with expanded customization options.
+[ ] 🌐 **Multi-Language Support:**  Making FitFlutter accessible to a global audience.
+[ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
+[ ] ⬇️ **Torrent Downloads:**  Support for downloading repacks via torrent links.
+
+ I am open for contributions and suggestions!
 
 ## Known Issues 🐛
 
@@ -67,11 +67,13 @@ To install and run the latest setup of Fit Flutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
+
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
+
 4. **Run the App:**
 
    ```bash
