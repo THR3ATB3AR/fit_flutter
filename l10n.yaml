@@ -1,5 +1,5 @@
-arb-dir: lib/l10n
-template-arb-file: intl_en-US.arb
+arb-dir: lib\l10n
+template-arb-file: intl_en.arb
 output-localization-file: app_localizations.dart
 translate: true
 generate: true
