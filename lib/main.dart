@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/services/updater.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
 import 'package:fit_flutter/ui/pages/main_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 late List<Repack> newRepacks;
 late List<Repack> popularRepacks;
@@ -39,6 +41,8 @@ class _MyAppState extends State<MyApp> {
   Updater updater = Updater();
   String appVersion = '';
   String latestVersion = '';
+  String releaseNotes = '';
+  
 
   Future<void> loadInitialData() async {
     setState(() {
@@ -47,7 +51,10 @@ class _MyAppState extends State<MyApp> {
 
     await _checkSettings();
 
-    await _checkForUpdates();
+    if(await SettingsService().loadAutoCheckForUpdates()) {
+      await _checkForUpdates();
+    }
+
 
     newRepacks =
         await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
@@ -78,8 +85,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _checkForUpdates() async {
+    final latestReleaseInfo = await updater.getLatestReleaseInfo();
     appVersion = await updater.getAppVersion();
-    latestVersion = await updater.getLatestReleaseVersion();
+    latestVersion = latestReleaseInfo['tag_name']!;
+    releaseNotes = latestReleaseInfo['release_notes']!;
     isUpdateAvailable = appVersion != latestVersion.substring(1);
     setState(() {});
   }
@@ -152,8 +161,7 @@ class _MyAppState extends State<MyApp> {
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: Container(
-                            width: MediaQuery.of(context).size.width *
-                                0.4, // Ustaw szerokość na 80% szerokości ekranu
+                            width: MediaQuery.of(context).size.width * 0.4,
                             padding: const EdgeInsets.all(16.0),
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.2),
@@ -161,9 +169,39 @@ class _MyAppState extends State<MyApp> {
                             ),
                             child: Column(
                               children: [
-                                Text(
-                                  'A new version of the app is available. Would you like to update now?\n\nCurrent version: $appVersion\nLatest version: ${latestVersion.substring(1)}',
-                                  textAlign: TextAlign.center,
+                                MarkdownBody(
+                                  data: '''
+**A new version of the app is available. Would you like to update now?**
+
+**Current version:** $appVersion\n
+**Latest version:** ${latestVersion.substring(1)}
+
+**Release Notes:**
+$releaseNotes
+                                  ''',
+                                  styleSheet: MarkdownStyleSheet(
+                                    textAlign: WrapAlignment.center,
+                                    h1Align: WrapAlignment.center,
+                                    h2Align: WrapAlignment.center,
+                                    h3Align: WrapAlignment.center,
+                                    h4Align: WrapAlignment.center,
+                                    h5Align: WrapAlignment.center,
+                                    h6Align: WrapAlignment.center,
+                                    unorderedListAlign: WrapAlignment.center,
+                                    orderedListAlign: WrapAlignment.center,
+                                    blockquoteAlign: WrapAlignment.center,
+                                    codeblockAlign: WrapAlignment.center,
+                                  ),
+                                  onTapLink: (text, href, title) async {
+                                    if (href != null) {
+                                      final Uri uri = Uri.parse(href);
+                                      if (await canLaunchUrl(uri)) {
+                                        await launchUrl(uri);
+                                      } else {
+                                        throw 'Could not launch $href';
+                                      }
+                                    }
+                                  },
                                 ),
                                 const SizedBox(height: 8),
                                 Row(
@@ -171,7 +209,6 @@ class _MyAppState extends State<MyApp> {
                                   children: [
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          // backgroundColor: Colors.deepPurple,
                                           shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
@@ -190,7 +227,6 @@ class _MyAppState extends State<MyApp> {
                                     const SizedBox(width: 16),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          // backgroundColor: Colors.deepPurple,
                                           shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
