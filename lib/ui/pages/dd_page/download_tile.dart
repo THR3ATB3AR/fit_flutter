@@ -1,6 +1,7 @@
 import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DownloadTile extends StatefulWidget {
   const DownloadTile(
@@ -61,19 +62,19 @@ class _DownloadTileState extends State<DownloadTile> {
   String _getStatusText(DownloadStatus status) {
     switch (status) {
       case DownloadStatus.downloading:
-        return 'Downloading';
+        return AppLocalizations.of(context)!.downloading;
       case DownloadStatus.paused:
-        return 'Paused';
+        return AppLocalizations.of(context)!.paused;
       case DownloadStatus.completed:
-        return 'Complete';
+        return AppLocalizations.of(context)!.complete;
       case DownloadStatus.failed:
-        return 'Failed';
+        return AppLocalizations.of(context)!.failed;
       case DownloadStatus.canceled:
-        return 'Canceled';
+        return AppLocalizations.of(context)!.canceled;
       case DownloadStatus.queued:
-        return 'Queued';
+        return AppLocalizations.of(context)!.queued;
       default:
-        return 'Unknown';
+        return AppLocalizations.of(context)!.unknown;
     }
   }
 
@@ -118,7 +119,7 @@ class _DownloadTileState extends State<DownloadTile> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          'Status: ${_getStatusText(_status)}',
+                          '${AppLocalizations.of(context)!.status}: ${_getStatusText(_status)}',
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),

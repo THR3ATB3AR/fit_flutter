@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SettingsSection extends StatelessWidget {
-  const SettingsSection({super.key, required this.title, required this.content});
+  const SettingsSection(
+      {super.key, required this.title, required this.content});
   final String title;
   final Widget content;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom:8.0),
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -22,7 +23,8 @@ class SettingsSection extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   title,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

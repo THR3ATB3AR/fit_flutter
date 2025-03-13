@@ -32,7 +32,8 @@ class DDTileState extends State<DDTile> {
   }
 
   Future<void> addLink() {
-    return ddManager.addDdLink(widget.plugin, widget.downloadFolder!, widget.title);
+    return ddManager.addDdLink(
+        widget.plugin, widget.downloadFolder!, widget.title);
   }
 
   DownloadTask? getDownloadTask() {

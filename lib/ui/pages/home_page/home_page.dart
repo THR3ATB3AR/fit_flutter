@@ -1,6 +1,7 @@
 import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/ui/widgets/repack_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   HomePage(
@@ -21,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  BoxConstraints constraints =const BoxConstraints.expand();
+  BoxConstraints constraints = const BoxConstraints.expand();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,17 +38,17 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top:24),
+                  padding: const EdgeInsets.only(top: 24),
                   child: RepackSlider(
                       repacksList: widget.newRepacks,
-                      title: 'New Repacks',
+                      title: AppLocalizations.of(context)!.newRepacks,
                       onRepackTap: (repack) {
                         widget.openRepackPage(repack: repack);
                       }),
                 ),
                 RepackSlider(
                     repacksList: widget.popularRepacks,
-                    title: 'Popular Repacks',
+                    title: AppLocalizations.of(context)!.popularRepacks,
                     onRepackTap: (repack) {
                       widget.openRepackPage(repack: repack);
                     }),

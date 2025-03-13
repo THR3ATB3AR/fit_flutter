@@ -6,6 +6,7 @@ import 'package:fit_flutter/ui/widgets/settings_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({super.key});
@@ -103,14 +104,16 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 20),
               SettingsSection(
-                title: 'Choose default download folder',
+                title:
+                    AppLocalizations.of(context)!.chooseDefaultDownloadFolder,
                 content: Stack(
                   children: [
                     TextField(
                       controller: directoryController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Default Download Folder',
+                        labelText:
+                            AppLocalizations.of(context)!.defaultDownloadFolder,
                       ),
                       onChanged: (String directory) {
                         selectedDirectory = directory;
@@ -142,7 +145,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               SettingsSection(
-                title: 'Max Concurrent Downloads',
+                title: AppLocalizations.of(context)!.maxConcurrentDownloads,
                 content: Column(
                   children: [
                     Slider(
@@ -161,26 +164,27 @@ class _SettingsPageState extends State<SettingsPage> {
                       },
                     ),
                     Text(
-                      'Current: ${maxConcurrentDownloads.round()}',
+                      '${AppLocalizations.of(context)!.current}: ${maxConcurrentDownloads.round()}',
                       style: const TextStyle(fontSize: 18),
                     ),
                   ],
                 ),
               ),
               SettingsSection(
-                title: 'Check for Updates',
+                title: AppLocalizations.of(context)!.checkForUpdates,
                 content: Column(
                   children: [
                     Text(
-                      'Current version: $appVersion',
+                      '${AppLocalizations.of(context)!.currentVersion}: $appVersion',
                       style: const TextStyle(fontSize: 18),
                     ),
                     Text(
-                      'Latest version: $latestVersion',
+                      '${AppLocalizations.of(context)!.latestVersion}: $latestVersion',
                       style: const TextStyle(fontSize: 18),
                     ),
                     SwitchListTile(
-                      title: const Text('Auto check for updates at start'),
+                      title: Text(AppLocalizations.of(context)!
+                          .autoCheckForUpdatesAtStart),
                       value: autoCheckForUpdates,
                       thumbColor: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
@@ -189,7 +193,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 .colorScheme
                                 .primaryContainer;
                           }
-                          return null; // Use the default thumb color
+                          return null;
                         },
                       ),
                       onChanged: (bool value) {
@@ -210,8 +214,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           child: Column(
                             children: [
-                              const Text(
-                                'A new version of the app is available. Would you like to update now?',
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .aNewVersionOfTheAppIsAvailableWouldYouLikeToUpdateNow,
                               ),
                               const SizedBox(height: 8),
                               MarkdownBody(
@@ -260,7 +265,8 @@ $releaseNotes
                                       await updater
                                           .runDownloadedSetup(filePath);
                                     },
-                                    child: const Text('Update'),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.update),
                                   ),
                                 ],
                               ),

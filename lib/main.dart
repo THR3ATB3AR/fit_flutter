@@ -9,6 +9,7 @@ import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
 import 'package:fit_flutter/ui/pages/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 late List<Repack> newRepacks;
 late List<Repack> popularRepacks;
@@ -34,7 +35,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final accentColor = SystemTheme.accentColor.accent;
   late Future<void> _initialization;
-  String loadingMessage = 'Initializing...';
+  String loadingMessage = '';
   final ScraperService _scraperService = ScraperService();
   String? defaultDownloadPath;
   bool isUpdateAvailable = false;
@@ -42,32 +43,30 @@ class _MyAppState extends State<MyApp> {
   String appVersion = '';
   String latestVersion = '';
   String releaseNotes = '';
-  
 
   Future<void> loadInitialData() async {
     setState(() {
-      loadingMessage = 'Initializing...';
+      loadingMessage = AppLocalizations.of(context)?.initializing ?? 'Initializing...';
     });
 
     await _checkSettings();
 
-    if(await SettingsService().loadAutoCheckForUpdates()) {
+    if (await SettingsService().loadAutoCheckForUpdates()) {
       await _checkForUpdates();
     }
-
 
     newRepacks =
         await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
       setState(() {
         loadingMessage =
-            'Loading new repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+            '${AppLocalizations.of(context)?.loadingNewRepacks ?? 'Loading new repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
       });
     });
     popularRepacks =
         await _scraperService.scrapePopularRepacks(onProgress: (loaded, total) {
       setState(() {
         loadingMessage =
-            'Loading popular repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+            '${AppLocalizations.of(context)?.loadingPopularRepacks ?? 'Loading popular repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
       });
     });
     updatedRepacks = [];
@@ -75,7 +74,7 @@ class _MyAppState extends State<MyApp> {
         onProgress: (loaded, total) {
       setState(() {
         loadingMessage =
-            'Indexing all repacks... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+            '${AppLocalizations.of(context)?.indexingAllRepacks ?? 'Indexing all repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
       });
     });
   }
@@ -111,6 +110,8 @@ class _MyAppState extends State<MyApp> {
         brightness: Brightness.dark,
       );
       return MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,
         title: 'Fit Flutter',
         theme: (Platform.isWindows)
@@ -169,14 +170,20 @@ class _MyAppState extends State<MyApp> {
                             ),
                             child: Column(
                               children: [
+                                Text(
+                                  AppLocalizations.of(context)?.aNewVersionOfTheAppIsAvailableWouldYouLikeToUpdateNow ?? 'A new version of the app is available. Would you like to update now?',
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  '${AppLocalizations.of(context)?.currentVersion ?? 'Current version'}: $appVersion',
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  '${AppLocalizations.of(context)?.latestVersion ?? 'Latest version'}: $latestVersion',
+                                  style: const TextStyle(fontSize: 18),
+                                ),
                                 MarkdownBody(
                                   data: '''
-**A new version of the app is available. Would you like to update now?**
-
-**Current version:** $appVersion\n
-**Latest version:** ${latestVersion.substring(1)}
-
-**Release Notes:**
 $releaseNotes
                                   ''',
                                   styleSheet: MarkdownStyleSheet(
@@ -222,7 +229,8 @@ $releaseNotes
                                         await updater
                                             .runDownloadedSetup(filePath);
                                       },
-                                      child: const Text('Yes'),
+                                      child: Text(
+                                          AppLocalizations.of(context)?.yes ?? 'Yes'),
                                     ),
                                     const SizedBox(width: 16),
                                     ElevatedButton(
@@ -236,7 +244,8 @@ $releaseNotes
                                           isUpdateAvailable = false;
                                         });
                                       },
-                                      child: const Text('No'),
+                                      child: Text(
+                                          AppLocalizations.of(context)?.no ?? 'No'),
                                     ),
                                   ],
                                 ),
