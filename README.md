@@ -27,11 +27,10 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
-[x] ⚙️ **Enhanced Settings:**  A redesigned settings page with expanded customization options.
-[ ] 🌐 **Multi-Language Support:**  Making FitFlutter accessible to a global audience.
-[ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
-[ ] ⬇️ **Torrent Downloads:**  Support for downloading repacks via torrent links.
-
+* [X] ⚙️ **Enhanced Settings:**  A redesigned settings page with expanded customization options.
+* [ ] 🌐 **Multi-Language Support:**  Making FitFlutter accessible to a global audience.
+* [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
+* [ ] ⬇️ **Torrent Downloads:**  Support for downloading repacks via torrent links.
  I am open for contributions and suggestions!
 
 ## Known Issues 🐛
@@ -67,13 +66,11 @@ To install and run the latest setup of Fit Flutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
-
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
-
 4. **Run the App:**
 
    ```bash
