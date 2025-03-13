@@ -31,7 +31,8 @@ FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 * [ ] 🌐 **Multi-Language Support:**  Making FitFlutter accessible to a global audience.
 * [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
 * [ ] ⬇️ **Torrent Downloads:**  Support for downloading repacks via torrent links.
- I am open for contributions and suggestions!
+
+I am open for contributions and suggestions!
 
 ## Known Issues 🐛
 
