@@ -7,6 +7,7 @@ import 'package:fit_flutter/ui/widgets/download_dropdown.dart';
 import 'package:fit_flutter/ui/widgets/download_files_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DownloadButton extends StatefulWidget {
   DownloadButton({
@@ -109,26 +110,31 @@ class _DownloadButtonState extends State<DownloadButton> {
                   TextButton(
                     onPressed: () async {
                       if (selectedHost != null) {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          },
-                        );
-                        List dls = selectedHost!.split(', ');
-                        for (var i in dls) {
-                          try {
-                            findls
-                                .add(await HostService().getDownloadPlugin(i));
-                          } catch (e) {
-                            print('Failed to load plugin for host: $i');
+                        if (selectedHost!.startsWith("magnet:")) {
+                          launchUrl(Uri.parse(selectedHost!));
+                          Navigator.of(context).pop(false);
+                        } else {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          );
+                          List dls = selectedHost!.split(', ');
+                          for (var i in dls) {
+                            try {
+                              findls.add(
+                                  await HostService().getDownloadPlugin(i));
+                            } catch (e) {
+                              print('Failed to load plugin for host: $i');
+                            }
                           }
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop(true);
                         }
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop(true);
                       }
                     },
                     child: Text(AppLocalizations.of(context)!.select),
