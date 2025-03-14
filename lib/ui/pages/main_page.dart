@@ -88,10 +88,11 @@ class _MainPageState extends State<MainPage> {
                   borderRadius: BorderRadius.circular(10.0),
                   child: Scaffold(
                     drawerScrimColor: Colors.transparent,
+                    backgroundColor: Colors.transparent,
                     endDrawer: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.black.withOpacity(0.9),
+                        color: Colors.black.withValues(alpha: 0.2),
                       ),
                       child: Drawer(
                           width: constraints.maxWidth,
