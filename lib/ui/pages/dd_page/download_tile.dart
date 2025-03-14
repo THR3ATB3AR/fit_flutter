@@ -73,8 +73,6 @@ class _DownloadTileState extends State<DownloadTile> {
         return AppLocalizations.of(context)!.canceled;
       case DownloadStatus.queued:
         return AppLocalizations.of(context)!.queued;
-      default:
-        return AppLocalizations.of(context)!.unknown;
     }
   }
 
@@ -94,7 +92,7 @@ class _DownloadTileState extends State<DownloadTile> {
       constraints: const BoxConstraints(maxWidth: double.infinity),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withOpacity(0.2),
+        color: Colors.black.withValues(alpha: 0.2),
       ),
       padding: const EdgeInsets.only(top: 10.0),
       child: Column(
@@ -111,16 +109,13 @@ class _DownloadTileState extends State<DownloadTile> {
                       Text(
                         widget.fileName,
                         style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600),
+                            fontSize: 18, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 5),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
                           '${AppLocalizations.of(context)!.status}: ${_getStatusText(_status)}',
-                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -132,7 +127,6 @@ class _DownloadTileState extends State<DownloadTile> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         '${(_progress * 100).toStringAsFixed(0)}%',
-                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                     ElevatedButton(
@@ -140,6 +134,7 @@ class _DownloadTileState extends State<DownloadTile> {
                           ? resumeDownload
                           : pauseDownload,
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(15), // Increase the size
                       ),
@@ -153,6 +148,7 @@ class _DownloadTileState extends State<DownloadTile> {
                     ElevatedButton(
                       onPressed: cancelDownload,
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(15), // Increase the size
                       ),
