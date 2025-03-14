@@ -18,7 +18,7 @@ class RightInfoSection extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withOpacity(0.2),
+        color: Colors.black.withValues(alpha: 0.2),
       ),
       child: ConstrainedBox(
         constraints: BoxConstraints(

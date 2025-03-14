@@ -90,7 +90,7 @@ class _SettingsPageState extends State<SettingsPage> {
       constraints: const BoxConstraints.expand(),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withOpacity(0.2),
+        color: Colors.black.withValues(alpha: 0.2),
       ),
       child: SingleChildScrollView(
         child: Padding(
@@ -107,11 +107,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 title:
                     AppLocalizations.of(context)!.chooseDefaultDownloadFolder,
                 content: Stack(
+                  clipBehavior: Clip.none,
                   children: [
                     TextField(
                       controller: directoryController,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         labelText:
                             AppLocalizations.of(context)!.defaultDownloadFolder,
                       ),
@@ -186,9 +187,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       title: Text(AppLocalizations.of(context)!
                           .autoCheckForUpdatesAtStart),
                       value: autoCheckForUpdates,
-                      thumbColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.selected)) {
+                      thumbColor: WidgetStateProperty.resolveWith<Color?>(
+                        (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
                             return Theme.of(context)
                                 .colorScheme
                                 .primaryContainer;
@@ -209,7 +210,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         child: Container(
                           padding: const EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.black.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(

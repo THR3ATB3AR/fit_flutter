@@ -62,7 +62,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Stack(children: [
+                      child: Stack(clipBehavior: Clip.none, children: [
                         TextField(
                           controller: directoryController,
                           decoration: InputDecoration(
@@ -152,7 +152,7 @@ class _DownloadButtonState extends State<DownloadButton> {
           }
         },
         style: ElevatedButton.styleFrom(
-          // backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

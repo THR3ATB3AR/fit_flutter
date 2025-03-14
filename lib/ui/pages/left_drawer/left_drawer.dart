@@ -22,12 +22,13 @@ class _LeftDrawerState extends State<LeftDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.transparent,
       shape: Border.all(style: BorderStyle.none),
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Column(
@@ -37,15 +38,15 @@ class _LeftDrawerState extends State<LeftDrawer> {
                 padding: const EdgeInsets.all(8.0),
                 child: SearchAnchor(
                   viewElevation: (0),
-                  viewBackgroundColor: Colors.black.withOpacity(0.2),
+                  viewBackgroundColor: Colors.black.withValues(alpha: 0.2),
                   viewConstraints: BoxConstraints(
                       maxWidth: widget.constraints.maxWidth * 0.8,
                       maxHeight: widget.constraints.maxHeight * 0.4),
                   builder: (BuildContext context, SearchController controller) {
                     return SearchBar(
-                      elevation: const MaterialStatePropertyAll<double>(0),
-                      backgroundColor: MaterialStateProperty.all(
-                          Colors.black.withOpacity(0.2)),
+                      elevation: const WidgetStatePropertyAll<double>(0),
+                      backgroundColor: WidgetStateProperty.all(
+                          Colors.black.withValues(alpha: 0.2)),
                       controller: controller,
                       hintText: AppLocalizations.of(context)!.searchRepacks,
                       leading: const Icon(Icons.search),

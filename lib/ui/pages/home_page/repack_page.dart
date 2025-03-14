@@ -19,7 +19,7 @@ class _RepackPageState extends State<RepackPage> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withOpacity(0.2),
+        color: Colors.black.withValues(alpha: 0.2),
       ),
       child: widget.selectedRepack == null
           ? const Center(child: CircularProgressIndicator())
@@ -47,6 +47,7 @@ class _RepackPageState extends State<RepackPage> {
                                             widget.goHome('home');
                                           },
                                           style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.transparent,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
