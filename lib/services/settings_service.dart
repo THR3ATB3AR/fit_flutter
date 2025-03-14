@@ -13,8 +13,13 @@ class SettingsService {
     }
 
     if (!await settingsFile.exists()) {
-      final defaultSettingsFile = File('lib/settings/settings.json');
-      await defaultSettingsFile.copy(settingsFile.path);
+      // Zamiast kopiować plik, utwórz domyślne ustawienia
+      final defaultSettings = {
+        'defaultDownloadFolder': '',
+        'maxTasksNumber': 2.0,
+        'autoCheckForUpdates': true,
+      };
+      await settingsFile.writeAsString(jsonEncode(defaultSettings));
     }
   }
 
