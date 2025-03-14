@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _checkSettings() async {
-    SettingsService().checkAndCopySettings();
+    await SettingsService().checkAndCopySettings();
   }
 
   Future<void> _checkForUpdates() async {
