@@ -46,7 +46,8 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> loadInitialData() async {
     setState(() {
-      loadingMessage = AppLocalizations.of(context)?.initializing ?? 'Initializing...';
+      loadingMessage =
+          AppLocalizations.of(context)?.initializing ?? 'Initializing...';
     });
 
     await _checkSettings();
@@ -124,7 +125,6 @@ class _MyAppState extends State<MyApp> {
                   surfaceTint: Colors.transparent,
                   onPrimary: Colors.transparent,
                   onSecondary: Colors.transparent,
-                  onSecondaryContainer: Colors.white,
                 ),
                 brightness: Brightness.dark,
                 scaffoldBackgroundColor: Colors.transparent,
@@ -146,7 +146,6 @@ class _MyAppState extends State<MyApp> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Scaffold(
-                backgroundColor: Colors.transparent,
                 body: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +171,9 @@ class _MyAppState extends State<MyApp> {
                             child: Column(
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)?.aNewVersionOfTheAppIsAvailableWouldYouLikeToUpdateNow ?? 'A new version of the app is available. Would you like to update now?',
+                                  AppLocalizations.of(context)
+                                          ?.aNewVersionOfTheAppIsAvailableWouldYouLikeToUpdateNow ??
+                                      'A new version of the app is available. Would you like to update now?',
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
@@ -231,7 +232,8 @@ $releaseNotes
                                             .runDownloadedSetup(filePath);
                                       },
                                       child: Text(
-                                          AppLocalizations.of(context)?.yes ?? 'Yes'),
+                                          AppLocalizations.of(context)?.yes ??
+                                              'Yes'),
                                     ),
                                     const SizedBox(width: 16),
                                     ElevatedButton(
@@ -246,7 +248,8 @@ $releaseNotes
                                         });
                                       },
                                       child: Text(
-                                          AppLocalizations.of(context)?.no ?? 'No'),
+                                          AppLocalizations.of(context)?.no ??
+                                              'No'),
                                     ),
                                   ],
                                 ),
@@ -265,12 +268,17 @@ $releaseNotes
                 ),
               );
             } else {
-              return MainPage(
-                newRepacks: newRepacks,
-                popularRepacks: popularRepacks,
-                updatedRepacks: updatedRepacks,
-                allRepacksNames: allRepacksNames,
-                downloadFolder: defaultDownloadPath,
+              return Container(
+                color: Platform.isWindows
+                    ? Colors.transparent
+                    : colorScheme.surface,
+                child: MainPage(
+                  newRepacks: newRepacks,
+                  popularRepacks: popularRepacks,
+                  updatedRepacks: updatedRepacks,
+                  allRepacksNames: allRepacksNames,
+                  downloadFolder: defaultDownloadPath,
+                ),
               );
             }
           },

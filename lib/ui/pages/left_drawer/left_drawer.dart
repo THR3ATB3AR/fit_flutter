@@ -21,9 +21,8 @@ class LeftDrawer extends StatefulWidget {
 class _LeftDrawerState extends State<LeftDrawer> {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      backgroundColor: Colors.transparent,
-      shape: Border.all(style: BorderStyle.none),
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 304),
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
         child: Container(
