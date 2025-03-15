@@ -71,23 +71,23 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Row(
-          children: [
-            LeftDrawer(
-                constraints: constraints,
-                allRepacksNames: allRepacksNames,
-                openRepackPage: openRepackPage,
-                changeWidget: changeWidget),
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 4, right: 8, top: 8, bottom: 8),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Scaffold(
-                    body: Builder(
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Row(
+            children: [
+              LeftDrawer(
+                  constraints: constraints,
+                  allRepacksNames: allRepacksNames,
+                  openRepackPage: openRepackPage,
+                  changeWidget: changeWidget),
+              Expanded(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 4, right: 8, top: 8, bottom: 8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Builder(
                       builder: (BuildContext context) {
                         scaffoldContext = context;
                         return AnimatedSwitcher(
@@ -104,10 +104,10 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 
