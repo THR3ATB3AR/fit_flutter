@@ -42,7 +42,6 @@ I am open for contributions and suggestions!
 
 These issues have been reported by tester and may not affect all users:
 
-* **Linux Updating** Currently Linux builds will try to download and execute Windows setup to update.
 * **Windows 10 Transparency:** On Windows 10, the entire application window may appear transparent.
 * **Windows 10 Drag Lag/Cursor Copying:** On Windows 10, dragging the application window can be slow and may create visual artifacts, like multiple copies of the cursor.  This seems to be related to window redrawing.
 * **Limited Testing:** The application has had limited testing (only one tester), these issues might not reproduce on all devices.
