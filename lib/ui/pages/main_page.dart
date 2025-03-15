@@ -87,31 +87,6 @@ class _MainPageState extends State<MainPage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: Scaffold(
-                    drawerScrimColor: Colors.transparent,
-                    backgroundColor: Colors.transparent,
-                    endDrawer: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.black.withValues(alpha: 0.2),
-                      ),
-                      child: Drawer(
-                          width: constraints.maxWidth,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: IconButton.filledTonal(
-                                  onPressed: () {
-                                    Scaffold.of(scaffoldContext)
-                                        .closeEndDrawer();
-                                    screenshotIndex = 0;
-                                  },
-                                  icon: const Icon(Icons.arrow_forward_ios),
-                                ),
-                              ),
-                            ],
-                          )),
-                    ),
                     body: Builder(
                       builder: (BuildContext context) {
                         scaffoldContext = context;
