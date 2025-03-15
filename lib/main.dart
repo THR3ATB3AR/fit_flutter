@@ -226,10 +226,15 @@ $releaseNotes
                                         setState(() {
                                           isUpdateAvailable = false;
                                         });
-                                        final filePath = await updater
-                                            .downloadLatestRelease();
-                                        await updater
-                                            .runDownloadedSetup(filePath);
+                                        if (Platform.isWindows) {
+                                          final filePath = await updater
+                                              .downloadLatestRelease();
+                                          await updater
+                                              .runDownloadedSetup(filePath);
+                                        } else {
+                                          launchUrl(Uri.parse(
+                                              "https://github.com/THR3ATB3AR/fit_flutter/releases/latest"));
+                                        }
                                       },
                                       child: Text(
                                           AppLocalizations.of(context)?.yes ??

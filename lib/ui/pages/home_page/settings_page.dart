@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/services/dd_manager.dart';
@@ -261,10 +263,14 @@ $releaseNotes
                                       setState(() {
                                         isUpdateAvailable = false;
                                       });
-                                      final filePath =
-                                          await updater.downloadLatestRelease();
-                                      await updater
-                                          .runDownloadedSetup(filePath);
+                                      if (Platform.isWindows){
+                                          final filePath = await updater
+                                            .downloadLatestRelease();
+                                        await updater
+                                            .runDownloadedSetup(filePath);
+                                        } else {
+                                          launchUrl(Uri.parse("https://github.com/THR3ATB3AR/fit_flutter/releases/latest"));
+                                        }
                                     },
                                     child: Text(
                                         AppLocalizations.of(context)!.update),
