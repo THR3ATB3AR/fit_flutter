@@ -1,7 +1,7 @@
 # FitFlutter 🏋️‍♀️🦋
 
 | [![Crowdin](https://badges.crowdin.net/fit-flutter/localized.svg)](https://crowdin.com/project/fit-flutter) | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) | [![GitHub downloads](https://img.shields.io/github/downloads/THR3ATB3AR/fit_flutter/latest/total)](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) | [![GitHub forks](https://img.shields.io/github/forks/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/forks) | [![GitHub stars](https://img.shields.io/github/stars/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/stargazers) |
-| ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 FitFlutter is a Flutter-based application designed to browse and download FitGirl Repacks.  It provides a convenient, cross-platform way to access FitGirl's extensive library of compressed game installers.  Think of it as a *very* unofficial FitGirl client.  This project is intended for educational purposes and to improve my Flutter skills.
 
@@ -32,6 +32,9 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
+* [ ] 📱 **Android Support:** Implement and test full support for Android devices.
+* [X] 🐧 **Linux Support:** Implement and test full support for Linux.
+* [ ] 🎨 **More Themes:** Add support for light and dark theme to allow users to personalize the app's appearance.
 * [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
 
 I am open for contributions and suggestions!
@@ -46,7 +49,9 @@ These issues have been reported by tester and may not affect all users:
 
 ## Installation
 
-To install and run the latest setup of Fit Flutter, follow these steps:
+### Windows
+
+To install and run the latest setup of FitFlutter, follow these steps:
 
 1. **Download the Latest Release:**
 
@@ -54,7 +59,26 @@ To install and run the latest setup of Fit Flutter, follow these steps:
    * Download the latest release for your operating system.
 2. **Run Setup:**
 
-   * Install app to a directory of your choice.
+   * Install the app to a directory of your choice.
+
+### Linux
+
+1. **Download the tar.gz File:**
+
+   * Visit the [Releases](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) page on GitHub.
+   * Download the latest `fit_flutter.tar.gz` file for Linux.
+2. **Extract the tar.gz File:**
+
+   ```bash
+   tar -xzf fit_flutter.tar.gz -C /path/to/install/directory
+   ```
+
+3. **Run the Application:**
+
+   ```bash
+   cd /path/to/install/directory/fit_flutter
+   ./fit_flutter
+   ```
 
 ## Building
 
@@ -69,11 +93,13 @@ To install and run the latest setup of Fit Flutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
+
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
+
 4. **Run the App:**
 
    ```bash
