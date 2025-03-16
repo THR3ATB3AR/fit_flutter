@@ -52,53 +52,55 @@ class _DownloadButtonState extends State<DownloadButton> {
               return AlertDialog(
                 title:
                     Text(AppLocalizations.of(context)!.selectDownloadOptions),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    DownloadDropdown(
-                      repack: widget.selectedRepack!,
-                      onSelected: (String host) {
-                        selectedHost = host;
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Stack(clipBehavior: Clip.none, children: [
-                        TextField(
-                          controller: directoryController,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText:
-                                AppLocalizations.of(context)!.downloadFolder,
+                content: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      DownloadDropdown(
+                        repack: widget.selectedRepack!,
+                        onSelected: (String host) {
+                          selectedHost = host;
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(clipBehavior: Clip.none, children: [
+                          TextField(
+                            controller: directoryController,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText:
+                                  AppLocalizations.of(context)!.downloadFolder,
+                            ),
+                            onChanged: (String directory) {
+                              selectedDirectory = directory;
+                            },
                           ),
-                          onChanged: (String directory) {
-                            selectedDirectory = directory;
-                          },
-                        ),
-                        Positioned(
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: IconButton(
-                              icon: const Icon(Icons.folder),
-                              onPressed: () async {
-                                selectedDirectory = await FilePicker.platform
-                                    .getDirectoryPath();
-                                if (selectedDirectory != null) {
-                                  selectedDirectory =
-                                      selectedDirectory!.replaceAll('\\', '/');
-                                  if (!selectedDirectory!.endsWith('/')) {
-                                    selectedDirectory = '$selectedDirectory/';
+                          Positioned(
+                            right: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IconButton(
+                                icon: const Icon(Icons.folder),
+                                onPressed: () async {
+                                  selectedDirectory = await FilePicker.platform
+                                      .getDirectoryPath();
+                                  if (selectedDirectory != null) {
+                                    selectedDirectory =
+                                        selectedDirectory!.replaceAll('\\', '/');
+                                    if (!selectedDirectory!.endsWith('/')) {
+                                      selectedDirectory = '$selectedDirectory/';
+                                    }
+                                    directoryController.text = selectedDirectory!;
                                   }
-                                  directoryController.text = selectedDirectory!;
-                                }
-                              },
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      ]),
-                    ),
-                  ],
+                        ]),
+                      ),
+                    ],
+                  ),
                 ),
                 actions: [
                   TextButton(
