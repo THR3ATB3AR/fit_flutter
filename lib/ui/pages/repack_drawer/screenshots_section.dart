@@ -46,9 +46,9 @@ class _ScreenshotsSectionState extends State<ScreenshotsSection> {
                       .map((entry) {
                     return ConstrainedBox(
                       constraints: BoxConstraints(
-                          maxWidth: widget.constraints.maxWidth *
+                          maxWidth: (widget.constraints.maxWidth *
                               0.7 /
-                              widget.selectedRepack!.screenshots.length),
+                              widget.selectedRepack!.screenshots.length)-9 ),
                       child: GestureDetector(
                           onTap: () {
                             setState(() {

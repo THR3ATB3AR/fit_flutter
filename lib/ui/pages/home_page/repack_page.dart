@@ -36,33 +36,35 @@ class _RepackPageState extends State<RepackPage> {
                             ConstrainedBox(
                               constraints: const BoxConstraints(
                                   maxWidth: 200, minWidth: 100),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: ElevatedButton(
-                                          onPressed: () {
-                                            widget.goHome('home');
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.transparent,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8.0),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              widget.goHome('home');
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.transparent,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              padding: const EdgeInsets.symmetric(
+                                                  vertical: 20.0),
                                             ),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 20.0),
-                                          ),
-                                          child: const Icon(
-                                              Icons.arrow_back_outlined)),
+                                            child: const Icon(
+                                                Icons.arrow_back_outlined)),
+                                      ),
                                     ),
-                                  ),
-                                  LeftInfoSection(
-                                    selectedRepack: widget.selectedRepack,
-                                  ),
-                                ],
+                                    LeftInfoSection(
+                                      selectedRepack: widget.selectedRepack,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
