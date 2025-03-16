@@ -15,7 +15,7 @@ class SettingsService {
     if (!await settingsFile.exists()) {
       final defaultSettings = {
       'defaultDownloadFolder': '',
-      'maxTasksNumber': 5,
+      'maxTasksNumber': 2,
       'autoCheckForUpdates': true,
       };
       await settingsFile.writeAsString(jsonEncode(defaultSettings));
@@ -39,7 +39,7 @@ class SettingsService {
     await settingsFile.writeAsString(jsonEncode(settings));
   }
 
-  Future<double> loadMaxTasksSettings() async {
+  Future<int> loadMaxTasksSettings() async {
     final appDataDir = await getApplicationSupportDirectory();
     final settingsFile = File('${appDataDir.path}\\FitFlutter\\settings.json');
     final settingsContent = await settingsFile.readAsString();
@@ -47,7 +47,7 @@ class SettingsService {
     return settings['maxTasksNumber'];
   }
 
-  Future<void> saveMaxTasksSettings(double maxTasks) async {
+  Future<void> saveMaxTasksSettings(int maxTasks) async {
     final appDataDir = await getApplicationSupportDirectory();
     final settingsFile = File('${appDataDir.path}\\FitFlutter\\settings.json');
     final settingsContent = await settingsFile.readAsString();

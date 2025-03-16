@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -20,7 +21,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   TextEditingController directoryController = TextEditingController();
   String? selectedDirectory;
-  double maxConcurrentDownloads = 2;
+  int maxConcurrentDownloads = 2;
   String appVersion = '';
   String latestVersion = '';
   String releaseNotes = '';
@@ -53,16 +54,16 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void loadMaxConcurrentDownloads() async {
-    SettingsService().loadMaxTasksSettings().then((double value) {
+    SettingsService().loadMaxTasksSettings().then((int value) {
       setState(() {
         maxConcurrentDownloads = value;
       });
     });
   }
 
-  void saveMaxConcurrentDownloads(double value) {
+  void saveMaxConcurrentDownloads(int value) {
     SettingsService().saveMaxTasksSettings(value);
-    DdManager.instance.setMaxConcurrentDownloads(value.toInt());
+    DdManager.instance.setMaxConcurrentDownloads(value);
   }
 
   void loadAutoCheckForUpdates() async {
@@ -152,18 +153,18 @@ class _SettingsPageState extends State<SettingsPage> {
                 content: Column(
                   children: [
                     Slider(
-                      value: maxConcurrentDownloads,
+                      value: maxConcurrentDownloads.toDouble(),
                       min: 1,
                       max: 20,
                       divisions: 19,
                       label: maxConcurrentDownloads.round().toString(),
                       onChanged: (double value) {
                         setState(() {
-                          maxConcurrentDownloads = value;
+                          maxConcurrentDownloads = value.toInt();
                         });
                       },
                       onChangeEnd: (double value) {
-                        saveMaxConcurrentDownloads(value);
+                        saveMaxConcurrentDownloads(value.toInt());
                       },
                     ),
                     Text(
