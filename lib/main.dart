@@ -3,6 +3,7 @@ import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/services/updater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:fit_flutter/data_classes/repack.dart';
@@ -43,6 +44,17 @@ class _MyAppState extends State<MyApp> {
   String appVersion = '';
   String latestVersion = '';
   String releaseNotes = '';
+
+  Future<void> _requestPermissions() async {
+    if (Platform.isAndroid) {
+      final status = await Permission.manageExternalStorage.request();
+      if (status.isGranted) {
+        print('Permission granted');
+      } else {
+        print('Permission denied');
+      }
+    }
+  }
 
   Future<void> loadInitialData() async {
     setState(() {
@@ -99,7 +111,7 @@ class _MyAppState extends State<MyApp> {
     if (Platform.isWindows) {
       Window.setEffect(effect: WindowEffect.acrylic);
     }
-
+    _requestPermissions();
     _initialization = loadInitialData();
   }
 
