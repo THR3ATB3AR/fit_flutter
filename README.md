@@ -19,7 +19,7 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * **Windows 11 Acrylic Design:** The app features a modern Windows 11 acrylic design for a sleek and visually appealing interface.
 * **Windows Accent Color:** The application adapts to the user's Windows accent color for a more integrated and personalized experience.
 * **Torrent Support:** Download repacks using torrent files (requires a torrent client).
-* **Cross-Platform Support:** FitFlutter is designed to work seamlessly on both Windows and Linux, with plans to support Android in the future.
+* **Cross-Platform Support:** FitFlutter is designed to work seamlessly on Windows, Android and Linux.
 
 ## Screenshots
 
@@ -32,7 +32,6 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
-* [ ] 📱 **Android Support:** Implement and test full support for Android devices.
 * [ ] 🎨 **More Themes:** Add support for light and dark theme to allow users to personalize the app's appearance.
 * [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
 
