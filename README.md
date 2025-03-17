@@ -32,7 +32,8 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
-* [ ] 🎨 **More Themes:** Add support for light and dark theme to allow users to personalize the app's appearance.
+* [ ] 🎨 **Better Themes:** Improve the app's themes appearance.
+* [ ] ⬇️ **Data Nodes** Add support for downloading from Data Nodes.
 * [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
 
 I am open for contributions and suggestions!
@@ -42,7 +43,6 @@ I am open for contributions and suggestions!
 This section lists known issues that have been reported.  While these issues have been observed, they may not affect all users or all devices.  We are working to resolve them.
 
 * **Null Check Errors:**  If you encounter a Null Exception or a similar "null check" error, deleting the application's settings file will likely resolve the issue.
-
   * **Windows:** Delete the settings file located at `%APPDATA%\com.example\fit_flutter\FitFlutter`.
   * **Android:** Clear the application's data through your device's settings menu (usually found under "Apps" or "Application Manager").
 * **Limited Testing:** The application has undergone limited testing primarily on a single device/configuration.  Therefore, some issues may be specific to certain devices, operating system versions, or user configurations.  We are actively seeking broader testing to identify and address such issues.
@@ -72,7 +72,6 @@ To install and run the latest setup of FitFlutter, follow these steps:
    ```bash
    tar -xzf fit_flutter.tar.gz -C /path/to/install/directory
    ```
-
 3. **Run the Application:**
 
    ```bash
@@ -93,13 +92,11 @@ To install and run the latest setup of FitFlutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
-
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
-
 4. **Run the App:**
 
    ```bash
