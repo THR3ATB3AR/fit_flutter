@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Necunoscut",
   "status": "Status",
-  "initializing": "Se inițializează...",
+  "initializing": "Inițializez",
   "loadingNewRepacks": "Încărcare repachete noi",
   "loadingPopularRepacks": "Se încarcă repachetările populare",
   "indexingAllRepacks": "Indexarea tuturor repachetelor",
   "yes": "Da",
-  "no": "Nr"
+  "no": "Nr",
+  "themeSettingsTitle": "Setări temă",
+  "changeTheme": "Schimbă tema",
+  "darkTheme": "Întunecat",
+  "lightTheme": "Lumină",
+  "acrylicTheme": "Acrylic",
+  "settings": "Setări"
 }
