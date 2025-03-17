@@ -49,8 +49,8 @@
   "no": "No",
   "themeSettingsTitle": "Theme Settings",
   "changeTheme": "Change Theme",
-  "darkTheme": "Dark Theme",
-  "lightTheme": "Light Theme",
-  "acrylicTheme": "Acrylic Theme",
+  "darkTheme": "Dark",
+  "lightTheme": "Light",
+  "acrylicTheme": "Acrylic",
   "settings": "Settings"
 }
