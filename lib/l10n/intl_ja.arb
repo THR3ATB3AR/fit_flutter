@@ -52,5 +52,9 @@
   "darkTheme": "ダーク",
   "lightTheme": "ライト",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "Aero",
+  "transparentTheme": "透明度",
+  "tabbedTheme": "タブ付き",
   "settings": "設定"
 }
