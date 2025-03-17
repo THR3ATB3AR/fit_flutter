@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Neznámý",
   "status": "Stav",
-  "initializing": "Inicializace...",
+  "initializing": "Inicializace",
   "loadingNewRepacks": "Načítání nových rebalíků",
   "loadingPopularRepacks": "Načítání populárních reklam",
   "indexingAllRepacks": "Indexování všech repacků",
   "yes": "Ano",
-  "no": "Ne"
+  "no": "Ne",
+  "themeSettingsTitle": "Nastavení motivu",
+  "changeTheme": "Změnit motiv",
+  "darkTheme": "Tmavý",
+  "lightTheme": "Světlý",
+  "acrylicTheme": "Acrylic",
+  "settings": "Nastavení"
 }

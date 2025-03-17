@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Tuntematon",
   "status": "Tila",
-  "initializing": "Alustetaan...",
+  "initializing": "Alustetaan",
   "loadingNewRepacks": "Ladataan uusia repaketteja",
   "loadingPopularRepacks": "Ladataan suosittuja repaketteja",
   "indexingAllRepacks": "Indeksoidaan kaikki repaketit",
   "yes": "Kyllä",
-  "no": "Ei"
+  "no": "Ei",
+  "themeSettingsTitle": "Teeman Asetukset",
+  "changeTheme": "Vaihda Teema",
+  "darkTheme": "Tumma",
+  "lightTheme": "Vaalea",
+  "acrylicTheme": "Acrylic",
+  "settings": "Asetukset"
 }

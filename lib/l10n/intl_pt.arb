@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Desconhecido",
   "status": "SItuação",
-  "initializing": "Inicializandochar@@0",
+  "initializing": "Inicializando",
   "loadingNewRepacks": "Carregando novos representantes",
   "loadingPopularRepacks": "Carregando representantes populares",
   "indexingAllRepacks": "Indexando todos os répteis",
   "yes": "sim",
-  "no": "Não"
+  "no": "Não",
+  "themeSettingsTitle": "Configurações de tema",
+  "changeTheme": "Alterar tema",
+  "darkTheme": "Escuro",
+  "lightTheme": "Fino",
+  "acrylicTheme": "Acrylic",
+  "settings": "Confirgurações"
 }

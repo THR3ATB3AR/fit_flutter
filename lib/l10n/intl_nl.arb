@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "onbekend",
   "status": "status",
-  "initializing": "Initialiseren...",
+  "initializing": "Initialiseren",
   "loadingNewRepacks": "Nieuwe repacks laden",
   "loadingPopularRepacks": "Populaire repacks laden",
   "indexingAllRepacks": "Alle repacks indexeren",
   "yes": "ja",
-  "no": "Neen"
+  "no": "Neen",
+  "themeSettingsTitle": "Thema instellingen",
+  "changeTheme": "Thema wijzigen",
+  "darkTheme": "Donker",
+  "lightTheme": "Licht",
+  "acrylicTheme": "Acrylic",
+  "settings": "Instellingen"
 }

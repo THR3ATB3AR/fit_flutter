@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Ukjent",
   "status": "Status:",
-  "initializing": "Initialiserer...",
+  "initializing": "Initialiserer",
   "loadingNewRepacks": "Laster nye repacks",
   "loadingPopularRepacks": "Laster populære repacks",
   "indexingAllRepacks": "Indekserer alle repakker",
   "yes": "Ja",
-  "no": "Nei"
+  "no": "Nei",
+  "themeSettingsTitle": "Tema Innstillinger",
+  "changeTheme": "Endre tema",
+  "darkTheme": "Mørk",
+  "lightTheme": "Lys",
+  "acrylicTheme": "Acrylic",
+  "settings": "Innstillinger"
 }

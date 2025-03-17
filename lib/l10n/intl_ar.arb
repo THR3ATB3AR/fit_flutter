@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "غير معروف",
   "status": "الحالة",
-  "initializing": "تهيئة...",
+  "initializing": "تهيئة",
   "loadingNewRepacks": "تحميل حزم جديدة",
   "loadingPopularRepacks": "تحميل الحزم الشعبية",
   "indexingAllRepacks": "فهرسة جميع الحزم",
   "yes": "نعم",
-  "no": "لا"
+  "no": "لا",
+  "themeSettingsTitle": "إعدادات السمة",
+  "changeTheme": "تغيير السمة",
+  "darkTheme": "داكن",
+  "lightTheme": "فاتح",
+  "acrylicTheme": "Acrylic",
+  "settings": "الإعدادات"
 }

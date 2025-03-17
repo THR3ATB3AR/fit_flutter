@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Άγνωστο",
   "status": "Κατάσταση",
-  "initializing": "Προετοιμασία...",
+  "initializing": "Αρχικοποίηση",
   "loadingNewRepacks": "Φόρτωση νέων επισκευών",
   "loadingPopularRepacks": "Φόρτωση δημοφιλών επισκευών",
   "indexingAllRepacks": "Ευρετήριο όλων των επισκευών",
   "yes": "Ναι",
-  "no": "Όχι"
+  "no": "Όχι",
+  "themeSettingsTitle": "Ρυθμίσεις Θέματος",
+  "changeTheme": "Αλλαγή Θέματος",
+  "darkTheme": "Σκοτεινό",
+  "lightTheme": "Φωτεινό",
+  "acrylicTheme": "Acrylic",
+  "settings": "Ρυθμίσεις"
 }

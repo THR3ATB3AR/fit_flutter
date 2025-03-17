@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Okänd",
   "status": "Status",
-  "initializing": "Initierar...",
+  "initializing": "Initierar",
   "loadingNewRepacks": "Laddar nya repacks",
   "loadingPopularRepacks": "Laddar populära repacks",
   "indexingAllRepacks": "Indexerar alla repacks",
   "yes": "Ja",
-  "no": "Nej"
+  "no": "Nej",
+  "themeSettingsTitle": "Inställningar för tema",
+  "changeTheme": "Ändra tema",
+  "darkTheme": "Mörk",
+  "lightTheme": "Ljus",
+  "acrylicTheme": "Acrylic",
+  "settings": "Inställningar"
 }

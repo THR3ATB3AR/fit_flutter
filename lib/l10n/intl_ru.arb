@@ -41,10 +41,16 @@
   "complete": "Complete",
   "unknown": "Неизвестен",
   "status": "Статус",
-  "initializing": "Инициализация...",
+  "initializing": "Инициализация",
   "loadingNewRepacks": "Загрузка новых пакетов",
   "loadingPopularRepacks": "Загрузка популярных пакетов",
   "indexingAllRepacks": "Индексирование всех пакетов",
   "yes": "Да",
-  "no": "Нет"
+  "no": "Нет",
+  "themeSettingsTitle": "Настройки темы",
+  "changeTheme": "Изменить тему",
+  "darkTheme": "Тёмная",
+  "lightTheme": "Светлая",
+  "acrylicTheme": "Acrylic",
+  "settings": "Настройки"
 }
