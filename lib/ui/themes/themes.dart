@@ -4,7 +4,7 @@ import 'package:system_theme/system_theme.dart';
   final accentColor = SystemTheme.accentColor.accent;
 
 
-var acrylicTheme = ThemeData(
+var transparencyTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
     seedColor: accentColor,

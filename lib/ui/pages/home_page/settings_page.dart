@@ -116,10 +116,25 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> setThemeMode(BuildContext context, int value) async {
     SettingsService().saveSelectedTheme(value);
     await DynamicTheme.of(context)!.setTheme(value);
-    if (value == 2) {
+    switch (value) {
+    case 2:
       Window.setEffect(effect: WindowEffect.acrylic);
-    } else {
-      Window.setEffect(effect: WindowEffect.disabled);
+      break;
+    case 3:
+      Window.setEffect(effect: WindowEffect.transparent);
+      break;
+    case 4:
+      Window.setEffect(effect: WindowEffect.aero);
+      break;
+    case 5:
+      Window.setEffect(effect: WindowEffect.mica);
+      break;
+    case 6:
+      Window.setEffect(effect: WindowEffect.tabbed);
+      break;
+    default:
+      Window.setEffect(effect: WindowEffect.solid);
+      break;
     }
     setState(() {});
   }
@@ -234,6 +249,24 @@ class _SettingsPageState extends State<SettingsPage> {
                             enabled: win11,
                             child: Text(
                                 AppLocalizations.of(context)!.acrylicTheme)),
+                        DropdownMenuItem<int>(
+                            value: 3,
+                            child:
+                                Text(AppLocalizations.of(context)!.transparentTheme)),
+                        DropdownMenuItem<int>(
+                            value: 4,
+                            enabled: win11,
+                            child:
+                                Text(AppLocalizations.of(context)!.aeroTheme)),
+                        DropdownMenuItem<int>(
+                            value: 5,
+                            child: Text(
+                                AppLocalizations.of(context)!.micaTheme)),
+                                DropdownMenuItem<int>(
+                            value: 6,
+                            enabled: win11,
+                            child: Text(
+                                AppLocalizations.of(context)!.tabbedTheme)),
                       ],
                       onChanged: (int? value) {
                         setThemeMode(context, value!);

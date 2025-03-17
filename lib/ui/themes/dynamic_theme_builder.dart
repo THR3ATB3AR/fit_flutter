@@ -45,7 +45,11 @@ class _DynamicThemeBuilderState extends State<DynamicThemeBuilder>
             themes: {
               0: darkDynamicTheme,
               1: lightDynamicTheme,
-              2: acrylicTheme,
+              2: transparencyTheme, //acrylic
+              3: transparencyTheme, //transparent
+              4: transparencyTheme, //aero
+              5: transparencyTheme, //mica
+              6: transparencyTheme, //tabbed
             },
           ),
           builder: (context, theme) => MaterialApp(

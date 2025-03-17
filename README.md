@@ -33,7 +33,8 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
 * [X] ⛔ **Fix Checking for Updates** Disable automatic checking for updates everytime opening settings.
-* [ ] 🎨 **Better Themes:** Improve the app's themes appearance.
+* [X] 🎨 **More Themes** Add more themes to customize app's appearance.
+* [ ] 🎨 **Better Themes:** Improve the app's default themes.
 * [ ] ⬇️ **Data Nodes** Add support for downloading from Data Nodes.
 * [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
 
@@ -46,6 +47,7 @@ This section lists known issues that have been reported.  While these issues hav
 * **Null Check Errors:**  If you encounter a Null Exception or a similar "null check" error, deleting the application's settings file will likely resolve the issue.
   * **Windows:** Delete the settings file located at `%APPDATA%\com.example\fit_flutter\FitFlutter`.
   * **Android:** Clear the application's data through your device's settings menu (usually found under "Apps" or "Application Manager").
+* **Aero Theme** The aero theme causes lag on window drag in Windows 11.
 * **Limited Testing:** The application has undergone limited testing primarily on a single device/configuration.  Therefore, some issues may be specific to certain devices, operating system versions, or user configurations.  We are actively seeking broader testing to identify and address such issues.
 
 ## Installation
