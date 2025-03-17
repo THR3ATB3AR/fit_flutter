@@ -51,5 +51,6 @@
   "changeTheme": "Change Theme",
   "darkTheme": "Dark Theme",
   "lightTheme": "Light Theme",
-  "acrylicTheme": "Acrylic Theme"
+  "acrylicTheme": "Acrylic Theme",
+  "settings": "Settings"
 }
