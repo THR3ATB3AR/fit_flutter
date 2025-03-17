@@ -53,8 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<bool> isWin11() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     WindowsDeviceInfo windowsDeviceInfo = await deviceInfo.windowsInfo;
-    print(windowsDeviceInfo.productName);
-    return true;
+    return windowsDeviceInfo.productName.contains("Windows 11");
   }
 
   void loadSelectedTheme() async {
