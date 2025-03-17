@@ -52,5 +52,9 @@
   "darkTheme": "Mørk",
   "lightTheme": "Lys",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "Luftfart",
+  "transparentTheme": "Gjennomsiktig",
+  "tabbedTheme": "Faneblad",
   "settings": "Innstillinger"
 }
