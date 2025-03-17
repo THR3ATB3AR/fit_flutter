@@ -52,5 +52,9 @@
   "darkTheme": "Σκοτεινό",
   "lightTheme": "Φωτεινό",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "Aero",
+  "transparentTheme": "Διαφανές",
+  "tabbedTheme": "Καρτέλες",
   "settings": "Ρυθμίσεις"
 }
