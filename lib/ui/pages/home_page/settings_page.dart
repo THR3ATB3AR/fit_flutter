@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fit_flutter/services/settings_service.dart';
@@ -30,10 +31,12 @@ class _SettingsPageState extends State<SettingsPage> {
   bool autoCheckForUpdates = true;
   Updater updater = Updater();
   int theme = 0;
+  bool win11 = false;
 
   @override
   void initState() {
     super.initState();
+    setWinVersion();
     setDefaultDownloadFolder();
     loadSelectedTheme();
     loadMaxConcurrentDownloads();
@@ -42,7 +45,17 @@ class _SettingsPageState extends State<SettingsPage> {
       checkForUpdates();
     }
   }
+
+  Future<void> setWinVersion() async {
+    win11 = await isWin11();
+  }
   
+  Future<bool> isWin11() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    WindowsDeviceInfo windowsDeviceInfo = await deviceInfo.windowsInfo;
+    print(windowsDeviceInfo.productName);
+    return true;
+  }
 
   void loadSelectedTheme() async {
     SettingsService().loadSelectedTheme().then((int value) {
@@ -216,6 +229,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Text(AppLocalizations.of(context)!.lightTheme)),
                         DropdownMenuItem<int>(
                             value: 2,
+                            enabled: win11,
                             child: Text(
                                 AppLocalizations.of(context)!.acrylicTheme)),
                       ],
