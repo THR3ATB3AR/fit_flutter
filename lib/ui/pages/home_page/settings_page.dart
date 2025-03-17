@@ -1,12 +1,14 @@
 import 'dart:ffi';
 import 'dart:io';
-
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/services/updater.dart';
 import 'package:fit_flutter/ui/widgets/settings_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_acrylic/window.dart';
+import 'package:flutter_acrylic/window_effect.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,16 +30,26 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isUpdateAvailable = false;
   bool autoCheckForUpdates = true;
   Updater updater = Updater();
+  int theme = 0;
 
   @override
   void initState() {
     super.initState();
     setDefaultDownloadFolder();
+    loadSelectedTheme();
     loadMaxConcurrentDownloads();
     loadAutoCheckForUpdates();
     if (autoCheckForUpdates) {
       checkForUpdates();
     }
+  }
+
+  void loadSelectedTheme() async {
+    SettingsService().loadSelectedTheme().then((int value) {
+      setState(() {
+        theme = value;
+      });
+    });
   }
 
   void setDefaultDownloadFolder() async {
@@ -84,6 +96,17 @@ class _SettingsPageState extends State<SettingsPage> {
     latestVersion = latestReleaseInfo['tag_name']!.substring(1);
     releaseNotes = latestReleaseInfo['release_notes']!;
     isUpdateAvailable = await updater.isUpdateAvailable();
+    setState(() {});
+  }
+
+  Future<void> setThemeMode(BuildContext context, int value) async {
+    SettingsService().saveSelectedTheme(value);
+    await DynamicTheme.of(context)!.setTheme(value);
+    if (value == 2) {
+      Window.setEffect(effect: WindowEffect.acrylic);
+    } else {
+      Window.setEffect(effect: WindowEffect.disabled);
+    }
     setState(() {});
   }
 
@@ -175,6 +198,31 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               SettingsSection(
+                  title: AppLocalizations.of(context)!.themeSettingsTitle,
+                  content: DropdownButtonFormField<int>(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: AppLocalizations.of(context)!.changeTheme,
+                    ),
+                      value: DynamicTheme.of(context)!.themeId,
+                      items: [
+                        DropdownMenuItem<int>(
+                            value: 0,
+                            child:
+                                Text(AppLocalizations.of(context)!.darkTheme)),
+                        DropdownMenuItem<int>(
+                            value: 1,
+                            child:
+                                Text(AppLocalizations.of(context)!.lightTheme)),
+                        DropdownMenuItem<int>(
+                            value: 2,
+                            child: Text(
+                                AppLocalizations.of(context)!.acrylicTheme)),
+                      ],
+                      onChanged: (int? value) {
+                        setThemeMode(context, value!);
+                      })),
+              SettingsSection(
                 title: AppLocalizations.of(context)!.checkForUpdates,
                 content: Column(
                   children: [
@@ -264,14 +312,15 @@ $releaseNotes
                                       setState(() {
                                         isUpdateAvailable = false;
                                       });
-                                      if (Platform.isWindows){
-                                          final filePath = await updater
+                                      if (Platform.isWindows) {
+                                        final filePath = await updater
                                             .downloadLatestRelease();
                                         await updater
                                             .runDownloadedSetup(filePath);
-                                        } else {
-                                          launchUrl(Uri.parse("https://github.com/THR3ATB3AR/fit_flutter/releases/latest"));
-                                        }
+                                      } else {
+                                        launchUrl(Uri.parse(
+                                            "https://github.com/THR3ATB3AR/fit_flutter/releases/latest"));
+                                      }
                                     },
                                     child: Text(
                                         AppLocalizations.of(context)!.update),

@@ -41,10 +41,15 @@
   "complete": "Complete",
   "unknown": "Unknown",
   "status": "Status",
-  "initializing": "Initializing...",
+  "initializing": "Initializing",
   "loadingNewRepacks": "Loading new repacks",
   "loadingPopularRepacks": "Loading popular repacks",
   "indexingAllRepacks": "Indexing all repacks",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "themeSettingsTitle": "Theme Settings",
+  "changeTheme": "Change Theme",
+  "darkTheme": "Dark Theme",
+  "lightTheme": "Light Theme",
+  "acrylicTheme": "Acrylic Theme"
 }

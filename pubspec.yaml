@@ -49,6 +49,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   permission_handler: ^11.4.0
+  dynamic_color: ^1.7.0
+  dynamic_themes: ^1.1.0
 
 
 
