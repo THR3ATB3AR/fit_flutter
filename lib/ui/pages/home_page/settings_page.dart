@@ -41,15 +41,13 @@ class _SettingsPageState extends State<SettingsPage> {
     loadSelectedTheme();
     loadMaxConcurrentDownloads();
     loadAutoCheckForUpdates();
-    if (autoCheckForUpdates) {
-      checkForUpdates();
-    }
+    getSetVersion();
   }
 
   Future<void> setWinVersion() async {
     win11 = await isWin11();
   }
-  
+
   Future<bool> isWin11() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     WindowsDeviceInfo windowsDeviceInfo = await deviceInfo.windowsInfo;
@@ -104,10 +102,14 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<void> checkForUpdates() async {
     final latestReleaseInfo = await updater.getLatestReleaseInfo();
-    appVersion = await updater.getAppVersion();
     latestVersion = latestReleaseInfo['tag_name']!.substring(1);
     releaseNotes = latestReleaseInfo['release_notes']!;
     isUpdateAvailable = await updater.isUpdateAvailable();
+    setState(() {});
+  }
+
+  Future<void> getSetVersion() async {
+    appVersion = await updater.getAppVersion();
     setState(() {});
   }
 
@@ -138,7 +140,8 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               Text(
                 AppLocalizations.of(context)!.settings,
-                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               SettingsSection(
@@ -212,10 +215,10 @@ class _SettingsPageState extends State<SettingsPage> {
               SettingsSection(
                   title: AppLocalizations.of(context)!.themeSettingsTitle,
                   content: DropdownButtonFormField<int>(
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: AppLocalizations.of(context)!.changeTheme,
-                    ),
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: AppLocalizations.of(context)!.changeTheme,
+                      ),
                       value: DynamicTheme.of(context)!.themeId,
                       items: [
                         DropdownMenuItem<int>(
@@ -243,24 +246,36 @@ class _SettingsPageState extends State<SettingsPage> {
                       '${AppLocalizations.of(context)!.currentVersion}: $appVersion',
                       style: const TextStyle(fontSize: 18),
                     ),
-                    Text(
-                      '${AppLocalizations.of(context)!.latestVersion}: $latestVersion',
-                      style: const TextStyle(fontSize: 18),
-                    ),
+                    (latestVersion == '')
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              width: 200,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  checkForUpdates();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20.0),
+                                ),
+                                child: const Icon(Icons.update_outlined,
+                                    size: 30.0),
+                              ),
+                            ),
+                          )
+                        : Text(
+                            '${AppLocalizations.of(context)!.latestVersion}: $latestVersion',
+                            style: const TextStyle(fontSize: 18),
+                          ),
                     SwitchListTile(
                       title: Text(AppLocalizations.of(context)!
                           .autoCheckForUpdatesAtStart),
                       value: autoCheckForUpdates,
-                      thumbColor: WidgetStateProperty.resolveWith<Color?>(
-                        (Set<WidgetState> states) {
-                          if (states.contains(WidgetState.selected)) {
-                            return Theme.of(context)
-                                .colorScheme
-                                .primaryContainer;
-                          }
-                          return null;
-                        },
-                      ),
                       onChanged: (bool value) {
                         setState(() {
                           autoCheckForUpdates = value;
