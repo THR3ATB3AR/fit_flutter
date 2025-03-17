@@ -52,5 +52,9 @@
   "darkTheme": "Tumma",
   "lightTheme": "Vaalea",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "Aero",
+  "transparentTheme": "Läpikuultava",
+  "tabbedTheme": "Välilehti",
   "settings": "Asetukset"
 }
