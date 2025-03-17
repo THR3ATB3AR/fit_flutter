@@ -52,5 +52,9 @@
   "darkTheme": "Întunecat",
   "lightTheme": "Lumină",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "Aero",
+  "transparentTheme": "Transparență",
+  "tabbedTheme": "Făcut",
   "settings": "Setări"
 }
