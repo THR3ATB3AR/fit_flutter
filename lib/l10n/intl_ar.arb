@@ -52,5 +52,9 @@
   "darkTheme": "داكن",
   "lightTheme": "فاتح",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "ايفو",
+  "transparentTheme": "شفاف",
+  "tabbedTheme": "تبويب",
   "settings": "الإعدادات"
 }
