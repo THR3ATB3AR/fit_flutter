@@ -52,5 +52,9 @@
   "darkTheme": "Ciemny",
   "lightTheme": "Jasny",
   "acrylicTheme": "Akrylowy",
+  "micaTheme": "Mika",
+  "aeroTheme": "Aero",
+  "transparentTheme": "Przezroczysty",
+  "tabbedTheme": "Tabbed",
   "settings": "Ustawienia"
 }
