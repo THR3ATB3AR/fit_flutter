@@ -1,4 +1,4 @@
-# FitFlutter 🏋️‍♀️🦋
+> # FitFlutter 🏋️‍♀️🦋
 
 | [![Crowdin](https://badges.crowdin.net/fit-flutter/localized.svg)](https://crowdin.com/project/fit-flutter) | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) | [![GitHub downloads](https://img.shields.io/github/downloads/THR3ATB3AR/fit_flutter/latest/total)](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) | [![GitHub forks](https://img.shields.io/github/forks/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/forks) | [![GitHub stars](https://img.shields.io/github/stars/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/stargazers) |
 | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -39,11 +39,13 @@ I am open for contributions and suggestions!
 
 ## Known Issues 🐛
 
-These issues have been reported by tester and may not affect all users:
+This section lists known issues that have been reported.  While these issues have been observed, they may not affect all users or all devices.  We are working to resolve them.
 
-* **Windows 10 Transparency:** On Windows 10, the entire application window may appear transparent.
-* **Windows 10 Drag Lag/Cursor Copying:** On Windows 10, dragging the application window can be slow and may create visual artifacts, like multiple copies of the cursor.  This seems to be related to window redrawing.
-* **Limited Testing:** The application has had limited testing (only one tester), these issues might not reproduce on all devices.
+* **Null Check Errors:**  If you encounter a Null Exception or a similar "null check" error, deleting the application's settings file will likely resolve the issue.
+
+  * **Windows:** Delete the settings file located at `%APPDATA%\com.example\fit_flutter\FitFlutter`.
+  * **Android:** Clear the application's data through your device's settings menu (usually found under "Apps" or "Application Manager").
+* **Limited Testing:** The application has undergone limited testing primarily on a single device/configuration.  Therefore, some issues may be specific to certain devices, operating system versions, or user configurations.  We are actively seeking broader testing to identify and address such issues.
 
 ## Installation
 
@@ -70,7 +72,6 @@ To install and run the latest setup of FitFlutter, follow these steps:
    ```bash
    tar -xzf fit_flutter.tar.gz -C /path/to/install/directory
    ```
-
 3. **Run the Application:**
 
    ```bash
@@ -91,13 +92,11 @@ To install and run the latest setup of FitFlutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
-
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
-
 4. **Run the App:**
 
    ```bash
