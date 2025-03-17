@@ -1,4 +1,4 @@
-> # FitFlutter 🏋️‍♀️🦋
+# FitFlutter 🏋️‍♀️🦋
 
 | [![Crowdin](https://badges.crowdin.net/fit-flutter/localized.svg)](https://crowdin.com/project/fit-flutter) | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) | [![GitHub downloads](https://img.shields.io/github/downloads/THR3ATB3AR/fit_flutter/latest/total)](https://github.com/THR3ATB3AR/fit_flutter/releases/latest) | [![GitHub forks](https://img.shields.io/github/forks/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/forks) | [![GitHub stars](https://img.shields.io/github/stars/THR3ATB3AR/fit_flutter)](https://github.com/THR3ATB3AR/fit_flutter/stargazers) |
 | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -72,6 +72,7 @@ To install and run the latest setup of FitFlutter, follow these steps:
    ```bash
    tar -xzf fit_flutter.tar.gz -C /path/to/install/directory
    ```
+
 3. **Run the Application:**
 
    ```bash
@@ -92,11 +93,13 @@ To install and run the latest setup of FitFlutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
+
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
+
 4. **Run the App:**
 
    ```bash
