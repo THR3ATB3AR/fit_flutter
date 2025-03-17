@@ -52,5 +52,9 @@
   "darkTheme": "Тёмная",
   "lightTheme": "Светлая",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "Аэро",
+  "transparentTheme": "Прозрачный",
+  "tabbedTheme": "Вкладка",
   "settings": "Настройки"
 }
