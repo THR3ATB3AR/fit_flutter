@@ -14,9 +14,10 @@ class SettingsService {
 
     if (!await settingsFile.exists()) {
       final defaultSettings = {
-      'defaultDownloadFolder': '',
-      'maxTasksNumber': 2,
-      'autoCheckForUpdates': true,
+        'defaultDownloadFolder': '',
+        'maxTasksNumber': 2,
+        'autoCheckForUpdates': true,
+        'theme': 0,
       };
       await settingsFile.writeAsString(jsonEncode(defaultSettings));
     }
@@ -70,6 +71,23 @@ class SettingsService {
     final settingsContent = await settingsFile.readAsString();
     final settings = jsonDecode(settingsContent);
     settings['autoCheckForUpdates'] = autoCheck;
+    await settingsFile.writeAsString(jsonEncode(settings));
+  }
+
+  Future<int> loadSelectedTheme() async {
+    final appDataDir = await getApplicationSupportDirectory();
+    final settingsFile = File('${appDataDir.path}\\FitFlutter\\settings.json');
+    final settingsContent = await settingsFile.readAsString();
+    final settings = jsonDecode(settingsContent);
+    return settings['theme'];
+  }
+
+  Future<void> saveSelectedTheme(int theme) async {
+    final appDataDir = await getApplicationSupportDirectory();
+    final settingsFile = File('${appDataDir.path}\\FitFlutter\\settings.json');
+    final settingsContent = await settingsFile.readAsString();
+    final settings = jsonDecode(settingsContent);
+    settings['theme'] = theme;
     await settingsFile.writeAsString(jsonEncode(settings));
   }
 }

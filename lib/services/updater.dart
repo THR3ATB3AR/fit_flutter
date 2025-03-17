@@ -31,7 +31,6 @@ class Updater {
     final latestReleaseInfo = await getLatestReleaseInfo();
     final latestVersion = latestReleaseInfo['tag_name']!.substring(1);
     final appVersion = await getAppVersion();
-    print("$latestVersion $appVersion");
     return latestVersion != appVersion;
   }
 
