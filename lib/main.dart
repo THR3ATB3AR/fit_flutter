@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/services/updater.dart';
 import 'package:fit_flutter/ui/themes/dynamic_theme_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:system_theme/system_theme.dart';
@@ -25,6 +25,11 @@ void main() async {
   if (Platform.isWindows) {
     await Window.initialize();
   }
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+  
   runApp(const MyApp());
 }
 

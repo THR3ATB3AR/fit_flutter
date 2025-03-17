@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:file_picker/file_picker.dart';
@@ -43,6 +42,7 @@ class _SettingsPageState extends State<SettingsPage> {
       checkForUpdates();
     }
   }
+  
 
   void loadSelectedTheme() async {
     SettingsService().loadSelectedTheme().then((int value) {
@@ -124,9 +124,9 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Settings',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              Text(
+                AppLocalizations.of(context)!.settings,
+                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               SettingsSection(
