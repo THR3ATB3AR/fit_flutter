@@ -52,5 +52,9 @@
   "darkTheme": "Tmavý",
   "lightTheme": "Světlý",
   "acrylicTheme": "Acrylic",
+  "micaTheme": "Mica",
+  "aeroTheme": "Aero",
+  "transparentTheme": "Průhledný",
+  "tabbedTheme": "Karta",
   "settings": "Nastavení"
 }
