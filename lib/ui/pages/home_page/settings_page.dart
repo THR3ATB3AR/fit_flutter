@@ -244,9 +244,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             value: 1,
                             child:
                                 Text(AppLocalizations.of(context)!.lightTheme)),
+                        if (win11)
                         DropdownMenuItem<int>(
                             value: 2,
-                            enabled: win11,
                             child: Text(
                                 AppLocalizations.of(context)!.acrylicTheme)),
                         DropdownMenuItem<int>(
@@ -255,16 +255,16 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Text(AppLocalizations.of(context)!.transparentTheme)),
                         DropdownMenuItem<int>(
                             value: 4,
-                            enabled: win11,
                             child:
                                 Text(AppLocalizations.of(context)!.aeroTheme)),
+                        if (win11)
                         DropdownMenuItem<int>(
                             value: 5,
                             child: Text(
                                 AppLocalizations.of(context)!.micaTheme)),
+                        if (win11)
                                 DropdownMenuItem<int>(
                             value: 6,
-                            enabled: win11,
                             child: Text(
                                 AppLocalizations.of(context)!.tabbedTheme)),
                       ],
