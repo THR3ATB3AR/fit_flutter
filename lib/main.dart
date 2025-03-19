@@ -166,97 +166,99 @@ class _MyAppState extends State<MyApp> {
                               color: Colors.black.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)
-                                          ?.aNewVersionOfTheAppIsAvailableWouldYouLikeToUpdateNow ??
-                                      'A new version of the app is available. Would you like to update now?',
-                                ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  '${AppLocalizations.of(context)?.currentVersion ?? 'Current version'}: $appVersion',
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                                Text(
-                                  '${AppLocalizations.of(context)?.latestVersion ?? 'Latest version'}: $latestVersion',
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                                MarkdownBody(
-                                  data: '''
-$releaseNotes
-                                  ''',
-                                  styleSheet: MarkdownStyleSheet(
-                                    textAlign: WrapAlignment.center,
-                                    h1Align: WrapAlignment.center,
-                                    h2Align: WrapAlignment.center,
-                                    h3Align: WrapAlignment.center,
-                                    h4Align: WrapAlignment.center,
-                                    h5Align: WrapAlignment.center,
-                                    h6Align: WrapAlignment.center,
-                                    unorderedListAlign: WrapAlignment.center,
-                                    orderedListAlign: WrapAlignment.center,
-                                    blockquoteAlign: WrapAlignment.center,
-                                    codeblockAlign: WrapAlignment.center,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)
+                                            ?.aNewVersionOfTheAppIsAvailableWouldYouLikeToUpdateNow ??
+                                        'A new version of the app is available. Would you like to update now?',
                                   ),
-                                  onTapLink: (text, href, title) async {
-                                    if (href != null) {
-                                      final Uri uri = Uri.parse(href);
-                                      if (await canLaunchUrl(uri)) {
-                                        await launchUrl(uri);
-                                      } else {
-                                        throw 'Could not launch $href';
-                                      }
-                                    }
-                                  },
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      )),
-                                      onPressed: () async {
-                                        setState(() {
-                                          isUpdateAvailable = false;
-                                        });
-                                        if (Platform.isWindows) {
-                                          final filePath = await updater
-                                              .downloadLatestRelease();
-                                          await updater
-                                              .runDownloadedSetup(filePath);
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    '${AppLocalizations.of(context)?.currentVersion ?? 'Current version'}: $appVersion',
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                  Text(
+                                    '${AppLocalizations.of(context)?.latestVersion ?? 'Latest version'}: $latestVersion',
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                  MarkdownBody(
+                                    data: '''
+                              $releaseNotes
+                                    ''',
+                                    styleSheet: MarkdownStyleSheet(
+                                      textAlign: WrapAlignment.center,
+                                      h1Align: WrapAlignment.center,
+                                      h2Align: WrapAlignment.center,
+                                      h3Align: WrapAlignment.center,
+                                      h4Align: WrapAlignment.center,
+                                      h5Align: WrapAlignment.center,
+                                      h6Align: WrapAlignment.center,
+                                      unorderedListAlign: WrapAlignment.center,
+                                      orderedListAlign: WrapAlignment.center,
+                                      blockquoteAlign: WrapAlignment.center,
+                                      codeblockAlign: WrapAlignment.center,
+                                    ),
+                                    onTapLink: (text, href, title) async {
+                                      if (href != null) {
+                                        final Uri uri = Uri.parse(href);
+                                        if (await canLaunchUrl(uri)) {
+                                          await launchUrl(uri);
                                         } else {
-                                          launchUrl(Uri.parse(
-                                              "https://github.com/THR3ATB3AR/fit_flutter/releases/latest"));
+                                          throw 'Could not launch $href';
                                         }
-                                      },
-                                      child: Text(
-                                          AppLocalizations.of(context)?.yes ??
-                                              'Yes'),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      )),
-                                      onPressed: () {
-                                        setState(() {
-                                          isUpdateAvailable = false;
-                                        });
-                                      },
-                                      child: Text(
-                                          AppLocalizations.of(context)?.no ??
-                                              'No'),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                      }
+                                    },
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        )),
+                                        onPressed: () async {
+                                          setState(() {
+                                            isUpdateAvailable = false;
+                                          });
+                                          if (Platform.isWindows) {
+                                            final filePath = await updater
+                                                .downloadLatestRelease();
+                                            await updater
+                                                .runDownloadedSetup(filePath);
+                                          } else {
+                                            launchUrl(Uri.parse(
+                                                "https://github.com/THR3ATB3AR/fit_flutter/releases/latest"));
+                                          }
+                                        },
+                                        child: Text(
+                                            AppLocalizations.of(context)?.yes ??
+                                                'Yes'),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        )),
+                                        onPressed: () {
+                                          setState(() {
+                                            isUpdateAvailable = false;
+                                          });
+                                        },
+                                        child: Text(
+                                            AppLocalizations.of(context)?.no ??
+                                                'No'),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
