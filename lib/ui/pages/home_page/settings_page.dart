@@ -38,7 +38,6 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
     setWinVersion();
     setDefaultDownloadFolder();
-    loadSelectedTheme();
     loadMaxConcurrentDownloads();
     loadAutoCheckForUpdates();
     getSetVersion();
@@ -46,6 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<void> setWinVersion() async {
     win11 = await isWin11();
+    loadSelectedTheme();
   }
 
   Future<bool> isWin11() async {
