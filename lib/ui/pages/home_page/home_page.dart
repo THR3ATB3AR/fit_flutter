@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       constraints: constraints,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.surfaceContainer,
       ),
       child: Builder(
         builder: (BuildContext context) {

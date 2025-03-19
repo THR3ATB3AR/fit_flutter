@@ -34,7 +34,8 @@ FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
 * [X] ⛔ **Fix Checking for Updates** Disable automatic checking for updates everytime opening settings.
 * [X] 🎨 **More Themes** Add more themes to customize app's appearance.
-* [ ] 🎨 **Better Themes:** Improve the app's default themes.
+* [X] 🎨 **Better Themes:** Improve the app's default themes.
+* [ ] 🔧 Fix Too Long Changelogs: Add scrolling to changelog in update dialog.
 * [ ] ⬇️ **Data Nodes** Add support for downloading from Data Nodes.
 * [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
 

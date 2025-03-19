@@ -28,10 +28,9 @@ class _MenuSectionState extends State<MenuSection> {
                 });
                 widget.changeWidget(isDownloads
                     ? 'downloads'
-                    : 'home'); // Zmień widget na 'downloads' lub 'home'
+                    : 'home'); 
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -58,7 +57,6 @@ class _MenuSectionState extends State<MenuSection> {
                     : 'home'); // Zmień widget na 'settings' lub 'home'
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),

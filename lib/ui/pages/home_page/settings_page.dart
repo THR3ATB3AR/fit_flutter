@@ -117,24 +117,24 @@ class _SettingsPageState extends State<SettingsPage> {
     SettingsService().saveSelectedTheme(value);
     await DynamicTheme.of(context)!.setTheme(value);
     switch (value) {
-    case 2:
-      Window.setEffect(effect: WindowEffect.acrylic);
-      break;
-    case 3:
-      Window.setEffect(effect: WindowEffect.transparent);
-      break;
-    case 4:
-      Window.setEffect(effect: WindowEffect.aero);
-      break;
-    case 5:
-      Window.setEffect(effect: WindowEffect.mica);
-      break;
-    case 6:
-      Window.setEffect(effect: WindowEffect.tabbed);
-      break;
-    default:
-      Window.setEffect(effect: WindowEffect.solid);
-      break;
+      case 2:
+        Window.setEffect(effect: WindowEffect.acrylic);
+        break;
+      case 3:
+        Window.setEffect(effect: WindowEffect.transparent);
+        break;
+      case 4:
+        Window.setEffect(effect: WindowEffect.aero);
+        break;
+      case 5:
+        Window.setEffect(effect: WindowEffect.mica);
+        break;
+      case 6:
+        Window.setEffect(effect: WindowEffect.tabbed);
+        break;
+      default:
+        Window.setEffect(effect: WindowEffect.solid);
+        break;
     }
     setState(() {});
   }
@@ -145,7 +145,7 @@ class _SettingsPageState extends State<SettingsPage> {
       constraints: const BoxConstraints.expand(),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.surfaceContainer,
       ),
       child: SingleChildScrollView(
         child: Padding(
@@ -245,28 +245,28 @@ class _SettingsPageState extends State<SettingsPage> {
                             child:
                                 Text(AppLocalizations.of(context)!.lightTheme)),
                         if (win11)
-                        DropdownMenuItem<int>(
-                            value: 2,
-                            child: Text(
-                                AppLocalizations.of(context)!.acrylicTheme)),
+                          DropdownMenuItem<int>(
+                              value: 2,
+                              child: Text(
+                                  AppLocalizations.of(context)!.acrylicTheme)),
                         DropdownMenuItem<int>(
                             value: 3,
-                            child:
-                                Text(AppLocalizations.of(context)!.transparentTheme)),
+                            child: Text(AppLocalizations.of(context)!
+                                .transparentTheme)),
                         DropdownMenuItem<int>(
                             value: 4,
                             child:
                                 Text(AppLocalizations.of(context)!.aeroTheme)),
                         if (win11)
-                        DropdownMenuItem<int>(
-                            value: 5,
-                            child: Text(
-                                AppLocalizations.of(context)!.micaTheme)),
+                          DropdownMenuItem<int>(
+                              value: 5,
+                              child: Text(
+                                  AppLocalizations.of(context)!.micaTheme)),
                         if (win11)
-                                DropdownMenuItem<int>(
-                            value: 6,
-                            child: Text(
-                                AppLocalizations.of(context)!.tabbedTheme)),
+                          DropdownMenuItem<int>(
+                              value: 6,
+                              child: Text(
+                                  AppLocalizations.of(context)!.tabbedTheme)),
                       ],
                       onChanged: (int? value) {
                         setThemeMode(context, value!);
@@ -289,7 +289,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                   checkForUpdates();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
@@ -322,7 +321,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         child: Container(
                           padding: const EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.2),
+                            // color: Colors.black.withValues(alpha: 0.2),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(

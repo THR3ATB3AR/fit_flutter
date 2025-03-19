@@ -32,7 +32,7 @@ class _DownloadManagerPageState extends State<DownloadManagerPage> {
       constraints: const BoxConstraints.expand(),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.surfaceContainer,
       ),
       child: Column(
         children: [

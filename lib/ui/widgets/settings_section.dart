@@ -13,7 +13,8 @@ class SettingsSection extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          color: Colors.black.withValues(alpha: 0.2),
+          // color: Colors.black.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.surfaceContainerHigh,
         ),
         child: Column(
           children: [

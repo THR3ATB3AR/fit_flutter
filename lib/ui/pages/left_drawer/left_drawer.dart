@@ -27,7 +27,8 @@ class _LeftDrawerState extends State<LeftDrawer> {
         padding: const EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black.withValues(alpha: 0.2),
+            // color: Colors.black.withValues(alpha: 0.2),
+            color: Theme.of(context).colorScheme.surfaceContainer,
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Column(
@@ -37,7 +38,8 @@ class _LeftDrawerState extends State<LeftDrawer> {
                 padding: const EdgeInsets.all(8.0),
                 child: SearchAnchor(
                   viewElevation: (0),
-                  viewBackgroundColor: Colors.black.withValues(alpha: 0.2),
+                  // viewBackgroundColor: Colors.black.withValues(alpha: 0.2),
+                  viewBackgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   viewConstraints: BoxConstraints(
                       maxWidth: widget.constraints.maxWidth * 0.8,
                       maxHeight: widget.constraints.maxHeight * 0.4),
@@ -45,7 +47,8 @@ class _LeftDrawerState extends State<LeftDrawer> {
                     return SearchBar(
                       elevation: const WidgetStatePropertyAll<double>(0),
                       backgroundColor: WidgetStateProperty.all(
-                          Colors.black.withValues(alpha: 0.2)),
+                          // Colors.black.withValues(alpha: 0.2)),
+                          Theme.of(context).colorScheme.surfaceContainerHighest),
                       controller: controller,
                       hintText: AppLocalizations.of(context)!.searchRepacks,
                       leading: const Icon(Icons.search),

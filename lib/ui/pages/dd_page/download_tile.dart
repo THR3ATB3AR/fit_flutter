@@ -92,7 +92,7 @@ class _DownloadTileState extends State<DownloadTile> {
       constraints: const BoxConstraints(maxWidth: double.infinity),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.surfaceContainerHigh,
       ),
       padding: const EdgeInsets.only(top: 10.0),
       child: Column(
@@ -134,7 +134,6 @@ class _DownloadTileState extends State<DownloadTile> {
                           ? resumeDownload
                           : pauseDownload,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(15), // Increase the size
                       ),
@@ -148,7 +147,6 @@ class _DownloadTileState extends State<DownloadTile> {
                     ElevatedButton(
                       onPressed: cancelDownload,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(15), // Increase the size
                       ),
@@ -167,7 +165,6 @@ class _DownloadTileState extends State<DownloadTile> {
             value: _progress,
             valueColor: AlwaysStoppedAnimation<Color>(
                 Theme.of(context).colorScheme.primary),
-            backgroundColor: Colors.transparent,
             minHeight: 10,
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(10),

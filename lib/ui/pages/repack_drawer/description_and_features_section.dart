@@ -24,7 +24,7 @@ class DescriptionAndFeaturesSection extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.black.withValues(alpha: 0.2),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

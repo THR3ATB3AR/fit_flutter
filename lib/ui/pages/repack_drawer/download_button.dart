@@ -160,7 +160,6 @@ class _DownloadButtonState extends State<DownloadButton> {
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

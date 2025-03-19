@@ -138,41 +138,7 @@ class _MyAppState extends State<MyApp> {
         brightness: Brightness.dark,
       );
       return DynamicThemeBuilder(
-        
         title: 'Fit Flutter',
-        // theme: (Platform.isWindows && selectedTheme[1])
-        //     ? ThemeData(
-        //         useMaterial3: true,
-        //         colorScheme: ColorScheme.fromSeed(
-        //           seedColor: accentColor,
-        //           brightness: Brightness.dark,
-        //           surface: Colors.transparent,
-        //           surfaceTint: Colors.transparent,
-        //         ),
-        //         brightness: Brightness.dark,
-        //         scaffoldBackgroundColor: Colors.transparent,
-        //       )
-        //     : (selectedTheme[0]==false) ?
-        //     ThemeData(
-        //         useMaterial3: true,
-        //         colorScheme: ColorScheme.fromSeed(
-        //           seedColor: accentColor,
-        //           brightness: Brightness.dark,
-        //         ),
-        //         scaffoldBackgroundColor: colorScheme.surface,
-        //         brightness: Brightness.dark,
-        //         drawerTheme: DrawerThemeData(
-        //           backgroundColor: colorScheme.surface,
-        //         ),
-        //       ) :
-        //       ThemeData(
-        //         useMaterial3: true,
-        //         colorScheme: ColorScheme.fromSeed(
-        //           seedColor: accentColor,
-        //           brightness: Brightness.light,
-        //         ),
-        //         brightness: Brightness.light,
-        //       ),
         home: FutureBuilder<void>(
           future: _initialization,
           builder: (context, snapshot) {
