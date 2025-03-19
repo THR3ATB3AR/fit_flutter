@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/services/updater.dart';
 import 'package:fit_flutter/ui/themes/dynamic_theme_builder.dart';
@@ -105,6 +106,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _checkSettings() async {
     await SettingsService().checkAndCopySettings();
+    DdManager.instance.setMaxConcurrentDownloads(await SettingsService().loadMaxTasksSettings());
     selectedTheme = await SettingsService().loadSelectedTheme();
     if (selectedTheme==2) {
       Window.setEffect(effect: WindowEffect.acrylic);
