@@ -5,7 +5,7 @@ class MenuSection extends StatefulWidget {
   final Function(String) changeWidget;
 
   @override
-  _MenuSectionState createState() => _MenuSectionState();
+  State<MenuSection> createState() => _MenuSectionState();
 }
 
 class _MenuSectionState extends State<MenuSection> {

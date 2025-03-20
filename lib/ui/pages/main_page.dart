@@ -22,7 +22,7 @@ class MainPage extends StatefulWidget {
   final String? downloadFolder;
 
   @override
-  _MainPageState createState() => _MainPageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
