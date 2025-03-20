@@ -54,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return windowsDeviceInfo.productName.contains("Windows 11");
   }
 
-  void loadSelectedTheme() async {
+  void loadSelectedTheme() {
     SettingsService().loadSelectedTheme().then((int value) {
       setState(() {
         theme = value;
@@ -62,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
-  void setDefaultDownloadFolder() async {
+  void setDefaultDownloadFolder() {
     SettingsService().loadDownloadPathSettings().then((String? downloadPath) {
       if (downloadPath != null) {
         directoryController.text = downloadPath;
@@ -75,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
     SettingsService().saveDownloadPathSettings(selectedDirectory!);
   }
 
-  void loadMaxConcurrentDownloads() async {
+  void loadMaxConcurrentDownloads() {
     SettingsService().loadMaxTasksSettings().then((int value) {
       setState(() {
         maxConcurrentDownloads = value;
@@ -88,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
     DdManager.instance.setMaxConcurrentDownloads(value);
   }
 
-  void loadAutoCheckForUpdates() async {
+  void loadAutoCheckForUpdates() {
     SettingsService().loadAutoCheckForUpdates().then((bool value) {
       setState(() {
         autoCheckForUpdates = value;
