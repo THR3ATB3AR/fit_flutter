@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DownloadButton extends StatefulWidget {
-  DownloadButton({
+  const DownloadButton({
     super.key,
     required this.selectedRepack,
   });
@@ -111,6 +111,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                   ),
                   TextButton(
                     onPressed: () async {
+                      final navigator = Navigator.of(context);
                       if (selectedHost != null) {
                         if (selectedHost!.startsWith("magnet:")) {
                           launchUrl(Uri.parse(selectedHost!));
@@ -134,8 +135,8 @@ class _DownloadButtonState extends State<DownloadButton> {
                               print('Failed to load plugin for host: $i');
                             }
                           }
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop(true);
+                          navigator.pop();
+                          navigator.pop(true);
                         }
                       }
                     },

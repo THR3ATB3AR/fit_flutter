@@ -74,7 +74,7 @@ class _DownloadManagerPageState extends State<DownloadManagerPage> {
                           updateDownloadTasks: updateDownloadTasks,
                         ),
                       );
-                    }).toList(),
+                    }),
                   ];
                 }).toList(),
               ),

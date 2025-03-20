@@ -130,7 +130,7 @@ class _MainPageState extends State<MainPage> {
         );
 
       case 'settings':
-        return SettingsPage(key: const ValueKey('settings'));
+        return const SettingsPage(key: ValueKey('settings'));
       case 'downloads':
         return const DownloadManagerPage(key: ValueKey('downloads'));
       default:

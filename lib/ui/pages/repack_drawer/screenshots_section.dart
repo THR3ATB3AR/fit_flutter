@@ -2,7 +2,7 @@ import 'package:fit_flutter/data_classes/repack.dart';
 import 'package:flutter/material.dart';
 
 class ScreenshotsSection extends StatefulWidget {
-  ScreenshotsSection(
+  const ScreenshotsSection(
       {super.key, required this.selectedRepack, required this.constraints});
   final Repack? selectedRepack;
   final BoxConstraints constraints;
