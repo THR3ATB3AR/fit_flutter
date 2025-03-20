@@ -31,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool autoCheckForUpdates = true;
   Updater updater = Updater();
   int theme = 0;
-  bool win11 = false;
+  bool win11 = true;
 
   @override
   void initState() {
@@ -249,10 +249,12 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: 2,
                               child: Text(
                                   AppLocalizations.of(context)!.acrylicTheme)),
+                        if (!Platform.isAndroid)
                         DropdownMenuItem<int>(
                             value: 3,
                             child: Text(AppLocalizations.of(context)!
                                 .transparentTheme)),
+                        if (!Platform.isAndroid)
                         DropdownMenuItem<int>(
                             value: 4,
                             child:
