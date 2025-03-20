@@ -36,7 +36,6 @@ FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 * [X] 🎨 **More Themes** Add more themes to customize app's appearance.
 * [X] 🎨 **Better Themes:** Improve the app's default themes.
 * [X] 🔧 **Fix Too Long Changelogs:** Add scrolling to changelog in update dialog.
-* [ ] ⬇️ **Data Nodes** Add support for downloading from Data Nodes.
 * [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
 
 I am open for contributions and suggestions!
