@@ -1,14 +1,16 @@
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack.dart';
+import 'package:fit_flutter/data/repack_list_type.dart';
+import 'package:fit_flutter/services/repack_service.dart';
 import 'package:fit_flutter/ui/widgets/repack_item.dart';
 import 'package:flutter/material.dart';
 
 class RepackSlider extends StatefulWidget {
-  final List<Repack> repacksList;
+  final RepackListType repackListType;
   final String title;
   final Function(Repack) onRepackTap;
   const RepackSlider(
       {super.key,
-      required this.repacksList,
+      required this.repackListType,
       required this.title,
       required this.onRepackTap});
 
@@ -18,6 +20,28 @@ class RepackSlider extends StatefulWidget {
 
 class _RepackSliderState extends State<RepackSlider> {
   final ScrollController _scrollController = ScrollController();
+  final RepackService _repackService = RepackService.instance;
+  late List<Repack> repackList;
+
+  @override
+  void initState() {
+    super.initState();
+    setRepackList(widget.repackListType);
+  }
+
+  void setRepackList(RepackListType repackListType) {
+    switch (repackListType) {
+      case RepackListType.newest:
+        repackList = _repackService.newRepacks;
+        break;
+      case RepackListType.popular:
+        repackList = _repackService.popularRepacks;
+        break;
+      case RepackListType.updated:
+        repackList = _repackService.updatedRepacks;
+        break;
+    }
+  }
 
   void _scrollLeft() {
     _scrollController.animateTo(
@@ -59,12 +83,12 @@ class _RepackSliderState extends State<RepackSlider> {
               child: ListView.builder(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                itemCount: widget.repacksList.length,
+                itemCount: repackList.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    child: RepackItem(repack: widget.repacksList[index]),
+                    child: RepackItem(repack: repackList[index]),
                     onTap: () {
-                      widget.onRepackTap(widget.repacksList[index]);
+                      widget.onRepackTap(repackList[index]);
                     },
                   );
                 },

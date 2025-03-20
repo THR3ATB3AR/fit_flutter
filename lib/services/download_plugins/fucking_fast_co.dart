@@ -1,4 +1,4 @@
-import 'package:fit_flutter/data_classes/download_info.dart';
+import 'package:fit_flutter/data/download_info.dart';
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;

@@ -1,3 +1,4 @@
+import 'package:fit_flutter/services/repack_service.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/menu_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,11 +7,9 @@ class LeftDrawer extends StatefulWidget {
   const LeftDrawer(
       {super.key,
       required this.constraints,
-      required this.allRepacksNames,
       required this.openRepackPage,
       required this.changeWidget}); // Dodaj parametr changeWidget
   final BoxConstraints constraints;
-  final Map<String, String> allRepacksNames;
   final Function openRepackPage;
   final Function(String) changeWidget; // Dodaj parametr changeWidget
 
@@ -19,6 +18,7 @@ class LeftDrawer extends StatefulWidget {
 }
 
 class _LeftDrawerState extends State<LeftDrawer> {
+  final RepackService _repackService = RepackService.instance;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -38,7 +38,6 @@ class _LeftDrawerState extends State<LeftDrawer> {
                 padding: const EdgeInsets.all(8.0),
                 child: SearchAnchor(
                   viewElevation: (0),
-                  // viewBackgroundColor: Colors.black.withValues(alpha: 0.2),
                   viewBackgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   viewConstraints: BoxConstraints(
                       maxWidth: widget.constraints.maxWidth * 0.8,
@@ -47,7 +46,6 @@ class _LeftDrawerState extends State<LeftDrawer> {
                     return SearchBar(
                       elevation: const WidgetStatePropertyAll<double>(0),
                       backgroundColor: WidgetStateProperty.all(
-                          // Colors.black.withValues(alpha: 0.2)),
                           Theme.of(context).colorScheme.surfaceContainerHighest),
                       controller: controller,
                       hintText: AppLocalizations.of(context)!.searchRepacks,
@@ -62,7 +60,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                   },
                   suggestionsBuilder:
                       (BuildContext context, SearchController controller) {
-                    return widget.allRepacksNames.keys
+                    return _repackService.allRepacksNames.keys
                         .where((name) => name
                             .toLowerCase()
                             .contains(controller.text.toLowerCase()))
@@ -71,7 +69,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                               onTap: () {
                                 widget.openRepackPage(
                                     repackUrl:
-                                        widget.allRepacksNames[name] ?? '');
+                                        _repackService.allRepacksNames[name] ?? '');
                                 controller.closeView(name);
                               },
                             ))
@@ -81,7 +79,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
               ),
               MenuSection(
                   changeWidget: widget
-                      .changeWidget), // Przekaż funkcję changeWidget do MenuSection
+                      .changeWidget),
             ],
           ),
         ),

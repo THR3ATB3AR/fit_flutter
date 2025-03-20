@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
@@ -7,6 +7,11 @@ import 'package:intl/intl.dart';
 
 
 class ScraperService {
+
+  ScraperService._privateConstructor();
+  static final ScraperService _instance = ScraperService._privateConstructor();
+  static ScraperService get instance => _instance;
+
   final ValueNotifier<double> loadingProgress = ValueNotifier<double>(0.0);
 
   Future<bool> checkImageUrl(String url) async {

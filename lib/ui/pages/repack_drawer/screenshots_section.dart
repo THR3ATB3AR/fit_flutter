@@ -1,4 +1,4 @@
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack.dart';
 import 'package:flutter/material.dart';
 
 class ScreenshotsSection extends StatefulWidget {

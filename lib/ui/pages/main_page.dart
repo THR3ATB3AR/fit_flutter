@@ -4,20 +4,12 @@ import 'package:fit_flutter/ui/pages/home_page/repack_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/settings_page.dart';
 import 'package:fit_flutter/ui/pages/left_drawer/left_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
 
 class MainPage extends StatefulWidget {
-  final List<Repack> newRepacks;
-  final List<Repack> popularRepacks;
-  final List<Repack> updatedRepacks;
-  final Map<String, String> allRepacksNames;
   const MainPage(
       {super.key,
-      required this.newRepacks,
-      required this.popularRepacks,
-      required this.updatedRepacks,
-      required this.allRepacksNames,
       required this.downloadFolder});
   final String? downloadFolder;
 
@@ -26,22 +18,15 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late List<Repack> newRepacks;
-  late List<Repack> popularRepacks;
-  late List<Repack> updatedRepacks;
-  late Map<String, String> allRepacksNames;
   Repack? selectedRepack;
   late BuildContext scaffoldContext;
   int screenshotIndex = 0;
   String currentWidget = 'home';
+  final _scraperService = ScraperService.instance;
 
   @override
   void initState() {
     super.initState();
-    newRepacks = widget.newRepacks;
-    popularRepacks = widget.popularRepacks;
-    updatedRepacks = widget.updatedRepacks;
-    allRepacksNames = widget.allRepacksNames;
   }
 
   void openRepackPage({String repackUrl = '', Repack? repack}) {
@@ -56,7 +41,7 @@ class _MainPageState extends State<MainPage> {
       return;
     }
     changeWidget('repack');
-    ScraperService().scrapeRepackFromSearch(repackUrl).then((repack) {
+    _scraperService.scrapeRepackFromSearch(repackUrl).then((repack) {
       setState(() {
         selectedRepack = repack;
       });
@@ -79,7 +64,6 @@ class _MainPageState extends State<MainPage> {
             children: [
               LeftDrawer(
                   constraints: constraints,
-                  allRepacksNames: allRepacksNames,
                   openRepackPage: openRepackPage,
                   changeWidget: changeWidget),
               Expanded(
@@ -117,9 +101,6 @@ class _MainPageState extends State<MainPage> {
       case 'home':
         return HomePage(
           key: const ValueKey('home'),
-          newRepacks: newRepacks,
-          popularRepacks: popularRepacks,
-          updatedRepacks: updatedRepacks,
           openRepackPage: openRepackPage,
         );
       case 'repack':

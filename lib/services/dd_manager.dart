@@ -1,4 +1,4 @@
-import 'package:fit_flutter/data_classes/download_info.dart';
+import 'package:fit_flutter/data/download_info.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class DdManager {

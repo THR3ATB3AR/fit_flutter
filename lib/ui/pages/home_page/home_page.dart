@@ -1,4 +1,4 @@
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack_list_type.dart';
 import 'package:fit_flutter/ui/widgets/repack_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,13 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HomePage extends StatefulWidget {
   const HomePage(
       {super.key,
-      required this.newRepacks,
-      required this.popularRepacks,
-      required this.updatedRepacks,
       required this.openRepackPage});
-  final List<Repack> newRepacks;
-  final List<Repack> popularRepacks;
-  final List<Repack> updatedRepacks;
   final Function openRepackPage;
 
   @override
@@ -37,14 +31,14 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 24),
                   child: RepackSlider(
-                      repacksList: widget.newRepacks,
+                      repackListType: RepackListType.newest,
                       title: AppLocalizations.of(context)!.newRepacks,
                       onRepackTap: (repack) {
                         widget.openRepackPage(repack: repack);
                       }),
                 ),
                 RepackSlider(
-                    repacksList: widget.popularRepacks,
+                    repackListType: RepackListType.popular,
                     title: AppLocalizations.of(context)!.popularRepacks,
                     onRepackTap: (repack) {
                       widget.openRepackPage(repack: repack);
