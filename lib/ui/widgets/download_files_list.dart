@@ -26,7 +26,7 @@ class _DownloadFilesListState extends State<DownloadFilesList> {
   @override
   void initState() {
     super.initState();
-    for (var plugin in widget.findls) {
+    for (var _ in widget.findls) {
       _tileKeys.add(GlobalKey<DDTileState>());
     }
   }

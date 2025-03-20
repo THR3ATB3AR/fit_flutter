@@ -186,9 +186,7 @@ class _MyAppState extends State<MyApp> {
                                     style: const TextStyle(fontSize: 18),
                                   ),
                                   MarkdownBody(
-                                    data: '''
-                              $releaseNotes
-                                    ''',
+                                    data: releaseNotes,
                                     styleSheet: MarkdownStyleSheet(
                                       textAlign: WrapAlignment.center,
                                       h1Align: WrapAlignment.center,

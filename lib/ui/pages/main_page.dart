@@ -12,14 +12,14 @@ class MainPage extends StatefulWidget {
   final List<Repack> popularRepacks;
   final List<Repack> updatedRepacks;
   final Map<String, String> allRepacksNames;
-  MainPage(
+  const MainPage(
       {super.key,
       required this.newRepacks,
       required this.popularRepacks,
       required this.updatedRepacks,
       required this.allRepacksNames,
       required this.downloadFolder});
-  String? downloadFolder;
+  final String? downloadFolder;
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -117,7 +117,6 @@ class _MainPageState extends State<MainPage> {
       case 'home':
         return HomePage(
           key: const ValueKey('home'),
-          scaffoldContext: scaffoldContext,
           newRepacks: newRepacks,
           popularRepacks: popularRepacks,
           updatedRepacks: updatedRepacks,

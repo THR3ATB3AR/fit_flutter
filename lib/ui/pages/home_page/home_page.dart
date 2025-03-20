@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage(
+  const HomePage(
       {super.key,
-      required this.scaffoldContext,
       required this.newRepacks,
       required this.popularRepacks,
       required this.updatedRepacks,
       required this.openRepackPage});
-  BuildContext scaffoldContext;
   final List<Repack> newRepacks;
   final List<Repack> popularRepacks;
   final List<Repack> updatedRepacks;
@@ -33,7 +31,6 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Builder(
         builder: (BuildContext context) {
-          widget.scaffoldContext = context;
           return SingleChildScrollView(
             child: Column(
               children: [
