@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:fit_flutter/data/repack.dart';
+import 'package:fit_flutter/services/repack_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
@@ -12,7 +13,26 @@ class ScraperService {
   static final ScraperService _instance = ScraperService._privateConstructor();
   static ScraperService get instance => _instance;
 
+  
+  final RepackService _repackService = RepackService.instance;
   final ValueNotifier<double> loadingProgress = ValueNotifier<double>(0.0);
+  final ValueNotifier<double> rescrapingProgress = ValueNotifier<double>(0.0);
+
+  Future<void> rescrapeNewRepacks() async {
+    _repackService.newRepacks=await scrapeNewRepacks(onProgress: (i,e) {});
+  }
+
+  Future<void> rescrapePopularRepacks() async {
+    _repackService.popularRepacks=await scrapePopularRepacks(onProgress: (i,e) {});
+  }
+
+  Future<void> rescrapeAllRepacksNames() async {
+    _repackService.allRepacksNames=await scrapeAllRepacksNames(onProgress: (i,e) {});
+  }
+
+  Future<void> rescrapeUpdatedRepacks() async {
+    _repackService.updatedRepacks=await scrapeUpdatedRepacks(onProgress: (i,e) {});
+  }
 
   Future<bool> checkImageUrl(String url) async {
     try {
