@@ -75,6 +75,7 @@ To install and run the latest setup of FitFlutter, follow these steps:
    ```bash
    tar -xzf fit_flutter.tar.gz -C /path/to/install/directory
    ```
+
 3. **Run the Application:**
 
    ```bash
@@ -95,11 +96,13 @@ To install and run the latest setup of FitFlutter, follow these steps:
    git clone https://github.com/THR3ATB3AR/fit_flutter.git
    cd fit_flutter
    ```
+
 3. **Get Dependencies:**
 
    ```bash
    flutter pub get
    ```
+
 4. **Run the App:**
 
    ```bash
