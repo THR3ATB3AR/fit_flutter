@@ -63,7 +63,7 @@ class _ScreenshotsSectionState extends State<ScreenshotsSection> {
                                 entry.value,
                                 fit: BoxFit.cover,
                                 color: entry.key == screenshotIndex
-                                    ? Colors.blue.withOpacity(0.5)
+                                    ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.5)
                                     : null,
                                 colorBlendMode: BlendMode.colorBurn,
                               ),
