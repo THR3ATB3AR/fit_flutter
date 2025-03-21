@@ -142,7 +142,8 @@ class RepackService {
   Future<void> loadAllData() async {
     await loadOldPopularRepackList();
     await loadOldNewRepackList();
-    await loadOldUpdatedRepackList();
+    // await loadOldUpdatedRepackList();
     await loadOldAllRepackList();
+    _controller.add(null);
   }
 }
