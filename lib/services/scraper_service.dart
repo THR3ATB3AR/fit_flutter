@@ -1,13 +1,38 @@
 import 'dart:io';
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack.dart';
+import 'package:fit_flutter/services/repack_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
 
-
 class ScraperService {
+  ScraperService._privateConstructor();
+  static final ScraperService _instance = ScraperService._privateConstructor();
+  static ScraperService get instance => _instance;
+
+  bool isRescraping = false;
+  final RepackService _repackService = RepackService.instance;
   final ValueNotifier<double> loadingProgress = ValueNotifier<double>(0.0);
+
+  Future<void> rescrapeNewRepacks() async {
+    _repackService.newRepacks = await scrapeNewRepacks(onProgress: (i, e) {});
+  }
+
+  Future<void> rescrapePopularRepacks() async {
+    _repackService.popularRepacks =
+        (await scrapePopularRepacks(onProgress: (i, e) {}));
+  }
+
+  Future<void> rescrapeAllRepacksNames() async {
+    _repackService.allRepacksNames =
+        await scrapeAllRepacksNames(onProgress: (i, e) {});
+  }
+
+  Future<void> rescrapeUpdatedRepacks() async {
+    _repackService.updatedRepacks =
+        await scrapeUpdatedRepacks(onProgress: (i, e) {});
+  }
 
   Future<bool> checkImageUrl(String url) async {
     try {
@@ -29,8 +54,6 @@ class ScraperService {
     repack.screenshots = validScreenshots;
     return repack;
   }
-
-  
 
   Future<Map<String, String>> scrapeAllRepacksNames(
       {required Function(int, int) onProgress}) async {
@@ -98,20 +121,9 @@ class ScraperService {
         onProgress(i, pages - 1);
       } catch (e) {
         print(e);
+        rethrow;
       }
-      // final url = Uri.parse(
-      //     'https://fitgirl-repacks.site/category/lossless-repack/page/${i + 1}/');
-      // final response = await _fetchWithRetry(url);
-      // dom.Document html = dom.Document.html(response.body);
-      // html
-      //     .querySelectorAll('article.category-lossless-repack')
-      //     .forEach((article) async {
-      //   repacks.add(await deleteInvalidScreenshots(scrapeRepack(article)));
-      // });
-      // loadingProgress.value = i / pages;
-      // onProgress(i, pages - 1);
     }
-
     return repacks;
   }
 
@@ -167,12 +179,11 @@ class ScraperService {
     final response = await _fetchWithRetry(url);
     dom.Document html = dom.Document.html(response.body);
 
-    final pages1 = html
-        .querySelectorAll(
-            'article > div.entry-content ')
-        .map((element) => element.outerHtml.trim())
-        .toList();
-        print(pages1);
+    // final pages1 = html
+    //     .querySelectorAll(
+    //         'article > div.entry-content ')
+    //     .map((element) => element.outerHtml.trim())
+    //     .toList();
 
     final pages = html
         .querySelectorAll(
@@ -180,7 +191,6 @@ class ScraperService {
         .where((element) => element.innerHtml.trim() == 'Repack page')
         .map((element) => element.attributes['href']!.trim())
         .toList();
-    
 
     for (int i = 0; i < 20; i++) {
       try {
@@ -212,7 +222,7 @@ class ScraperService {
     Repack repack;
 
     dom.Document html = dom.Document.html(article.outerHtml);
-    
+
     final List<dom.Element> h3Elements =
         html.querySelectorAll('div.entry-content h3');
     List<Map<String, String>> repackSections = [];
@@ -299,29 +309,31 @@ class ScraperService {
     Map<String, List<Map<String, String>>> sectionDownloadLinks = {};
     for (var section in repackSections) {
       if (section['title']!.toLowerCase().contains('download')) {
-      final links = dom.Document.html(section['content']!)
-        .querySelectorAll('a[href]')
-        .map((element) => {
-            'hostName': element.text.trim(),
-            'url': element.attributes['href']!.trim()
-          })
-        .where((link) =>
-          // (link['url']!.startsWith('https://paste.fitgirl-repacks.site') ||
-          (link['url']!.startsWith('magnet:')) &&
-          link['hostName']!.toLowerCase() != '.torrent file only')
-        .toList();
+        final links = dom.Document.html(section['content']!)
+            .querySelectorAll('a[href]')
+            .map((element) => {
+                  'hostName': element.text.trim(),
+                  'url': element.attributes['href']!.trim()
+                })
+            .where((link) =>
+                // (link['url']!.startsWith('https://paste.fitgirl-repacks.site') ||
+                (link['url']!.startsWith('magnet:')) &&
+                link['hostName']!.toLowerCase() != '.torrent file only')
+            .toList();
         if (links.isNotEmpty) {
           sectionDownloadLinks[section['title']!] = links;
         }
-      
       }
       final fuckingFastLinks = dom.Document.html(section['content']!)
-        .querySelectorAll('a[href]')
-        .map((element) => element.attributes['href']!.trim())
-        .where((url) => url.startsWith('https://fuckingfast'))
-        .toList();
+          .querySelectorAll('a[href]')
+          .map((element) => element.attributes['href']!.trim())
+          .where((url) => url.startsWith('https://fuckingfast'))
+          .toList();
       if (fuckingFastLinks.isNotEmpty) {
-        final ddd = {'hostName': 'FuckingFast', 'url': fuckingFastLinks.join(', ')};
+        final ddd = {
+          'hostName': 'FuckingFast',
+          'url': fuckingFastLinks.join(', ')
+        };
         sectionDownloadLinks['FuckingFast'] = [ddd];
       }
     }
@@ -372,11 +384,16 @@ class ScraperService {
         .map((section) => section['content']!)
         .expand((content) {
       return dom.Document.html(content).querySelectorAll('img').map((element) {
-        String src = element.attributes['src']!.trim();
-        if (src.endsWith('.240p.jpg')) {
-          src = src.substring(0, src.length - '.240p.jpg'.length);
+        try {
+          String src = element.attributes['src']!.trim();
+          if (src.endsWith('.240p.jpg')) {
+            src = src.substring(0, src.length - '.240p.jpg'.length);
+          }
+          return src;
+        } catch (e) {
+          print(e);
+          return '';
         }
-        return src;
       });
     }).toList();
 

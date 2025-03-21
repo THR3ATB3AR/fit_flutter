@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:fit_flutter/data_classes/download_info.dart';
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/download_info.dart';
+import 'package:fit_flutter/data/repack.dart';
 import 'package:fit_flutter/services/host_service.dart';
 import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/ui/widgets/download_dropdown.dart';

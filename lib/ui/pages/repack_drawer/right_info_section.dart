@@ -1,4 +1,4 @@
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/description_and_features_section.dart';
 import 'package:fit_flutter/ui/pages/repack_drawer/screenshots_section.dart';
 import 'package:flutter/material.dart';

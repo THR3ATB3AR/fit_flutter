@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fit_flutter/data_classes/repack.dart';
+import 'package:fit_flutter/data/repack.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RepackItem extends StatelessWidget {
