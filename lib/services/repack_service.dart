@@ -10,7 +10,7 @@ class RepackService {
   static RepackService get instance => _instance;
 
   final StreamController<void> _controller = StreamController<
-      void>.broadcast(); // Użyj .broadcast(), aby wielu słuchaczy mogło nasłuchiwać.
+      void>.broadcast(); 
   Stream<void> get repacksStream => _controller.stream;
 
   List<Repack> newRepacks = [];

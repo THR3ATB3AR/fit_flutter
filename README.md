@@ -20,6 +20,7 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * **Windows Accent Color:** The application adapts to the user's Windows accent color for a more integrated and personalized experience.
 * **Torrent Support:** Download repacks using torrent files (requires a torrent client).
 * **Cross-Platform Support:** FitFlutter is designed to work seamlessly on Windows, Android and Linux.
+* **Caching Repacks:** Save scraped repacks to disk for faster loading.
 
 ## Screenshots
 
@@ -32,11 +33,7 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
-* [X] ⛔ **Fix Checking for Updates** Disable automatic checking for updates everytime opening settings.
-* [X] 🎨 **More Themes** Add more themes to customize app's appearance.
-* [X] 🎨 **Better Themes:** Improve the app's default themes.
-* [X] 🔧 **Fix Too Long Changelogs:** Add scrolling to changelog in update dialog.
-* [ ] 🔄️ **Cache for Repacks:**  Utilize previously scraped data for faster access.
+* [ ] 📂 **All Repacks Library** Add option to scrape every repack from site for easy access.
 
 I am open for contributions and suggestions!
 
