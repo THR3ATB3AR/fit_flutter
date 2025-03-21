@@ -3,11 +3,13 @@ import 'package:fit_flutter/data/repack_list_type.dart';
 import 'package:fit_flutter/services/repack_service.dart';
 import 'package:fit_flutter/ui/widgets/repack_item.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class RepackSlider extends StatefulWidget {
   final RepackListType repackListType;
   final String title;
   final Function(Repack) onRepackTap;
+
   const RepackSlider(
       {super.key,
       required this.repackListType,
@@ -21,26 +23,22 @@ class RepackSlider extends StatefulWidget {
 class _RepackSliderState extends State<RepackSlider> {
   final ScrollController _scrollController = ScrollController();
   final RepackService _repackService = RepackService.instance;
-  late List<Repack> repackList;
+  late StreamSubscription _repackSubscription;
 
   @override
   void initState() {
     super.initState();
-    setRepackList(widget.repackListType);
+    _repackSubscription = _repackService.repacksStream.listen((_) {
+      //Mozna tez usunac listen, StreamBuilder sam powinien sie odswiezac, zostawilem dla pewnosci
+      setState(
+          () {}); // Wymuś przebudowanie widgetu, gdy strumień emituje zdarzenie
+    });
   }
 
-  void setRepackList(RepackListType repackListType) {
-    switch (repackListType) {
-      case RepackListType.newest:
-        repackList = _repackService.newRepacks;
-        break;
-      case RepackListType.popular:
-        repackList = _repackService.popularRepacks;
-        break;
-      case RepackListType.updated:
-        repackList = _repackService.updatedRepacks;
-        break;
-    }
+  @override
+  void dispose() {
+    _repackSubscription.cancel();
+    super.dispose();
   }
 
   void _scrollLeft() {
@@ -76,8 +74,34 @@ class _RepackSliderState extends State<RepackSlider> {
             ),
           ),
         ),
-        Builder(
-          builder: (context) {
+        StreamBuilder<void>(
+          stream: _repackService.repacksStream,
+          builder: (context, snapshot) {
+            List<Repack> repackList;
+            switch (widget.repackListType) {
+              case RepackListType.newest:
+                repackList = _repackService.newRepacks;
+                break;
+              case RepackListType.popular:
+                repackList = _repackService.popularRepacks;
+                break;
+              case RepackListType.updated:
+                repackList = _repackService.updatedRepacks;
+                break;
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                  child:
+                      CircularProgressIndicator()); // Pokaż wskaźnik ładowania
+            }
+
+            if (!snapshot.hasData && repackList.isEmpty) {
+              //sprawdzamy czy nie ma danych ORAZ czy lista jest pusta.  Jesli lista nie byla by pusta to !snapshot.hasData zwrocilo by false
+              return const Center(
+                  child: Text("No data")); // Pokaż komunikat, gdy brak danych
+            }
+
             return ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 200),
               child: ListView.builder(

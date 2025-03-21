@@ -13,34 +13,34 @@ class MenuSection extends StatefulWidget {
 class _MenuSectionState extends State<MenuSection> {
   final ScraperService _scraperService = ScraperService.instance;
   final RepackService _repackService = RepackService.instance;
-  bool _isRescraping = false;
+
   bool isSettings = false;
   bool isDownloads = false;
 
   Future<void> _rescrapeAll() async {
-    if (_isRescraping) return;
+    if (_scraperService.isRescraping) return;
 
     setState(() {
-      _isRescraping = true;
+      _scraperService.isRescraping = true;
     });
 
     try {
-      // Uruchom wszystkie rescrape'y równolegle za pomocą Future.wait
-      
       await Future.wait([
         _scraperService.rescrapeNewRepacks(),
         _scraperService.rescrapePopularRepacks(),
         _scraperService.rescrapeAllRepacksNames(),
         // _repackService.rescrapeUpdatedRepacks(),
       ]);
+      _repackService.saveAllRepackList();
+      _repackService.saveNewRepackList();
+      _repackService.savePopularRepackList();
     } catch (e) {
       print("Błąd podczas rescrape'owania: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Wystąpił błąd podczas aktualizacji danych.")),
-      );
     } finally {
+      // _repackService.saveUpdatedRepackList;
+
       setState(() {
-        _isRescraping = false;
+        _scraperService.isRescraping = false;
       });
     }
   }
@@ -57,8 +57,7 @@ class _MenuSectionState extends State<MenuSection> {
                     const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 4),
                 child: ElevatedButton(
                   onPressed: () {
-                    _isRescraping ? null : _rescrapeAll()
-                    ;
+                    _scraperService.isRescraping ? null : _rescrapeAll();
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -66,14 +65,16 @@ class _MenuSectionState extends State<MenuSection> {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
-                  child: _isRescraping
+                  child: _scraperService.isRescraping
                       ? const SizedBox(
                           width: 24,
                           height: 24,
-                          child: CircularProgressIndicator(
-                          ),
+                          child: CircularProgressIndicator(),
                         )
-                      : const Icon(Icons.refresh, size: 30,),
+                      : const Icon(
+                          Icons.refresh,
+                          size: 30,
+                        ),
                 ),
               ),
             ),
@@ -115,9 +116,7 @@ class _MenuSectionState extends State<MenuSection> {
                       isSettings = !isSettings;
                       isDownloads = false;
                     });
-                    widget.changeWidget(isSettings
-                        ? 'settings'
-                        : 'home');
+                    widget.changeWidget(isSettings ? 'settings' : 'home');
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

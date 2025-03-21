@@ -25,7 +25,7 @@ void main() async {
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
-  
+
   runApp(const MyApp());
 }
 
@@ -38,7 +38,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final accentColor = SystemTheme.accentColor.accent;
-  final RepackService _repackService =RepackService.instance;
+  final RepackService _repackService = RepackService.instance;
   late Future<void> _initialization;
   String loadingMessage = '';
   final ScraperService _scraperService = ScraperService.instance;
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   String appVersion = '';
   String latestVersion = '';
   String releaseNotes = '';
-  int selectedTheme=0;
+  int selectedTheme = 0;
 
   Future<void> _requestPermissions() async {
     if (Platform.isAndroid) {
@@ -62,49 +62,66 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> loadInitialData() async {
-
     await _checkSettings();
 
-    
     setState(() {
       loadingMessage =
           AppLocalizations.of(context)?.initializing ?? 'Initializing...';
     });
 
-
     if (await SettingsService().loadAutoCheckForUpdates()) {
       await _checkForUpdates();
     }
 
-    _repackService.newRepacks =
-        await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
+    if (await _repackService.allFilesExist()) {
       setState(() {
-        loadingMessage =
-            '${AppLocalizations.of(context)?.loadingNewRepacks ?? 'Loading new repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        loadingMessage = AppLocalizations.of(context)?.initializing ??
+            'Loading cached repacks';
       });
-    });
-    _repackService.popularRepacks =
-        await _scraperService.scrapePopularRepacks(onProgress: (loaded, total) {
-      setState(() {
-        loadingMessage =
-            '${AppLocalizations.of(context)?.loadingPopularRepacks ?? 'Loading popular repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+
+      _repackService.loadAllData();
+      // await _repackService.loadOldUpdatedRepackList();
+      setState(() {});
+    } else {
+      _repackService.deleteFiles();
+      _repackService.newRepacks =
+          await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
+        setState(() {
+          loadingMessage =
+              '${AppLocalizations.of(context)?.loadingNewRepacks ?? 'Loading new repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        });
       });
-    });
-    _repackService.updatedRepacks = [];
-    _repackService.allRepacksNames = await _scraperService.scrapeAllRepacksNames(
-        onProgress: (loaded, total) {
-      setState(() {
-        loadingMessage =
-            '${AppLocalizations.of(context)?.indexingAllRepacks ?? 'Indexing all repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+      setState(() {});
+      _repackService.popularRepacks = await _scraperService
+          .scrapePopularRepacks(onProgress: (loaded, total) {
+        setState(() {
+          loadingMessage =
+              '${AppLocalizations.of(context)?.loadingPopularRepacks ?? 'Loading popular repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        });
       });
-    });
+      setState(() {});
+      // _repackService.updatedRepacks = [];
+      // _repackService.saveUpdatedRepackList();
+      _repackService.allRepacksNames = await _scraperService
+          .scrapeAllRepacksNames(onProgress: (loaded, total) {
+        setState(() {
+          loadingMessage =
+              '${AppLocalizations.of(context)?.indexingAllRepacks ?? 'Indexing all repacks'}... ${((loaded / total) * 100).toStringAsFixed(0)}%';
+        });
+      });
+      setState(() {});
+      _repackService.saveNewRepackList();
+      _repackService.savePopularRepackList();
+      _repackService.saveAllRepackList();
+    }
   }
 
   Future<void> _checkSettings() async {
     await SettingsService().checkAndCopySettings();
-    DdManager.instance.setMaxConcurrentDownloads(await SettingsService().loadMaxTasksSettings());
+    DdManager.instance.setMaxConcurrentDownloads(
+        await SettingsService().loadMaxTasksSettings());
     selectedTheme = await SettingsService().loadSelectedTheme();
-    if (selectedTheme==2) {
+    if (selectedTheme == 2) {
       Window.setEffect(effect: WindowEffect.acrylic);
     }
   }
@@ -121,11 +138,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    
-    
+
     _requestPermissions();
     _initialization = loadInitialData();
-    
   }
 
   @override
