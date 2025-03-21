@@ -8,9 +8,7 @@ import 'package:fit_flutter/data/repack.dart';
 import 'package:fit_flutter/services/scraper_service.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage(
-      {super.key,
-      required this.downloadFolder});
+  const MainPage({super.key, required this.downloadFolder});
   final String? downloadFolder;
 
   @override
@@ -20,9 +18,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   Repack? selectedRepack;
   late BuildContext scaffoldContext;
-  int screenshotIndex = 0;
-  String currentWidget = 'home';
   final _scraperService = ScraperService.instance;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -48,12 +45,6 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  void changeWidget(String widgetName) {
-    setState(() {
-      currentWidget = widgetName;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,23 +59,17 @@ class _MainPageState extends State<MainPage> {
                   changeWidget: changeWidget),
               Expanded(
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 4, right: 8, top: 8, bottom: 8),
+                  padding: const EdgeInsets.only(
+                      left: 4, right: 8, top: 8, bottom: 8),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
-                    child: Builder(
-                      builder: (BuildContext context) {
-                        scaffoldContext = context;
-                        return AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) {
-                            return FadeTransition(
-                                opacity: animation, child: child);
-                          },
-                          child: _getCurrentWidget(),
-                        );
-                      },
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: IndexedStack(
+                        key: ValueKey<int>(_currentIndex),
+                        index: _currentIndex,
+                        children: _buildPages(),
+                      ),
                     ),
                   ),
                 ),
@@ -96,27 +81,37 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _getCurrentWidget() {
-    switch (currentWidget) {
-      case 'home':
-        return HomePage(
-          key: const ValueKey('home'),
-          openRepackPage: openRepackPage,
-        );
-      case 'repack':
-        return RepackPage(
-          key: const ValueKey('repack'),
+  List<Widget> _buildPages() {
+    return [
+      HomePage(
+        key: const ValueKey('home'),
+        openRepackPage: openRepackPage,
+      ),
+      RepackPage(
+          key: UniqueKey(),
           selectedRepack: selectedRepack,
-          goHome: changeWidget,
-        );
+          goHome: changeWidget),
+      const SettingsPage(key: ValueKey('settings')),
+      const DownloadManagerPage(key: ValueKey('downloads')),
+    ];
+  }
 
-      case 'settings':
-        return const SettingsPage(key: ValueKey('settings'));
-      case 'downloads':
-        return const DownloadManagerPage(key: ValueKey('downloads'));
-      default:
-        return const Center(
-            key: ValueKey('unknown'), child: Text('Unknown Page'));
-    }
+  void changeWidget(String widgetName) {
+    setState(() {
+      switch (widgetName) {
+        case 'home':
+          _currentIndex = 0;
+          break;
+        case 'repack':
+          _currentIndex = 1;
+          break;
+        case 'settings':
+          _currentIndex = 2;
+          break;
+        case 'downloads':
+          _currentIndex = 3;
+          break;
+      }
+    });
   }
 }

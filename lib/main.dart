@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
             'Loading cached repacks';
       });
 
-      _repackService.loadAllData();
+      // _repackService.loadAllData();
       // await _repackService.loadOldUpdatedRepackList();
       setState(() {});
     } else {

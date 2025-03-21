@@ -24,15 +24,14 @@ class _RepackSliderState extends State<RepackSlider> {
   final ScrollController _scrollController = ScrollController();
   final RepackService _repackService = RepackService.instance;
   late StreamSubscription _repackSubscription;
+  bool _dataLoaded = false; // Dodaj flagę
 
   @override
   void initState() {
     super.initState();
     _repackSubscription = _repackService.repacksStream.listen((_) {
-      //Mozna tez usunac listen, StreamBuilder sam powinien sie odswiezac, zostawilem dla pewnosci
-      setState(
-          () {}); // Wymuś przebudowanie widgetu, gdy strumień emituje zdarzenie
     });
+    _loadData();
   }
 
   @override
@@ -40,6 +39,13 @@ class _RepackSliderState extends State<RepackSlider> {
     _repackSubscription.cancel();
     super.dispose();
   }
+
+  Future<void> _loadData() async {
+   if (await _repackService.allFilesExist() && !_dataLoaded) { // Dodaj warunek
+       await _repackService.loadAllData();
+      _dataLoaded = true; // Ustaw flagę po wczytaniu
+   }
+}
 
   void _scrollLeft() {
     _scrollController.animateTo(
@@ -93,13 +99,7 @@ class _RepackSliderState extends State<RepackSlider> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                   child:
-                      CircularProgressIndicator()); // Pokaż wskaźnik ładowania
-            }
-
-            if (!snapshot.hasData && repackList.isEmpty) {
-              //sprawdzamy czy nie ma danych ORAZ czy lista jest pusta.  Jesli lista nie byla by pusta to !snapshot.hasData zwrocilo by false
-              return const Center(
-                  child: Text("No data")); // Pokaż komunikat, gdy brak danych
+                      CircularProgressIndicator()); 
             }
 
             return ConstrainedBox(
