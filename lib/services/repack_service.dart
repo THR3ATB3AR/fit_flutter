@@ -16,6 +16,7 @@ class RepackService {
   List<Repack> newRepacks = [];
   List<Repack> popularRepacks = [];
   List<Repack> updatedRepacks = [];
+  List<Repack> everyRepack = [];
   Map<String, String> allRepacksNames = {};
 
   Future<String> _getAppDataPath() async {
@@ -95,6 +96,14 @@ class RepackService {
     _controller.add(null);
   }
 
+  Future<void> saveEveryRepackList() async {
+    final path = await _getAppDataPath();
+    final file = File('$path\\every_repack_list.json');
+    final jsonList = everyRepack.map((repack) => repack.toJson()).toList();
+    await file.writeAsString(jsonEncode(jsonList));
+    _controller.add(null);
+  }
+
   Future<void> loadOldPopularRepackList() async {
     final path = await _getAppDataPath();
     final file = File('$path\\popular_repack_list.json');
@@ -139,11 +148,23 @@ class RepackService {
     }
   }
 
+  Future<void> loadOldEveryRepackList() async {
+    final path = await _getAppDataPath();
+    final file = File('$path\\every_repack_list.json');
+    if (await file.exists()) {
+      final jsonList = jsonDecode(await file.readAsString()) as List<dynamic>;
+      everyRepack = jsonList
+          .map((json) => Repack.fromJson(json as Map<String, dynamic>))
+          .toList();
+    }
+  }
+
   Future<void> loadAllData() async {
     await loadOldPopularRepackList();
     await loadOldNewRepackList();
     // await loadOldUpdatedRepackList();
     await loadOldAllRepackList();
+    await loadOldEveryRepackList();
     _controller.add(null);
   }
 }

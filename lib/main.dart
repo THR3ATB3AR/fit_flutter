@@ -110,9 +110,19 @@ class _MyAppState extends State<MyApp> {
         });
       });
       setState(() {});
+
+      _repackService.everyRepack = await _scraperService.scrapeEveryRepack(
+        onProgress: (loaded, total) {
+          setState(() {
+            loadingMessage =
+                'Loading every repack... $loaded/$total';
+          });
+        },
+      );
       _repackService.saveNewRepackList();
       _repackService.savePopularRepackList();
       _repackService.saveAllRepackList();
+      _repackService.saveEveryRepackList();
     }
   }
 

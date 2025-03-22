@@ -43,6 +43,7 @@ class ScraperService {
     }
   }
 
+
   Future<Repack> deleteInvalidScreenshots(Repack repack) async {
     final List<String> validScreenshots = [];
     for (int i = 0; i < repack.screenshots.length; i++) {
@@ -53,6 +54,21 @@ class ScraperService {
     }
     repack.screenshots = validScreenshots;
     return repack;
+  }
+
+  Future<List<Repack>> scrapeEveryRepack({required Function(int, int) onProgress}) async {
+    List<Repack> repacks = [];
+    for (var entry in _repackService.allRepacksNames.entries.take(100)) {
+      try {
+        final repack = await scrapeRepackFromSearch(entry.value);
+        repacks.add(repack);
+      } catch (e) {
+        print('Failed to scrape repack: ${entry.key}, error: $e');
+      }
+      loadingProgress.value = repacks.length / _repackService.allRepacksNames.length;
+      onProgress(repacks.length, _repackService.allRepacksNames.length);
+    }
+    return repacks;
   }
 
   Future<Map<String, String>> scrapeAllRepacksNames(

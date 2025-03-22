@@ -23,25 +23,25 @@ class RepackItem extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
           children: [
             TextSpan(
-              text:
-                  '${AppLocalizations.of(context)!.genres}: ${repack.genres}\n',
-              children: [
-                TextSpan(
-                  text:
-                      '${AppLocalizations.of(context)!.company}: ${repack.company}\n',
-                ),
-                TextSpan(
-                  text:
-                      '${AppLocalizations.of(context)!.language}: ${repack.language}\n',
-                ),
-                TextSpan(
-                  text:
-                      '${AppLocalizations.of(context)!.originalSize}: ${repack.originalSize}\n',
-                ),
-                TextSpan(
+                text:
+                    '${AppLocalizations.of(context)!.genres}: ${repack.genres}\n',
+                children: [
+                  TextSpan(
                     text:
-                        '${AppLocalizations.of(context)!.repackSize}: ${repack.repackSize}'),
-              ]),
+                        '${AppLocalizations.of(context)!.company}: ${repack.company}\n',
+                  ),
+                  TextSpan(
+                    text:
+                        '${AppLocalizations.of(context)!.language}: ${repack.language}\n',
+                  ),
+                  TextSpan(
+                    text:
+                        '${AppLocalizations.of(context)!.originalSize}: ${repack.originalSize}\n',
+                  ),
+                  TextSpan(
+                      text:
+                          '${AppLocalizations.of(context)!.repackSize}: ${repack.repackSize}'),
+                ]),
           ],
         ),
         child: Card(
@@ -51,7 +51,11 @@ class RepackItem extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(repack.cover, fit: BoxFit.cover),
+            child: Image.network(
+              repack.cover,
+              fit: BoxFit.cover,
+              width: 135,
+            ),
           ),
         ));
   }
