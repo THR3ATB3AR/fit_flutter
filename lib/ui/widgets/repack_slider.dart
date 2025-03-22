@@ -24,7 +24,7 @@ class _RepackSliderState extends State<RepackSlider> {
   final ScrollController _scrollController = ScrollController();
   final RepackService _repackService = RepackService.instance;
   late StreamSubscription _repackSubscription;
-  bool _dataLoaded = false; // Dodaj flagę
+  bool _dataLoaded = false; 
 
   @override
   void initState() {
@@ -41,9 +41,9 @@ class _RepackSliderState extends State<RepackSlider> {
   }
 
   Future<void> _loadData() async {
-   if (await _repackService.allFilesExist() && !_dataLoaded) { // Dodaj warunek
+   if (await _repackService.allFilesExist() && !_dataLoaded) { 
        await _repackService.loadAllData();
-      _dataLoaded = true; // Ustaw flagę po wczytaniu
+      _dataLoaded = true; 
    }
 }
 
