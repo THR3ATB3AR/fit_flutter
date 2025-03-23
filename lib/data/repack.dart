@@ -1,7 +1,8 @@
 class Repack {
   final String title;
+  final String url;
   final DateTime releaseDate;
-  final String cover;
+  String cover;
   final String genres;
   final String language;
   final String company;
@@ -14,6 +15,7 @@ class Repack {
 
   Repack({
     required this.title,
+    required this.url,
     required this.releaseDate,
     required this.cover,
     required this.genres,
@@ -30,6 +32,7 @@ class Repack {
   Map<String, dynamic> toJson() {
     return {
       'title': title,
+      'url': url,
       'releaseDate': releaseDate.toIso8601String(),
       'cover': cover,
       'genres': genres,
@@ -47,6 +50,7 @@ class Repack {
   factory Repack.fromJson(Map<String, dynamic> json) {
     return Repack(
       title: json['title'],
+      url: json['url'],
       releaseDate: DateTime.parse(json['releaseDate']),
       cover: json['cover'],
       genres: json['genres'],

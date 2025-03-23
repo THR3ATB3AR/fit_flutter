@@ -79,7 +79,8 @@ class _MyAppState extends State<MyApp> {
             'Loading cached repacks';
       });
 
-      // _repackService.loadAllData();
+      await _repackService.loadAllData();
+      
       // await _repackService.loadOldUpdatedRepackList();
       setState(() {});
     } else {
@@ -111,19 +112,20 @@ class _MyAppState extends State<MyApp> {
       });
       setState(() {});
 
-      _repackService.everyRepack = await _scraperService.scrapeEveryRepack(
-        onProgress: (loaded, total) {
-          setState(() {
-            loadingMessage =
-                'Loading every repack... $loaded/$total';
-          });
-        },
-      );
+      // _repackService.everyRepack = await _scraperService.scrapeEveryRepack(
+      //   onProgress: (loaded, total) {
+      //     setState(() {
+      //       loadingMessage =
+      //           'Loading every repack... $loaded/$total';
+      //     });
+      //   },
+      // );
       _repackService.saveNewRepackList();
       _repackService.savePopularRepackList();
       _repackService.saveAllRepackList();
       _repackService.saveEveryRepackList();
     }
+    _scraperService.scrapeMissingRepacks();
   }
 
   Future<void> _checkSettings() async {

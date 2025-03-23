@@ -17,8 +17,6 @@ class _MenuSectionState extends State<MenuSection> {
   bool isSettings = false;
   bool isDownloads = false;
 
-  
-
   Future<void> _rescrapeAll() async {
     if (_scraperService.isRescraping) return;
 

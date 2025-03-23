@@ -17,8 +17,10 @@ class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   BoxConstraints constraints = const BoxConstraints.expand();
   final RepackService _repackService = RepackService.instance;
+
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -48,22 +50,29 @@ class _HomePageState extends State<HomePage>
                     onRepackTap: (repack) {
                       widget.openRepackPage(repack: repack);
                     }),
-                Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "All Repacks",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "All Repacks",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    GridView.builder(
+                  ),
+                ),
+                StreamBuilder<void>(
+                  stream: _repackService.repacksStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
@@ -83,9 +92,9 @@ class _HomePageState extends State<HomePage>
                           child: RepackItem(repack: repack),
                         );
                       },
-                    ),
-                  ],
-                )
+                    );
+                  },
+                ),
               ],
             ),
           );
