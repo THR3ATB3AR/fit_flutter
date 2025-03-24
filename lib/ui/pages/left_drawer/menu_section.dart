@@ -48,7 +48,7 @@ class _MenuSectionState extends State<MenuSection> {
   @override
   void initState() {
     super.initState();
-    _rescrapeAll();
+    // _rescrapeAll();
   }
 
   @override

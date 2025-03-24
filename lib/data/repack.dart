@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Repack {
   final String title;
   final String url;
@@ -47,30 +49,30 @@ class Repack {
     };
   }
 
-  factory Repack.fromJson(Map<String, dynamic> json) {
+  factory Repack.fromSqlite(Map<String, dynamic> row) {
     return Repack(
-      title: json['title'],
-      url: json['url'],
-      releaseDate: DateTime.parse(json['releaseDate']),
-      cover: json['cover'],
-      genres: json['genres'],
-      language: json['language'],
-      company: json['company'],
-      originalSize: json['originalSize'],
-      repackSize: json['repackSize'],
-      downloadLinks: (json['downloadLinks'] as Map<String, dynamic>).map(
+      title: row['title'],
+      url: row['url'],
+      releaseDate: DateTime.parse(row['releaseDate']),
+      cover: row['cover'],
+      genres: row['genres'],
+      language: row['language'],
+      company: row['company'],
+      originalSize: row['originalSize'],
+      repackSize: row['repackSize'],
+      downloadLinks: (jsonDecode(row['downloadLinks']) as Map<String, dynamic>).map(
         (key, value) => MapEntry(
           key,
           List<Map<String, String>>.from(
             (value as List).map(
-              (item) => Map<String, String>.from(item as Map),
+              (item) => Map<String, String>.from(item as Map<String, dynamic>),
             ),
           ),
         ),
       ),
-      repackFeatures: json['repackFeatures'],
-      description: json['description'],
-      screenshots: List<String>.from(json['screenshots']),
+      repackFeatures: row['repackFeatures'],
+      description: row['description'],
+      screenshots: List<String>.from(jsonDecode(row['screenshots'])),
     );
   }
 }

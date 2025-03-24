@@ -29,10 +29,6 @@ class ScraperService {
         await scrapeAllRepacksNames(onProgress: (i, e) {});
   }
 
-  Future<void> rescrapeUpdatedRepacks() async {
-    _repackService.updatedRepacks =
-        await scrapeUpdatedRepacks(onProgress: (i, e) {});
-  }
 
   Future<bool> checkImageUrl(String url) async {
     try {
@@ -79,29 +75,25 @@ class ScraperService {
 
 
   Future<void> scrapeMissingRepacks() async {
-
-  // Pobierz listę URL-i repacków z everyRepack
   final everyRepackUrls = _repackService.everyRepack.map((repack) => repack.url).toSet();
-
-  // Pobierz listę URL-i repacków z allRepacksNames
   final allRepackUrls = _repackService.allRepacksNames.values.toSet();
-
-  // Znajdź URL-e repacków, które są w allRepacksNames, ale nie ma ich w everyRepack
   final missingRepackUrls = allRepackUrls.difference(everyRepackUrls);
-
-
-  // Scrapuj brakujące repacki
+  var d =0;
   for (var url in missingRepackUrls) {
     try {
       final repack = await scrapeRepackFromSearch(url);
+      print('Scraped repack: ${repack.title} $d / ${missingRepackUrls.length - _repackService.failedRepacks.length} ${d / (missingRepackUrls.length - _repackService.failedRepacks.length) * 100}%'); // Debugowanie
+      d++;
       _repackService.everyRepack.add(repack);
-      await _repackService.saveEveryRepackList(); // Zapisz do pliku
+      await _repackService.saveSingleEveryRepack(repack); // Zapisz do bazy danych
       _repackService.notifyListeners(); // Emituj zmiany przez strumień
     } catch (e) {
+      _repackService.failedRepacks[url] = _repackService.allRepacksNames.entries.firstWhere((element) => element.value == url).key;
+      _repackService.saveFailedRepack(_repackService.failedRepacks[url]!, url);
       print('Failed to scrape repack: $url, error: $e');
     }
   }
-
+  _repackService.everyRepack.sort((a,b) => a.title.compareTo(b.title));
   print('scrapeMissingRepacks finished'); // Debugowanie
 }
 
@@ -205,68 +197,11 @@ class ScraperService {
       } catch (e) {
         print(e);
       }
-      // final url = Uri.parse(pages[i]);
-      // final response = await _fetchWithRetry(url);
-      // dom.Document html = dom.Document.html(response.body);
-
-      // html
-      //     .querySelectorAll('article.category-lossless-repack')
-      //     .forEach((article) async {
-      //   repacks.add(await deleteInvalidScreenshots(scrapeRepack(article)));
-      // });
-      // loadingProgress.value = i / 20;
-      // onProgress(i, 20);
     }
 
     return repacks;
   }
 
-  Future<List<Repack>> scrapeUpdatedRepacks(
-      {required Function(int, int) onProgress}) async {
-    List<Repack> repacks = [];
-    final url =
-        Uri.parse('https://fitgirl-repacks.site/category/updates-digest/');
-    final response = await _fetchWithRetry(url);
-    dom.Document html = dom.Document.html(response.body);
-
-    // final pages1 = html
-    //     .querySelectorAll(
-    //         'article > div.entry-content ')
-    //     .map((element) => element.outerHtml.trim())
-    //     .toList();
-
-    final pages = html
-        .querySelectorAll(
-            'article > div.entry-content > div.su-spoiler > div.su-spoiler-content > a')
-        .where((element) => element.innerHtml.trim() == 'Repack page')
-        .map((element) => element.attributes['href']!.trim())
-        .toList();
-
-    for (int i = 0; i < 20; i++) {
-      try {
-        final url = Uri.parse(pages[i]);
-        final response = await _fetchWithRetry(url);
-        dom.Document html = dom.Document.html(response.body);
-        final article = html.querySelector('article');
-        repacks.add(await deleteInvalidScreenshots(scrapeRepack(article!)));
-        loadingProgress.value = i / 20;
-        onProgress(i, 20);
-      } catch (e) {
-        print(e);
-      }
-      // final url = Uri.parse(pages[i]);
-
-      // final response = await _fetchWithRetry(url);
-      // dom.Document html = dom.Document.html(response.body);
-      // final article = html.querySelector('article');
-      // repacks.add(await deleteInvalidScreenshots(scrapeRepack(article!)));
-
-      // loadingProgress.value = i / 20;
-      // onProgress(i, 20);
-    }
-
-    return repacks;
-  }
 
   Repack scrapeRepack(dom.Element article, {String url = ''}) {
     Repack repack;
@@ -278,8 +213,7 @@ class ScraperService {
     List<Map<String, String>> repackSections = [];
 
     if (url == '') {
-      url = html.querySelector('header > h1 > a')!.attributes['href']!.trim();
-    
+      url = html.querySelector('header > h1 > a')!.attributes['href']!.trim();    
     }
 
     for (int i = 0; i < h3Elements.length; i++) {

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_flutter/data/repack.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,6 +18,7 @@ class RepackItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Tooltip(
         verticalOffset: 120,
+        waitDuration: const Duration(milliseconds: 1000),
         exitDuration: const Duration(milliseconds: 0),
         richMessage: TextSpan(
           text: '${_overflowText(repack.title, 30)}\n',
@@ -51,8 +53,8 @@ class RepackItem extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(
-              repack.cover,
+            child: CachedNetworkImage(
+              imageUrl: repack.cover,
               fit: BoxFit.cover,
               width: 135,
             ),

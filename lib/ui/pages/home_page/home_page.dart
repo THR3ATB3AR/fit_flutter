@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage>
 
                     return GridView.builder(
                       shrinkWrap: true,
+                      cacheExtent: 100,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithMaxCrossAxisExtent(

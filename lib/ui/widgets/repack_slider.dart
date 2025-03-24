@@ -41,8 +41,8 @@ class _RepackSliderState extends State<RepackSlider> {
   }
 
   Future<void> _loadData() async {
-   if (await _repackService.allFilesExist() && !_dataLoaded) { 
-       await _repackService.loadAllData();
+   if (await _repackService.checkTablesNotEmpty() && !_dataLoaded) { 
+       await _repackService.loadRepacks();
       _dataLoaded = true; 
    }
 }
@@ -90,9 +90,6 @@ class _RepackSliderState extends State<RepackSlider> {
                 break;
               case RepackListType.popular:
                 repackList = _repackService.popularRepacks;
-                break;
-              case RepackListType.updated:
-                repackList = _repackService.updatedRepacks;
                 break;
             }
 

@@ -3,21 +3,286 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:fit_flutter/data/repack.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqlite3/sqlite3.dart';
 
 class RepackService {
   RepackService._privateConstructor();
   static final RepackService _instance = RepackService._privateConstructor();
   static RepackService get instance => _instance;
 
-  final StreamController<void> _controller = StreamController<
-      void>.broadcast(); 
+  final StreamController<void> _controller = StreamController<void>.broadcast();
   Stream<void> get repacksStream => _controller.stream;
 
   List<Repack> newRepacks = [];
   List<Repack> popularRepacks = [];
-  List<Repack> updatedRepacks = [];
   List<Repack> everyRepack = [];
   Map<String, String> allRepacksNames = {};
+  Map<String, String> failedRepacks = {};
+
+  Future<void> initializeDatabase() async {
+    final dbPath = '${await _getAppDataPath()}\\repacks.db';
+    final db = sqlite3.open(dbPath);
+
+    db.execute('''
+      CREATE TABLE IF NOT EXISTS new_repacks (
+        title TEXT PRIMARY KEY,
+        url TEXT,
+        releaseDate TEXT,
+        cover TEXT,
+        genres TEXT,
+        language TEXT,
+        company TEXT,
+        originalSize TEXT,
+        repackSize TEXT,
+        downloadLinks TEXT,
+        repackFeatures TEXT,
+        description TEXT,
+        screenshots TEXT
+      )
+    ''');
+
+    db.execute('''
+      CREATE TABLE IF NOT EXISTS popular_repacks (
+        title TEXT PRIMARY KEY,
+        url TEXT,
+        releaseDate TEXT,
+        cover TEXT,
+        genres TEXT,
+        language TEXT,
+        company TEXT,
+        originalSize TEXT,
+        repackSize TEXT,
+        downloadLinks TEXT,
+        repackFeatures TEXT,
+        description TEXT,
+        screenshots TEXT
+      )
+    ''');
+
+    db.execute('''
+      CREATE TABLE IF NOT EXISTS every_repack (
+        title TEXT PRIMARY KEY,
+        url TEXT,
+        releaseDate TEXT,
+        cover TEXT,
+        genres TEXT,
+        language TEXT,
+        company TEXT,
+        originalSize TEXT,
+        repackSize TEXT,
+        downloadLinks TEXT,
+        repackFeatures TEXT,
+        description TEXT,
+        screenshots TEXT
+      )
+    ''');
+
+    db.execute('''
+      CREATE TABLE IF NOT EXISTS all_repacks_names (
+        title TEXT PRIMARY KEY,
+        url TEXT
+      )
+    ''');
+
+    db.execute('''
+      CREATE TABLE IF NOT EXISTS failed_repacks (
+        title TEXT PRIMARY KEY,
+        url TEXT
+      )
+    ''');
+
+    db.dispose();
+  }
+
+  Future<void> loadRepacks() async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    final newRepacksResult = db.select('SELECT * FROM new_repacks');
+    final popularRepacksResult = db.select('SELECT * FROM popular_repacks');
+    final everyRepackResult = db.select('SELECT * FROM every_repack');
+    final allRepacksNamesResult = db.select('SELECT * FROM all_repacks_names');
+
+    newRepacks = newRepacksResult.map((row) => Repack.fromSqlite(row)).toList();
+    popularRepacks = popularRepacksResult.map((row) => Repack.fromSqlite(row)).toList();
+    everyRepack = everyRepackResult.map((row) => Repack.fromSqlite(row)).toList();
+    allRepacksNames = {
+      for (var row in allRepacksNamesResult) row['title'] as String: row['url'] as String
+    };
+
+    db.dispose();
+    _controller.add(null);
+  }
+
+  Future<void> saveNewRepackList() async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    db.execute('DELETE FROM new_repacks');
+    final stmt = db.prepare('INSERT INTO new_repacks VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+
+    for (var repack in newRepacks) {
+      stmt.execute([
+        repack.title,
+        repack.url,
+        repack.releaseDate.toIso8601String(),
+        repack.cover,
+        repack.genres,
+        repack.language,
+        repack.company,
+        repack.originalSize,
+        repack.repackSize,
+        jsonEncode(repack.downloadLinks),
+        repack.repackFeatures,
+        repack.description,
+        jsonEncode(repack.screenshots)
+      ]);
+    }
+
+    stmt.dispose();
+    db.dispose();
+    _controller.add(null);
+  }
+
+  Future<void> savePopularRepackList() async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    db.execute('DELETE FROM popular_repacks');
+    final stmt = db.prepare('INSERT INTO popular_repacks VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+
+    for (var repack in popularRepacks) {
+      stmt.execute([
+        repack.title,
+        repack.url,
+        repack.releaseDate.toIso8601String(),
+        repack.cover,
+        repack.genres,
+        repack.language,
+        repack.company,
+        repack.originalSize,
+        repack.repackSize,
+        jsonEncode(repack.downloadLinks),
+        repack.repackFeatures,
+        repack.description,
+        jsonEncode(repack.screenshots)
+      ]);
+    }
+
+    stmt.dispose();
+    db.dispose();
+    _controller.add(null);
+  }
+
+
+  Future<void> saveEveryRepackList() async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    db.execute('DELETE FROM every_repack');
+    final stmt = db.prepare('INSERT INTO every_repack VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+
+    for (var repack in everyRepack) {
+      stmt.execute([
+        repack.title,
+        repack.url,
+        repack.releaseDate.toIso8601String(),
+        repack.cover,
+        repack.genres,
+        repack.language,
+        repack.company,
+        repack.originalSize,
+        repack.repackSize,
+        jsonEncode(repack.downloadLinks),
+        repack.repackFeatures,
+        repack.description,
+        jsonEncode(repack.screenshots)
+      ]);
+    }
+
+    stmt.dispose();
+    db.dispose();
+    _controller.add(null);
+  }
+
+  Future<void> saveSingleEveryRepack(Repack repack) async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    final stmt = db.prepare('INSERT INTO every_repack VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+
+    stmt.execute([
+      repack.title,
+      repack.url,
+      repack.releaseDate.toIso8601String(),
+      repack.cover,
+      repack.genres,
+      repack.language,
+      repack.company,
+      repack.originalSize,
+      repack.repackSize,
+      jsonEncode(repack.downloadLinks),
+      repack.repackFeatures,
+      repack.description,
+      jsonEncode(repack.screenshots)
+    ]);
+
+    stmt.dispose();
+    db.dispose();
+    _controller.add(null);
+  }
+
+  Future<void> saveAllRepackList() async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    db.execute('DELETE FROM all_repacks_names');
+    final stmt = db.prepare('INSERT INTO all_repacks_names VALUES (?, ?)');
+
+    for (var entry in allRepacksNames.entries) {
+      stmt.execute([entry.key, entry.value]);
+    }
+
+    stmt.dispose();
+    db.dispose();
+    _controller.add(null);
+  }
+
+  Future<void> saveFailedRepack(String title, String url) async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    final stmt = db.prepare('INSERT INTO failed_repacks VALUES (?, ?)');
+
+    stmt.execute([title, url]);
+
+    stmt.dispose();
+    db.dispose();
+    _controller.add(null);
+  }
+
+  Future<bool> checkTablesNotEmpty() async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    final tables = [
+      'new_repacks',
+      'popular_repacks',
+      'every_repack',
+      'all_repacks_names'
+    ];
+
+    for (var table in tables) {
+      final result = db.select('SELECT COUNT(*) AS count FROM $table');
+      if (result.first['count'] == 0) {
+        db.dispose();
+        return false;
+      }
+    }
+
+    db.dispose();
+    return true;
+  }
+
+  Future<void> clearAllTables() async {
+    final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
+    final tables = [
+      'new_repacks',
+      'popular_repacks',
+      'all_repacks_names'
+    ];
+
+    for (var table in tables) {
+      db.execute('DELETE FROM $table');
+    }
+
+    db.dispose();
+    _controller.add(null);
+  }
 
   Future<String> _getAppDataPath() async {
     final appDataDir = await getApplicationSupportDirectory();
@@ -26,171 +291,6 @@ class RepackService {
       await directory.create(recursive: true);
     }
     return directory.path;
-  }
-
-  Future<bool> _fileExists(String fileName) async {
-    final path = await _getAppDataPath();
-    final file = File('$path\\$fileName');
-    return await file.exists();
-  }
-
-  Future<bool> allFilesExist() async {
-    final popularExists = await _fileExists('popular_repack_list.json');
-    final newExists = await _fileExists('new_repack_list.json');
-    // final updatedExists = await _fileExists('updated_repack_list.json');
-    final allExists = await _fileExists('all_repack_list.json');
-
-    return popularExists && newExists && allExists;
-  }
-
-  Future<void> deleteFiles() async {
-    final path = await _getAppDataPath();
-    final popularFile = File('$path\\popular_repack_list.json');
-    final newFile = File('$path\\new_repack_list.json');
-    final updatedFile = File('$path\\updated_repack_list.json');
-    final allFile = File('$path\\all_repack_list.json');
-
-    if (await popularFile.exists()) {
-      await popularFile.delete();
-    }
-    if (await newFile.exists()) {
-      await newFile.delete();
-    }
-    if (await updatedFile.exists()) {
-      await updatedFile.delete();
-    }
-    if (await allFile.exists()) {
-      await allFile.delete();
-    }
-  }
-
-  Future<void> savePopularRepackList() async {
-  final path = await _getAppDataPath();
-  final tempFile = File('$path\\popular_repack_list_temp.json');
-  final file = File('$path\\popular_repack_list.json');
-  final jsonList = popularRepacks.map((repack) => repack.toJson()).toList();
-
-  await tempFile.writeAsString(jsonEncode(jsonList));
-
-  await tempFile.rename(file.path);
-
-  _controller.add(null);
-}
-
-Future<void> saveNewRepackList() async {
-  final path = await _getAppDataPath();
-  final tempFile = File('$path\\new_repack_list_temp.json');
-  final file = File('$path\\new_repack_list.json');
-  final jsonList = newRepacks.map((repack) => repack.toJson()).toList();
-
-  await tempFile.writeAsString(jsonEncode(jsonList));
-
-  await tempFile.rename(file.path);
-
-  _controller.add(null);
-}
-
-Future<void> saveUpdatedRepackList() async {
-  final path = await _getAppDataPath();
-  final tempFile = File('$path\\updated_repack_list_temp.json');
-  final file = File('$path\\updated_repack_list.json');
-  final jsonList = updatedRepacks.map((repack) => repack.toJson()).toList();
-
-  await tempFile.writeAsString(jsonEncode(jsonList));
-
-  await tempFile.rename(file.path);
-
-  _controller.add(null);
-}
-
-Future<void> saveAllRepackList() async {
-  final path = await _getAppDataPath();
-  final tempFile = File('$path\\all_repack_list_temp.json');
-  final file = File('$path\\all_repack_list.json');
-  final jsonMap = allRepacksNames.map((key, value) => MapEntry(key, value));
-
-  await tempFile.writeAsString(jsonEncode(jsonMap));
-
-  await tempFile.rename(file.path);
-
-  _controller.add(null);
-}
-
-  Future<void> saveEveryRepackList() async {
-  final path = await _getAppDataPath();
-  final tempFile = File('$path\\every_repack_list_temp.json');
-  final file = File('$path\\every_repack_list.json');
-  final jsonList = everyRepack.map((repack) => repack.toJson()).toList();
-
-  await tempFile.writeAsString(jsonEncode(jsonList));
-
-  await tempFile.rename(file.path);
-
-  _controller.add(null);
-}
-
-  Future<void> loadOldPopularRepackList() async {
-    final path = await _getAppDataPath();
-    final file = File('$path\\popular_repack_list.json');
-    if (await file.exists()) {
-      final jsonList = jsonDecode(await file.readAsString()) as List<dynamic>;
-      popularRepacks = jsonList
-          .map((json) => Repack.fromJson(json as Map<String, dynamic>))
-          .toList();
-    }
-  }
-
-  Future<void> loadOldNewRepackList() async {
-    final path = await _getAppDataPath();
-    final file = File('$path\\new_repack_list.json');
-    if (await file.exists()) {
-      final jsonList = jsonDecode(await file.readAsString()) as List<dynamic>;
-      newRepacks = jsonList
-          .map((json) => Repack.fromJson(json as Map<String, dynamic>))
-          .toList();
-    }
-  }
-
-  Future<void> loadOldUpdatedRepackList() async {
-    final path = await _getAppDataPath();
-    final file = File('$path\\updated_repack_list.json');
-    if (await file.exists()) {
-      final jsonList = jsonDecode(await file.readAsString()) as List<dynamic>;
-      updatedRepacks = jsonList
-          .map((json) => Repack.fromJson(json as Map<String, dynamic>))
-          .toList();
-    }
-  }
-
-  Future<void> loadOldAllRepackList() async {
-    final path = await _getAppDataPath();
-    final file = File('$path\\all_repack_list.json');
-    if (await file.exists()) {
-      final jsonMap =
-          jsonDecode(await file.readAsString()) as Map<String, dynamic>;
-      allRepacksNames =
-          jsonMap.map((key, value) => MapEntry(key, value as String));
-    }
-  }
-
-  Future<void> loadOldEveryRepackList() async {
-    final path = await _getAppDataPath();
-    final file = File('$path\\every_repack_list.json');
-    if (await file.exists()) {
-      final jsonList = jsonDecode(await file.readAsString()) as List<dynamic>;
-      everyRepack = jsonList
-          .map((json) => Repack.fromJson(json as Map<String, dynamic>))
-          .toList();
-    }
-  }
-
-  Future<void> loadAllData() async {
-    await loadOldPopularRepackList();
-    await loadOldNewRepackList();
-    // await loadOldUpdatedRepackList();
-    await loadOldAllRepackList();
-    await loadOldEveryRepackList();
-    _controller.add(null);
   }
 
   void notifyListeners() {
