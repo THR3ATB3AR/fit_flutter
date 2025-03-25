@@ -30,76 +30,71 @@ class _HomePageState extends State<HomePage>
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: Theme.of(context).colorScheme.surfaceContainer,
       ),
-      child: Builder(
-        builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 24,
-                ),
-                RepackSlider(
-                    repackListType: RepackListType.newest,
-                    title: AppLocalizations.of(context)!.newRepacks,
-                    onRepackTap: (repack) {
-                      widget.openRepackPage(repack: repack);
-                    }),
-                RepackSlider(
-                    repackListType: RepackListType.popular,
-                    title: AppLocalizations.of(context)!.popularRepacks,
-                    onRepackTap: (repack) {
-                      widget.openRepackPage(repack: repack);
-                    }),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "All Repacks",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 24,
+            ),
+            RepackSlider(
+                repackListType: RepackListType.newest,
+                title: AppLocalizations.of(context)!.newRepacks,
+                onRepackTap: (repack) {
+                  widget.openRepackPage(repack: repack);
+                }),
+            RepackSlider(
+                repackListType: RepackListType.popular,
+                title: AppLocalizations.of(context)!.popularRepacks,
+                onRepackTap: (repack) {
+                  widget.openRepackPage(repack: repack);
+                }),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "All Repacks",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                StreamBuilder<void>(
-                  stream: _repackService.repacksStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
+              ),
+            ),
+            StreamBuilder<void>(
+              stream: _repackService.repacksStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-                    return GridView.builder(
-                      shrinkWrap: true,
-                      cacheExtent: 100,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 200.0,
-                        crossAxisSpacing: 8.0,
-                        mainAxisSpacing: 8.0,
-                        childAspectRatio: 0.75,
-                      ),
-                      itemCount: _repackService.everyRepack.length,
-                      itemBuilder: (context, index) {
-                        final repack = _repackService.everyRepack[index];
-                        return GestureDetector(
-                          onTap: () {
-                            widget.openRepackPage(repack: repack);
-                          },
-                          child: RepackItem(repack: repack),
-                        );
+                return GridView.builder(
+                  shrinkWrap: true,
+                  cacheExtent: 50,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200.0,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                    childAspectRatio: 0.75,
+                  ),
+                  itemCount: _repackService.everyRepack.length,
+                  itemBuilder: (context, index) {
+                    final repack = _repackService.everyRepack[index];
+                    return GestureDetector(
+                      onTap: () {
+                        widget.openRepackPage(repack: repack);
                       },
+                      child: RepackItem(repack: repack),
                     );
                   },
-                ),
-              ],
+                );
+              },
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:fit_flutter/ui/pages/home_page/download_manager_page.dart';
+import 'package:fit_flutter/ui/pages/home_page/failed_repacks_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/home_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/repack_page.dart';
 import 'package:fit_flutter/ui/pages/home_page/settings_page.dart';
@@ -93,6 +94,7 @@ class _MainPageState extends State<MainPage> {
           goHome: changeWidget),
       const SettingsPage(key: ValueKey('settings')),
       const DownloadManagerPage(key: ValueKey('downloads')),
+      const FailedRepacksPage(key: ValueKey('failed')),
     ];
   }
 
@@ -110,6 +112,9 @@ class _MainPageState extends State<MainPage> {
           break;
         case 'downloads':
           _currentIndex = 3;
+          break;
+        case 'failed':
+          _currentIndex = 4;
           break;
       }
     });

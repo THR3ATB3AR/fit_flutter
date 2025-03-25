@@ -54,6 +54,7 @@ dependencies:
   device_info_plus: ^11.3.3
   sqlite3: ^2.7.5
   cached_network_image: ^3.4.1
+  sqlite3_flutter_libs: ^0.5.32
 
 
 

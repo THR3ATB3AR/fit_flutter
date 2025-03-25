@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
       });
 
       await _repackService.loadRepacks();
-      
+
       setState(() {});
     } else {
       _repackService.clearAllTables();

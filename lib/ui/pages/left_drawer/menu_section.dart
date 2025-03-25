@@ -16,6 +16,7 @@ class _MenuSectionState extends State<MenuSection> {
 
   bool isSettings = false;
   bool isDownloads = false;
+  bool isFailed = false;
 
   Future<void> _rescrapeAll() async {
     if (_scraperService.isRescraping) return;
@@ -63,6 +64,35 @@ class _MenuSectionState extends State<MenuSection> {
                     const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 4),
                 child: ElevatedButton(
                   onPressed: () {
+                    setState(() {
+                      isFailed = !isFailed;
+                      isDownloads = false;
+                      isSettings = false;
+                    });
+                    widget.changeWidget(isFailed ? 'failed' : 'home');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  ),
+                  child: Icon(
+                      isFailed ? Icons.close : Icons.error_outline_outlined,
+                      size: 30.0),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 4),
+                child: ElevatedButton(
+                  onPressed: () {
                     _scraperService.isRescraping ? null : _rescrapeAll();
                   },
                   style: ElevatedButton.styleFrom(
@@ -97,6 +127,7 @@ class _MenuSectionState extends State<MenuSection> {
                     setState(() {
                       isDownloads = !isDownloads;
                       isSettings = false;
+                      isFailed = false;
                     });
                     widget.changeWidget(isDownloads ? 'downloads' : 'home');
                   },
@@ -121,6 +152,7 @@ class _MenuSectionState extends State<MenuSection> {
                     setState(() {
                       isSettings = !isSettings;
                       isDownloads = false;
+                      isFailed = false;
                     });
                     widget.changeWidget(isSettings ? 'settings' : 'home');
                   },

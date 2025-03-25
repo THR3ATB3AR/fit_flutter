@@ -93,6 +93,7 @@ class ScraperService {
       print('Failed to scrape repack: $url, error: $e');
     }
   }
+  _repackService.deleteFailedRepacksFromAllRepackNames();
   _repackService.everyRepack.sort((a,b) => a.title.compareTo(b.title));
   print('scrapeMissingRepacks finished'); // Debugowanie
 }
