@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage> {
         child: AppBar(
           backgroundColor: Colors.transparent,
           title: Padding(
-            padding: const EdgeInsets.only(top: 24.0, left: 4.0),
+            padding: const EdgeInsets.only(top: 28.0, left: 4.0),
             child: Text(
               title,
               style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),

@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class RepackItem extends StatelessWidget {
   final Repack repack;
 
-  const RepackItem({super.key, required this.repack});
+  const RepackItem({super.key, required this.repack,});
 
   String _overflowText(String text, int maxLength) {
     return text.length > maxLength
