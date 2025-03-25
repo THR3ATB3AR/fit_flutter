@@ -46,7 +46,7 @@ class ScraperService {
     if (isCoverValid) {
       repack.cover = repack.cover;
     } else {
-      repack.cover = 'https://github.com/THR3ATB3AR/fit_flutter/blob/repack-library/images/noposter.png?raw=true';
+      repack.cover = 'https://github.com/THR3ATB3AR/fit_flutter_assets/blob/main/noposter.png?raw=true';
     }
     for (int i = 0; i < repack.screenshots.length; i++) {
       final bool isScreenshotValid = await checkImageUrl(repack.screenshots[i]);
