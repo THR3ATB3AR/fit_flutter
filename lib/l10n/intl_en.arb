@@ -56,5 +56,8 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Transparent",
   "tabbedTheme": "Tabbed",
-  "settings": "Settings"
+  "settings": "Settings",
+  "failedRepacks": "Failed Repacks",
+  "allRepacks": "All Repacks",
+  "home": "Home"
 }

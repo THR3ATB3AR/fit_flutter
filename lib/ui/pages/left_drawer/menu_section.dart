@@ -14,10 +14,6 @@ class _MenuSectionState extends State<MenuSection> {
   final ScraperService _scraperService = ScraperService.instance;
   final RepackService _repackService = RepackService.instance;
 
-  bool isSettings = false;
-  bool isDownloads = false;
-  bool isFailed = false;
-
   Future<void> _rescrapeAll() async {
     if (_scraperService.isRescraping) return;
 
@@ -56,118 +52,76 @@ class _MenuSectionState extends State<MenuSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 4),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      isFailed = !isFailed;
-                      isDownloads = false;
-                      isSettings = false;
-                    });
-                    widget.changeWidget(isFailed ? 'failed' : 'home');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  ),
-                  child: Icon(
-                      isFailed ? Icons.close : Icons.error_outline_outlined,
-                      size: 30.0),
-                ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4.0, left: 8.0, right: 8.0, top: 8.0),
+          child: ElevatedButton(
+            onPressed: () {
+              widget.changeWidget('failed');
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
+              padding: const EdgeInsets.symmetric(vertical: 21.0),
             ),
-          ],
+            child: const Icon(Icons.error_outline_outlined,
+                size: 30.0),
+          ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 4),
-                child: ElevatedButton(
-                  onPressed: () {
-                    _scraperService.isRescraping ? null : _rescrapeAll();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  ),
-                  child: _scraperService.isRescraping
-                      ? const SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(),
-                        )
-                      : const Icon(
-                          Icons.refresh,
-                          size: 30,
-                        ),
-                ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4.0, left: 8.0, right: 8.0, top: 4.0),
+          child: ElevatedButton(
+            onPressed: () {
+              _scraperService.isRescraping ? null : _rescrapeAll();
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
+              padding: const EdgeInsets.symmetric(vertical: 21.0),
             ),
-          ],
+            child: _scraperService.isRescraping
+                ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(),
+                  )
+                : const Icon(
+                    Icons.refresh,
+                    size: 30,
+                  ),
+          ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, right: 4, top: 4, bottom: 8),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      isDownloads = !isDownloads;
-                      isSettings = false;
-                      isFailed = false;
-                    });
-                    widget.changeWidget(isDownloads ? 'downloads' : 'home');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  ),
-                  child: Icon(
-                      isDownloads ? Icons.close : Icons.downloading_outlined,
-                      size: 30.0),
-                ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4.0, left: 8.0, right: 8.0, top: 4.0),
+          child: ElevatedButton(
+            onPressed: () {
+              widget.changeWidget('downloads');
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
+              padding: const EdgeInsets.symmetric(vertical: 21.0),
             ),
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 4, right: 8, top: 4, bottom: 8),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      isSettings = !isSettings;
-                      isDownloads = false;
-                      isFailed = false;
-                    });
-                    widget.changeWidget(isSettings ? 'settings' : 'home');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  ),
-                  child: Icon(isSettings ? Icons.close : Icons.settings,
-                      size: 30.0),
-                ),
+            child: const Icon(Icons.downloading_outlined,
+                size: 30.0),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0, top: 4.0),
+          child: ElevatedButton(
+            onPressed: () {
+              widget.changeWidget('settings');
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
+              padding: const EdgeInsets.symmetric(vertical: 21.0),
             ),
-          ],
+            child: const Icon(Icons.settings, size: 30.0),
+          ),
         ),
       ],
     );

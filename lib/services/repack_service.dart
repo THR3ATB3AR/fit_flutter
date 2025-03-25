@@ -32,7 +32,7 @@ class RepackService {
 
   Future<void> initializeDatabase() async {
     final dbPath = '${await _getAppDataPath()}\\repacks.db';
-    final dbUrl =
+    const dbUrl =
         'https://github.com/THR3ATB3AR/fit_flutter_assets/raw/refs/heads/main/repacks.db';
 
     // Sprawdź, czy plik bazy danych już istnieje

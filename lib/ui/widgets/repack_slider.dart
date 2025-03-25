@@ -129,7 +129,7 @@ class _RepackSliderState extends State<RepackSlider> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 21.0),
                   ),
                   onPressed: _scrollLeft,
                   child:
@@ -143,7 +143,7 @@ class _RepackSliderState extends State<RepackSlider> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 21.0),
                   ),
                   onPressed: _scrollRight,
                   child:
