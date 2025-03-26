@@ -59,5 +59,6 @@
   "settings": "Settings",
   "failedRepacks": "Failed Repacks",
   "allRepacks": "All Repacks",
-  "home": "Home"
+  "home": "Home",
+  "pleaseEnterValidDirectory": "Please enter a valid directory"
 }

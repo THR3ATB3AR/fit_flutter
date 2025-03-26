@@ -5,8 +5,10 @@ import 'dart:async';
 
 class LeftDrawer extends StatefulWidget {
   const LeftDrawer(
-      {super.key, required this.constraints, required this.changeWidget});
-  final BoxConstraints constraints;
+      {super.key,
+      //  required this.constraints,
+        required this.changeWidget});
+  // final BoxConstraints constraints;
   final Function(String) changeWidget;
 
   @override
@@ -40,49 +42,71 @@ class _LeftDrawerState extends State<LeftDrawer> {
           color: Theme.of(context).colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 4.0, left: 8.0, right: 8.0, top: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      widget.changeWidget('home');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 21.0),
-                    ),
-                    child: const Icon(Icons.home_outlined, size: 30.0),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 4.0, left: 8.0, right: 8.0, top: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      widget.changeWidget('allRepacks');
-                    },
-                    style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 21.0),
-                    ),
-                    child: const Icon(Icons.video_library_outlined, size: 30.0),
-                  ),
-                ),
-              ],
-            ),
-            MenuSection(changeWidget: widget.changeWidget),
-          ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return constraints.maxHeight < 400
+                ? SingleChildScrollView(
+                    child: SideBar(widget: widget),
+                  )
+                : SideBar(widget: widget);
+          },
         ),
       ),
+    );
+  }
+}
+
+class SideBar extends StatelessWidget {
+  const SideBar({
+    super.key,
+    required this.widget,
+  });
+
+  final LeftDrawer widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 4.0, left: 8.0, right: 8.0, top: 8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  widget.changeWidget('home');
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 21.0),
+                ),
+                child: const Icon(Icons.home_outlined, size: 30.0),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 4.0, left: 8.0, right: 8.0, top: 8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  widget.changeWidget('allRepacks');
+                },
+                style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 21.0),
+                ),
+                child: const Icon(Icons.video_library_outlined, size: 30.0),
+              ),
+            ),
+          ],
+        ),
+        MenuSection(changeWidget: widget.changeWidget),
+      ],
     );
   }
 }

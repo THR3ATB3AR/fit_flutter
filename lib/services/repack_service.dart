@@ -271,7 +271,7 @@ class RepackService {
     final db = sqlite3.open('${await _getAppDataPath()}\\repacks.db');
     final stmt = db.prepare('DELETE FROM all_repacks_names WHERE url = ?');
 
-    for (var url in failedRepacks.keys) {
+    for (var url in failedRepacks.values) {
       stmt.execute([url]);
     }
 

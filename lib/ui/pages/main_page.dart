@@ -57,6 +57,7 @@ class _MainPageState extends State<MainPage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
         child: AppBar(
+          surfaceTintColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           title: Padding(
             padding: const EdgeInsets.only(top: 28.0, left: 4.0),
@@ -76,6 +77,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                     child: Center(
                       child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: StreamBuilder<void>(
                           stream: _repackService.repacksStream,
                           builder: (context, snapshot) {
@@ -161,7 +163,7 @@ class _MainPageState extends State<MainPage> {
           return Row(
             children: [
               LeftDrawer(
-                constraints: constraints,
+                // constraints: constraints,
                 changeWidget: changeWidget,
               ),
               Expanded(
