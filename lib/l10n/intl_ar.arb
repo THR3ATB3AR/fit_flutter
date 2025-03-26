@@ -56,5 +56,9 @@
   "aeroTheme": "ايفو",
   "transparentTheme": "شفاف",
   "tabbedTheme": "تبويب",
-  "settings": "الإعدادات"
+  "settings": "الإعدادات",
+  "failedRepacks": "فشل الحزم",
+  "allRepacks": "جميع الحزم",
+  "home": "المنزل",
+  "pleaseEnterValidDirectory": "الرجاء إدخال دليل صحيح"
 }
