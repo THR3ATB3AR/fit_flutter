@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Transparență",
   "tabbedTheme": "Făcut",
-  "settings": "Setări"
+  "settings": "Setări",
+  "failedRepacks": "Pachete eșuate",
+  "allRepacks": "Toate Repachetele",
+  "home": "Acasă",
+  "pleaseEnterValidDirectory": "Te rog introdu un director valid"
 }
