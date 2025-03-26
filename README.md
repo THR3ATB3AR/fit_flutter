@@ -33,8 +33,6 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
 
-* [ ] 📂 **All Repacks Library** Add option to scrape every repack from site for easy access.
-
 I am open for contributions and suggestions!
 
 ## Known Issues 🐛
