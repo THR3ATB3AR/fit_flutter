@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Gennemsigtig",
   "tabbedTheme": "Tabbed",
-  "settings": "Indstillinger"
+  "settings": "Indstillinger",
+  "failedRepacks": "Mislykkede Repacks",
+  "allRepacks": "Alle Repacks",
+  "home": "Hjem",
+  "pleaseEnterValidDirectory": "Angiv en gyldig mappe"
 }
