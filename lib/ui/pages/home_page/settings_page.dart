@@ -239,7 +239,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             value: 1,
                             child:
                                 Text(AppLocalizations.of(context)!.lightTheme)),
-                        if (win11)
+                        if (win11 && !Platform.isAndroid)
                           DropdownMenuItem<int>(
                               value: 2,
                               child: Text(
@@ -254,12 +254,12 @@ class _SettingsPageState extends State<SettingsPage> {
                             value: 4,
                             child:
                                 Text(AppLocalizations.of(context)!.aeroTheme)),
-                        if (win11)
+                        if (win11 && !Platform.isAndroid)
                           DropdownMenuItem<int>(
                               value: 5,
                               child: Text(
                                   AppLocalizations.of(context)!.micaTheme)),
-                        if (win11)
+                        if (win11 && !Platform.isAndroid)
                           DropdownMenuItem<int>(
                               value: 6,
                               child: Text(
