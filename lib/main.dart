@@ -15,8 +15,11 @@ import 'package:fit_flutter/ui/pages/main_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+RootIsolateToken? rootIsolateToken;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await RepackService.instance.initializeDatabase();
   await SystemTheme.accentColor.load();
   if (Platform.isWindows) {
     await Window.initialize();
@@ -73,17 +76,17 @@ class _MyAppState extends State<MyApp> {
       await _checkForUpdates();
     }
 
-    if (await _repackService.allFilesExist()) {
+    if (await _repackService.checkTablesNotEmpty()) {
       setState(() {
         loadingMessage = AppLocalizations.of(context)?.initializing ??
             'Loading cached repacks';
       });
 
-      // _repackService.loadAllData();
-      // await _repackService.loadOldUpdatedRepackList();
+      await _repackService.loadRepacks();
+
       setState(() {});
     } else {
-      _repackService.deleteFiles();
+      _repackService.clearAllTables();
       _repackService.newRepacks =
           await _scraperService.scrapeNewRepacks(onProgress: (loaded, total) {
         setState(() {
@@ -110,10 +113,21 @@ class _MyAppState extends State<MyApp> {
         });
       });
       setState(() {});
+
+      // _repackService.everyRepack = await _scraperService.scrapeEveryRepack(
+      //   onProgress: (loaded, total) {
+      //     setState(() {
+      //       loadingMessage =
+      //           'Loading every repack... $loaded/$total';
+      //     });
+      //   },
+      // );
       _repackService.saveNewRepackList();
       _repackService.savePopularRepackList();
       _repackService.saveAllRepackList();
+      _repackService.saveEveryRepackList();
     }
+    _scraperService.scrapeMissingRepacks();
   }
 
   Future<void> _checkSettings() async {
@@ -141,6 +155,7 @@ class _MyAppState extends State<MyApp> {
 
     _requestPermissions();
     _initialization = loadInitialData();
+    _scraperService.scrapeMissingRepacks();
   }
 
   @override

@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   flutter_acrylic
   permission_handler_windows
+  sqlite3_flutter_libs
   system_theme
   url_launcher_windows
 )

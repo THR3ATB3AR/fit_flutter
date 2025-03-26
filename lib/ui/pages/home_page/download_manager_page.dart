@@ -1,7 +1,6 @@
 import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/ui/pages/dd_page/download_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DownloadManagerPage extends StatefulWidget {
   const DownloadManagerPage({super.key});
@@ -36,16 +35,6 @@ class _DownloadManagerPageState extends State<DownloadManagerPage> {
       ),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              AppLocalizations.of(context)!.downloadManager,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),

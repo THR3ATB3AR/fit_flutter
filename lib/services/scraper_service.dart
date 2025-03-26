@@ -29,10 +29,6 @@ class ScraperService {
         await scrapeAllRepacksNames(onProgress: (i, e) {});
   }
 
-  Future<void> rescrapeUpdatedRepacks() async {
-    _repackService.updatedRepacks =
-        await scrapeUpdatedRepacks(onProgress: (i, e) {});
-  }
 
   Future<bool> checkImageUrl(String url) async {
     try {
@@ -43,17 +39,64 @@ class ScraperService {
     }
   }
 
+
   Future<Repack> deleteInvalidScreenshots(Repack repack) async {
     final List<String> validScreenshots = [];
+    final bool isCoverValid = await checkImageUrl(repack.cover);
+    if (isCoverValid) {
+      repack.cover = repack.cover;
+    } else {
+      repack.cover = 'https://github.com/THR3ATB3AR/fit_flutter_assets/blob/main/noposter.png?raw=true';
+    }
     for (int i = 0; i < repack.screenshots.length; i++) {
-      final bool isValid = await checkImageUrl(repack.screenshots[i]);
-      if (isValid) {
+      final bool isScreenshotValid = await checkImageUrl(repack.screenshots[i]);
+      if (isScreenshotValid) {
         validScreenshots.add(repack.screenshots[i]);
       }
     }
     repack.screenshots = validScreenshots;
     return repack;
   }
+
+  Future<List<Repack>> scrapeEveryRepack({required Function(int, int) onProgress}) async {
+    List<Repack> repacks = [];
+    for (var entry in _repackService.allRepacksNames.entries.take(100)) {
+      try {
+        final repack = await scrapeRepackFromSearch(entry.value);
+        repacks.add(repack);
+      } catch (e) {
+        print('Failed to scrape repack: ${entry.key}, error: $e');
+      }
+      loadingProgress.value = repacks.length / _repackService.allRepacksNames.length;
+      onProgress(repacks.length, _repackService.allRepacksNames.length);
+    }
+    return repacks;
+  }
+
+
+  Future<void> scrapeMissingRepacks() async {
+  final everyRepackUrls = _repackService.everyRepack.map((repack) => repack.url).toSet();
+  final allRepackUrls = _repackService.allRepacksNames.values.toSet();
+  final missingRepackUrls = allRepackUrls.difference(everyRepackUrls);
+  var d =0;
+  for (var url in missingRepackUrls) {
+    try {
+      final repack = await scrapeRepackFromSearch(url);
+      print('Scraped repack: ${repack.title} $d / ${missingRepackUrls.length - _repackService.failedRepacks.length} ${d / (missingRepackUrls.length - _repackService.failedRepacks.length) * 100}%'); // Debugowanie
+      d++;
+      _repackService.everyRepack.add(repack);
+      await _repackService.saveSingleEveryRepack(repack); // Zapisz do bazy danych
+      _repackService.notifyListeners(); // Emituj zmiany przez strumień
+    } catch (e) {
+      _repackService.failedRepacks[url] = _repackService.allRepacksNames.entries.firstWhere((element) => element.value == url).key;
+      _repackService.saveFailedRepack(_repackService.failedRepacks[url]!, url);
+      print('Failed to scrape repack: $url, error: $e');
+    }
+  }
+  _repackService.deleteFailedRepacksFromAllRepackNames();
+  _repackService.everyRepack.sort((a,b) => a.title.compareTo(b.title));
+  print('scrapeMissingRepacks finished'); // Debugowanie
+}
 
   Future<Map<String, String>> scrapeAllRepacksNames(
       {required Function(int, int) onProgress}) async {
@@ -99,7 +142,7 @@ class ScraperService {
     final response = await _fetchWithRetry(url);
     dom.Document html = dom.Document.html(response.body);
     final article = html.querySelector('article.category-lossless-repack');
-    return await deleteInvalidScreenshots(scrapeRepack(article!));
+    return await deleteInvalidScreenshots(scrapeRepack(article!, url: search));
   }
 
   Future<List<Repack>> scrapeNewRepacks(
@@ -148,77 +191,20 @@ class ScraperService {
         html
             .querySelectorAll('article.category-lossless-repack')
             .forEach((article) async {
-          repacks.add(await deleteInvalidScreenshots(scrapeRepack(article)));
+          repacks.add(await deleteInvalidScreenshots(scrapeRepack(article, url: url.toString())));
         });
         loadingProgress.value = i / 20;
         onProgress(i, 20);
       } catch (e) {
         print(e);
       }
-      // final url = Uri.parse(pages[i]);
-      // final response = await _fetchWithRetry(url);
-      // dom.Document html = dom.Document.html(response.body);
-
-      // html
-      //     .querySelectorAll('article.category-lossless-repack')
-      //     .forEach((article) async {
-      //   repacks.add(await deleteInvalidScreenshots(scrapeRepack(article)));
-      // });
-      // loadingProgress.value = i / 20;
-      // onProgress(i, 20);
     }
 
     return repacks;
   }
 
-  Future<List<Repack>> scrapeUpdatedRepacks(
-      {required Function(int, int) onProgress}) async {
-    List<Repack> repacks = [];
-    final url =
-        Uri.parse('https://fitgirl-repacks.site/category/updates-digest/');
-    final response = await _fetchWithRetry(url);
-    dom.Document html = dom.Document.html(response.body);
 
-    // final pages1 = html
-    //     .querySelectorAll(
-    //         'article > div.entry-content ')
-    //     .map((element) => element.outerHtml.trim())
-    //     .toList();
-
-    final pages = html
-        .querySelectorAll(
-            'article > div.entry-content > div.su-spoiler > div.su-spoiler-content > a')
-        .where((element) => element.innerHtml.trim() == 'Repack page')
-        .map((element) => element.attributes['href']!.trim())
-        .toList();
-
-    for (int i = 0; i < 20; i++) {
-      try {
-        final url = Uri.parse(pages[i]);
-        final response = await _fetchWithRetry(url);
-        dom.Document html = dom.Document.html(response.body);
-        final article = html.querySelector('article');
-        repacks.add(await deleteInvalidScreenshots(scrapeRepack(article!)));
-        loadingProgress.value = i / 20;
-        onProgress(i, 20);
-      } catch (e) {
-        print(e);
-      }
-      // final url = Uri.parse(pages[i]);
-
-      // final response = await _fetchWithRetry(url);
-      // dom.Document html = dom.Document.html(response.body);
-      // final article = html.querySelector('article');
-      // repacks.add(await deleteInvalidScreenshots(scrapeRepack(article!)));
-
-      // loadingProgress.value = i / 20;
-      // onProgress(i, 20);
-    }
-
-    return repacks;
-  }
-
-  Repack scrapeRepack(dom.Element article) {
+  Repack scrapeRepack(dom.Element article, {String url = ''}) {
     Repack repack;
 
     dom.Document html = dom.Document.html(article.outerHtml);
@@ -226,6 +212,10 @@ class ScraperService {
     final List<dom.Element> h3Elements =
         html.querySelectorAll('div.entry-content h3');
     List<Map<String, String>> repackSections = [];
+
+    if (url == '') {
+      url = html.querySelector('header > h1 > a')!.attributes['href']!.trim();    
+    }
 
     for (int i = 0; i < h3Elements.length; i++) {
       final dom.Element h3Element = h3Elements[i];
@@ -252,14 +242,12 @@ class ScraperService {
             'header.entry-header > div.entry-meta > span.entry-date > a > time')!
         .text
         .trim());
-    // print(releaseDate);
     final cover = repackSections[0]['content']!.contains('<img')
         ? repackSections[0]['content']!.substring(
             repackSections[0]['content']!.indexOf('src="') + 5,
             repackSections[0]['content']!.indexOf(
                 '"', repackSections[0]['content']!.indexOf('src="') + 5))
         : '';
-    // print(cover);
     final dom.Element? infoElement = html.querySelector('div.entry-content p');
     String genres = '';
     String company = '';
@@ -280,31 +268,11 @@ class ScraperService {
       previousValue[element.key] = element.value;
       return previousValue;
     });
-    // print(infoMap);
     genres = infoMap['genres/tags'] ?? infoMap['genres'] ?? 'N/A';
     language = infoMap['languages'] ?? infoMap['language'] ?? 'N/A';
     company = infoMap['companies'] ?? infoMap['company'] ?? 'N/A';
     originalSize = infoMap['original size'] ?? 'N/A';
     repackSize = infoMap['repack size'] ?? 'N/A';
-
-    // Map<String, List<Map<String, dynamic>>> sectionDownloadLinks = {};
-    // for (var section in repackSections) {
-    //   if (section['title']!.toLowerCase().contains('download')) {
-    //   final links = dom.Document.html(section['content']!)
-    //     .querySelectorAll('a[href]')
-    //     .map((element) => {
-    //         'hostName': element.text.trim(),
-    //         'url': element.attributes['href']!.trim()
-    //       })
-    //     .where((link) =>
-    //       // (link['url']!.startsWith('https://paste.fitgirl-repacks.site') ||
-    //       (link['url']!.startsWith('magnet:')) &&
-    //       link['hostName']!.toLowerCase() != '.torrent file only')
-    //     .toList();
-    //   sectionDownloadLinks[section['title']!] = links;
-    //   print(sectionDownloadLinks);
-    //   }
-    // }
 
     Map<String, List<Map<String, String>>> sectionDownloadLinks = {};
     for (var section in repackSections) {
@@ -399,6 +367,7 @@ class ScraperService {
 
     repack = Repack(
         title: title,
+        url: url,
         releaseDate: releaseDate,
         cover: cover,
         genres: genres,

@@ -41,8 +41,8 @@ class _RepackSliderState extends State<RepackSlider> {
   }
 
   Future<void> _loadData() async {
-   if (await _repackService.allFilesExist() && !_dataLoaded) { 
-       await _repackService.loadAllData();
+   if (await _repackService.checkTablesNotEmpty() && !_dataLoaded) { 
+       await _repackService.loadRepacks();
       _dataLoaded = true; 
    }
 }
@@ -91,9 +91,6 @@ class _RepackSliderState extends State<RepackSlider> {
               case RepackListType.popular:
                 repackList = _repackService.popularRepacks;
                 break;
-              case RepackListType.updated:
-                repackList = _repackService.updatedRepacks;
-                break;
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -132,7 +129,7 @@ class _RepackSliderState extends State<RepackSlider> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 21.0),
                   ),
                   onPressed: _scrollLeft,
                   child:
@@ -146,7 +143,7 @@ class _RepackSliderState extends State<RepackSlider> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 21.0),
                   ),
                   onPressed: _scrollRight,
                   child:
