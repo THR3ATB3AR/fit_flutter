@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Průhledný",
   "tabbedTheme": "Karta",
-  "settings": "Nastavení"
+  "settings": "Nastavení",
+  "failedRepacks": "Neúspěšné repozitáře",
+  "allRepacks": "Všechny repozitáře",
+  "home": "Domů",
+  "pleaseEnterValidDirectory": "Zadejte prosím platný adresář"
 }
