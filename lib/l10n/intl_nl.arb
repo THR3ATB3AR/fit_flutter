@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Doorzichtig",
   "tabbedTheme": "Tabbladen",
-  "settings": "Instellingen"
+  "settings": "Instellingen",
+  "failedRepacks": "Mislukte Repacks",
+  "allRepacks": "Alle Repacks",
+  "home": "Startpagina",
+  "pleaseEnterValidDirectory": "Voer een geldige map in"
 }
