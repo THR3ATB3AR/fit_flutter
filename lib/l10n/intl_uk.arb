@@ -56,5 +56,9 @@
   "aeroTheme": "Аеро",
   "transparentTheme": "Прозорий",
   "tabbedTheme": "Табуляція",
-  "settings": "Налаштування"
+  "settings": "Налаштування",
+  "failedRepacks": "Невдалі лагодження",
+  "allRepacks": "Усі репозиторії",
+  "home": "Домашній екран",
+  "pleaseEnterValidDirectory": "Введіть правильний каталог"
 }
