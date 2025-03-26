@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Genomskinlig",
   "tabbedTheme": "Tabbad",
-  "settings": "Inställningar"
+  "settings": "Inställningar",
+  "failedRepacks": "Misslyckade återfall",
+  "allRepacks": "Alla återfall",
+  "home": "Hem",
+  "pleaseEnterValidDirectory": "Ange en giltig katalog"
 }
