@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Transparente",
   "tabbedTheme": "Leitura",
-  "settings": "Confirgurações"
+  "settings": "Confirgurações",
+  "failedRepacks": "Reforços falhados",
+  "allRepacks": "Todos ReRepresentantes",
+  "home": "Residencial",
+  "pleaseEnterValidDirectory": "Por favor, insira um diretório válido"
 }
