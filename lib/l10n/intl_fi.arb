@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Läpikuultava",
   "tabbedTheme": "Välilehti",
-  "settings": "Asetukset"
+  "settings": "Asetukset",
+  "failedRepacks": "Epäonnistuneet Repaketit",
+  "allRepacks": "Kaikki Repacks",
+  "home": "Koti",
+  "pleaseEnterValidDirectory": "Anna kelvollinen kansio"
 }

@@ -56,5 +56,9 @@
   "aeroTheme": "Aero",
   "transparentTheme": "Διαφανές",
   "tabbedTheme": "Καρτέλες",
-  "settings": "Ρυθμίσεις"
+  "settings": "Ρυθμίσεις",
+  "failedRepacks": "Αποτυχημένα Πακέτα",
+  "allRepacks": "Όλα Τα Repacks",
+  "home": "Αρχική",
+  "pleaseEnterValidDirectory": "Παρακαλώ εισάγετε έναν έγκυρο κατάλογο"
 }

@@ -56,5 +56,9 @@
   "aeroTheme": "Аэро",
   "transparentTheme": "Прозрачный",
   "tabbedTheme": "Вкладка",
-  "settings": "Настройки"
+  "settings": "Настройки",
+  "failedRepacks": "Неудачные наборы",
+  "allRepacks": "Все возвраты",
+  "home": "Домашний",
+  "pleaseEnterValidDirectory": "Пожалуста правильно введите каталог"
 }
