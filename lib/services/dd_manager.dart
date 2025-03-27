@@ -1,8 +1,10 @@
 import 'package:fit_flutter/data/download_info.dart';
+import 'package:fit_flutter/services/auto_extract.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class DdManager {
   final DownloadManager downloadManager = DownloadManager();
+  final AutoExtract autoExtract = AutoExtract();
 
   DdManager._privateConstructor();
   Map<String, List<Map<String, dynamic>>> downloadTasks = {};
@@ -29,6 +31,8 @@ class DdManager {
       'fileName': ddInfo.fileName,
       'task': downloadManager.getDownload(ddInfo.downloadLink)!
     });
+
+    printSanitizedTitleWhenCompleted(sanitizedTitle,'$downloadFolder$sanitizedTitle');
   }
 
   DownloadTask? getDownloadTask(DownloadInfo ddInfo) {
@@ -69,5 +73,24 @@ class DdManager {
 
   void setMaxConcurrentDownloads(int maxDownloads) {
     downloadManager.maxConcurrentTasks = maxDownloads;
+  }
+
+  void printSanitizedTitleWhenCompleted(String sanitizedTitle, String downloadPath) {
+    if (!downloadTasks.containsKey(sanitizedTitle)) return;
+
+    final tasks = downloadTasks[sanitizedTitle]!;
+    bool allCompleted = tasks.every((task) =>
+        (task['task'] as DownloadTask).status.value == DownloadStatus.completed);
+
+    if (allCompleted) {
+      print('All tasks for "$sanitizedTitle" are completed.');
+      autoExtract.extract(downloadPath);
+      downloadTasks.remove(sanitizedTitle);
+    } else {
+      // Monitor tasks periodically
+      Future.delayed(const Duration(seconds: 1), () {
+        printSanitizedTitleWhenCompleted(sanitizedTitle, downloadPath);
+      });
+    }
   }
 }
