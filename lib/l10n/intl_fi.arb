@@ -14,8 +14,10 @@
   "newRepacks": "Uudet Repacks",
   "popularRepacks": "Suositut Repaketit",
   "autoCheckForUpdatesAtStart": "Tarkista päivitykset automaattisesti alussa",
-  "chooseDefaultDownloadFolder": "Valitse oletuslatauskansio",
-  "defaultDownloadFolder": "Oletus Latauskansio",
+  "chooseDefaultDownloadPath": "Valitse oletuslatauspolku",
+  "chooseDefaultInstallPath": "Valitse asennuksen oletuspolku",
+  "defaultDownloadFolder": "Oletus Latauspolku",
+  "defaultInstallFolder": "Asennuksen Oletuspolku",
   "maxConcurrentDownloads": "Maksimi Samanaikaiset Lataukset",
   "current": "Nykyinen",
   "checkForUpdates": "Tarkista päivitykset",
@@ -60,5 +62,12 @@
   "failedRepacks": "Epäonnistuneet Repaketit",
   "allRepacks": "Kaikki Repacks",
   "home": "Koti",
-  "pleaseEnterValidDirectory": "Anna kelvollinen kansio"
+  "pleaseEnterValidDirectory": "Anna kelvollinen kansio",
+  "normalInstall": "Normaali Asennus",
+  "silentInstall": "Äänetön Asennus",
+  "verySilentInstall": "Erittäin Äänetön Asennus",
+  "installModeSettingsTitle": "Asenna Tila Asetukset",
+  "changeInstallMode": "Vaihda Asennustilaa",
+  "autoExtractSettingsTitle": "Automaattinen Purku Asetukset",
+  "autoExtract": "Automaattinen Purku"
 }
