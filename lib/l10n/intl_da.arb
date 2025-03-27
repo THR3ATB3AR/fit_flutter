@@ -14,8 +14,10 @@
   "newRepacks": "Nye Gentagelser",
   "popularRepacks": "Populære Gentagelser",
   "autoCheckForUpdatesAtStart": "Auto-tjek efter opdateringer i starten",
-  "chooseDefaultDownloadFolder": "Vælg standard download-mappe",
-  "defaultDownloadFolder": "Standard Download Mappe",
+  "chooseDefaultDownloadPath": "Vælg standard downloadsti",
+  "chooseDefaultInstallPath": "Vælg standard installationssti",
+  "defaultDownloadFolder": "Standard Download Sti",
+  "defaultInstallFolder": "Standard Installationssti",
   "maxConcurrentDownloads": "Maks. Samtidige Downloads",
   "current": "Aktuel",
   "checkForUpdates": "Søg efter opdateringer",
@@ -60,5 +62,12 @@
   "failedRepacks": "Mislykkede Repacks",
   "allRepacks": "Alle Repacks",
   "home": "Hjem",
-  "pleaseEnterValidDirectory": "Angiv en gyldig mappe"
+  "pleaseEnterValidDirectory": "Angiv en gyldig mappe",
+  "normalInstall": "Normal Installation",
+  "silentInstall": "Lydløs Installer",
+  "verySilentInstall": "Meget Lydløs Installer",
+  "installModeSettingsTitle": "Installer Tilstand Indstillinger",
+  "changeInstallMode": "Skift Installationstilstand",
+  "autoExtractSettingsTitle": "Auto Udpak Indstillinger",
+  "autoExtract": "Automatisk Udpak"
 }
