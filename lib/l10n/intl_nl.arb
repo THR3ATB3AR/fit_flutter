@@ -14,8 +14,10 @@
   "newRepacks": "Nieuwe Repacks",
   "popularRepacks": "Populaire Repacks",
   "autoCheckForUpdatesAtStart": "Automatisch controleren op updates bij het starten",
-  "chooseDefaultDownloadFolder": "Kies standaard downloadmap",
-  "defaultDownloadFolder": "Standaard downloadmap",
+  "chooseDefaultDownloadPath": "Kies standaard downloadpad",
+  "chooseDefaultInstallPath": "Kies de standaard installatiepad",
+  "defaultDownloadFolder": "Standaard Download pad",
+  "defaultInstallFolder": "Standaard installatiepad",
   "maxConcurrentDownloads": "Max gelijktijdige downloads",
   "current": "Stroom",
   "checkForUpdates": "Controleren op updates",
@@ -60,5 +62,12 @@
   "failedRepacks": "Mislukte Repacks",
   "allRepacks": "Alle Repacks",
   "home": "Startpagina",
-  "pleaseEnterValidDirectory": "Voer een geldige map in"
+  "pleaseEnterValidDirectory": "Voer een geldige map in",
+  "normalInstall": "Normale installatie",
+  "silentInstall": "Stil installeren",
+  "verySilentInstall": "Zeer stille installatie",
+  "installModeSettingsTitle": "Installeren modus instellingen",
+  "changeInstallMode": "Installatiemodus wijzigen",
+  "autoExtractSettingsTitle": "Instellingen voor automatisch uitpakken",
+  "autoExtract": "Automatisch uitpakken"
 }
