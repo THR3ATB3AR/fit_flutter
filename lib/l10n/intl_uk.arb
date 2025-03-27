@@ -14,8 +14,10 @@
   "newRepacks": "Нові записи репозиторіїв",
   "popularRepacks": "Популярні поклади",
   "autoCheckForUpdatesAtStart": "Автоматична перевірка наявності оновлень при старті",
-  "chooseDefaultDownloadFolder": "Виберіть теку для завантажень за замовчуванням",
-  "defaultDownloadFolder": "Папка завантажень за замовчуванням",
+  "chooseDefaultDownloadPath": "Виберіть шлях для завантаження за замовчуванням",
+  "chooseDefaultInstallPath": "Вибрати шлях до встановлення за замовчуванням",
+  "defaultDownloadFolder": "Шлях завантаження за замовчуванням",
+  "defaultInstallFolder": "Типовий шлях встановлення",
   "maxConcurrentDownloads": "Максимальна кількість одночасних завантажень",
   "current": "Поточна версія",
   "checkForUpdates": "Перевірити наявність оновлень",
@@ -60,5 +62,12 @@
   "failedRepacks": "Невдалі лагодження",
   "allRepacks": "Усі репозиторії",
   "home": "Домашній екран",
-  "pleaseEnterValidDirectory": "Введіть правильний каталог"
+  "pleaseEnterValidDirectory": "Введіть правильний каталог",
+  "normalInstall": "Нормальне встановлення",
+  "silentInstall": "Беззвучна установка",
+  "verySilentInstall": "Дуже беззвучне встановлення",
+  "installModeSettingsTitle": "Параметри режиму встановлення",
+  "changeInstallMode": "Зміна режиму встановлення",
+  "autoExtractSettingsTitle": "Налаштування автоматичного вилучення",
+  "autoExtract": "Автоматичне вилучення"
 }

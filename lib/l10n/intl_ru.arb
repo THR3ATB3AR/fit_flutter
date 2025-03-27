@@ -14,8 +14,10 @@
   "newRepacks": "Новые наборы",
   "popularRepacks": "Популярные наборы",
   "autoCheckForUpdatesAtStart": "Автоматическая проверка обновлений при запуске",
-  "chooseDefaultDownloadFolder": "Выберите папку для скачивания по умолчанию",
-  "defaultDownloadFolder": "Папка загрузок по умолчанию",
+  "chooseDefaultDownloadPath": "Выберите путь загрузки по умолчанию",
+  "chooseDefaultInstallPath": "Выберите путь установки по умолчанию",
+  "defaultDownloadFolder": "Путь загрузки по умолчанию",
+  "defaultInstallFolder": "Путь установки по умолчанию",
   "maxConcurrentDownloads": "Макс. одновременных загрузок",
   "current": "Текущее",
   "checkForUpdates": "Проверить обновления",
@@ -60,5 +62,12 @@
   "failedRepacks": "Неудачные наборы",
   "allRepacks": "Все возвраты",
   "home": "Домашний",
-  "pleaseEnterValidDirectory": "Пожалуста правильно введите каталог"
+  "pleaseEnterValidDirectory": "Пожалуста правильно введите каталог",
+  "normalInstall": "Обычная установка",
+  "silentInstall": "Без звуковой установки",
+  "verySilentInstall": "Очень беззвучная установка",
+  "installModeSettingsTitle": "Настройки режима установки",
+  "changeInstallMode": "Изменить режим установки",
+  "autoExtractSettingsTitle": "Параметры автоизвлечения",
+  "autoExtract": "Автоизвлечение"
 }

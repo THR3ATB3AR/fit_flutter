@@ -14,8 +14,10 @@
   "newRepacks": "حزم جديدة",
   "popularRepacks": "حزم شعبية",
   "autoCheckForUpdatesAtStart": "التحقق تلقائياً من وجود تحديثات عند البدء",
-  "chooseDefaultDownloadFolder": "اختر مجلد التحميل الافتراضي",
-  "defaultDownloadFolder": "مجلد التحميل الافتراضي",
+  "chooseDefaultDownloadPath": "اختر مسار التحميل الافتراضي",
+  "chooseDefaultInstallPath": "اختر مسار التثبيت الافتراضي",
+  "defaultDownloadFolder": "مسار التحميل الافتراضي",
+  "defaultInstallFolder": "مسار التثبيت الافتراضي",
   "maxConcurrentDownloads": "الحد الأقصى لتنزيلات متزامنة",
   "current": "الحالي",
   "checkForUpdates": "التحقق من وجود تحديثات",
@@ -60,5 +62,12 @@
   "failedRepacks": "فشل الحزم",
   "allRepacks": "جميع الحزم",
   "home": "المنزل",
-  "pleaseEnterValidDirectory": "الرجاء إدخال دليل صحيح"
+  "pleaseEnterValidDirectory": "الرجاء إدخال دليل صحيح",
+  "normalInstall": "تثبيت عادي",
+  "silentInstall": "تثبيت صامت",
+  "verySilentInstall": "تثبيت صامت جدا",
+  "installModeSettingsTitle": "إعدادات وضع التثبيت",
+  "changeInstallMode": "تغيير وضع التثبيت",
+  "autoExtractSettingsTitle": "إستخراج الإعدادات تلقائياً",
+  "autoExtract": "استخراج تلقائي"
 }

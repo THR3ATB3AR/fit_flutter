@@ -14,8 +14,10 @@
   "newRepacks": "Nuovi Repacks",
   "popularRepacks": "Repacks Popolari",
   "autoCheckForUpdatesAtStart": "Controllo automatico degli aggiornamenti all'inizio",
-  "chooseDefaultDownloadFolder": "Scegli la cartella predefinita download",
-  "defaultDownloadFolder": "Cartella Di Download Predefinita",
+  "chooseDefaultDownloadPath": "Scegli percorso download predefinito",
+  "chooseDefaultInstallPath": "Scegli percorso di installazione predefinito",
+  "defaultDownloadFolder": "Percorso Di Download Predefinito",
+  "defaultInstallFolder": "Percorso Di Installazione Predefinito",
   "maxConcurrentDownloads": "Download Concorrenti Massimi",
   "current": "Corrente",
   "checkForUpdates": "Controlla aggiornamenti",
@@ -60,5 +62,12 @@
   "failedRepacks": "Repacks Falliti",
   "allRepacks": "Tutti I Repacks",
   "home": "Home",
-  "pleaseEnterValidDirectory": "Inserisci una directory valida"
+  "pleaseEnterValidDirectory": "Inserisci una directory valida",
+  "normalInstall": "Installazione Normale",
+  "silentInstall": "Installazione Silenziosa",
+  "verySilentInstall": "Installazione Molto Silenziosa",
+  "installModeSettingsTitle": "Impostazioni Modalità Installazione",
+  "changeInstallMode": "Cambia Modalità Di Installazione",
+  "autoExtractSettingsTitle": "Impostazioni Di Estrazione Automatica",
+  "autoExtract": "Estrazione Automatica"
 }

@@ -14,8 +14,10 @@
   "newRepacks": "Nye Reparasjoner",
   "popularRepacks": "Populære rester",
   "autoCheckForUpdatesAtStart": "Sjekk automatisk for oppdateringer ved oppstart",
-  "chooseDefaultDownloadFolder": "Velg standard mappe for nedlasting",
-  "defaultDownloadFolder": "Standard nedlastingsmappe",
+  "chooseDefaultDownloadPath": "Velg standard nedlastingssti",
+  "chooseDefaultInstallPath": "Velg standard installasjonssted",
+  "defaultDownloadFolder": "Standard nedlastingssti",
+  "defaultInstallFolder": "Standard installasjons-sti",
   "maxConcurrentDownloads": "Maks samtidige nedlastinger",
   "current": "Nåværende",
   "checkForUpdates": "Se etter oppdateringer",
@@ -60,5 +62,12 @@
   "failedRepacks": "Mislykket reaktivitet",
   "allRepacks": "Alle rester",
   "home": "Hjem",
-  "pleaseEnterValidDirectory": "Vennligst angi en gyldig mappe"
+  "pleaseEnterValidDirectory": "Vennligst angi en gyldig mappe",
+  "normalInstall": "Normal installasjon",
+  "silentInstall": "Dempet installasjon",
+  "verySilentInstall": "Veldig stille installasjon",
+  "installModeSettingsTitle": "Installasjonsmodus innstillinger",
+  "changeInstallMode": "Endre installasjonsmodus",
+  "autoExtractSettingsTitle": "Innstillinger for automatisk avtrekk",
+  "autoExtract": "Automatisk avtrekk"
 }
