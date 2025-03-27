@@ -14,8 +14,10 @@
   "newRepacks": "新しいリポジトリ",
   "popularRepacks": "人気のリポジトリ",
   "autoCheckForUpdatesAtStart": "開始時にアップデートを自動チェック",
-  "chooseDefaultDownloadFolder": "デフォルトのダウンロードフォルダを選択",
-  "defaultDownloadFolder": "デフォルトのダウンロードフォルダ",
+  "chooseDefaultDownloadPath": "既定のダウンロードパスを選択",
+  "chooseDefaultInstallPath": "既定のインストールパスを選択",
+  "defaultDownloadFolder": "デフォルトのダウンロードパス",
+  "defaultInstallFolder": "デフォルトのインストールパス",
   "maxConcurrentDownloads": "最大同時ダウンロード数",
   "current": "現在",
   "checkForUpdates": "アップデートの確認",
@@ -60,5 +62,12 @@
   "failedRepacks": "失敗したリポジトリ",
   "allRepacks": "すべてのリポジトリ",
   "home": "ホーム",
-  "pleaseEnterValidDirectory": "正しいディレクトリを入力してください"
+  "pleaseEnterValidDirectory": "正しいディレクトリを入力してください",
+  "normalInstall": "通常のインストール",
+  "silentInstall": "サイレントインストール",
+  "verySilentInstall": "非常にサイレントインストール",
+  "installModeSettingsTitle": "インストールモード設定",
+  "changeInstallMode": "インストールモードの変更",
+  "autoExtractSettingsTitle": "自動抽出設定",
+  "autoExtract": "自動抽出"
 }
