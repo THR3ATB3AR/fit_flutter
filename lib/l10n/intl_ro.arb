@@ -14,8 +14,10 @@
   "newRepacks": "Repachete noi",
   "popularRepacks": "Repachete populare",
   "autoCheckForUpdatesAtStart": "Verificare automată pentru actualizări la pornire",
-  "chooseDefaultDownloadFolder": "Alegeți dosarul implicit pentru descărcare",
-  "defaultDownloadFolder": "Dosar de Descărcare Implicit",
+  "chooseDefaultDownloadPath": "Alegeți calea implicită pentru descărcare",
+  "chooseDefaultInstallPath": "Alege calea implicită de instalare",
+  "defaultDownloadFolder": "Calea implicită de descărcare",
+  "defaultInstallFolder": "Calea implicită de instalare",
   "maxConcurrentDownloads": "Maxim de descărcări Concurente",
   "current": "Actuală",
   "checkForUpdates": "Verifică pentru actualizări",
@@ -60,5 +62,12 @@
   "failedRepacks": "Pachete eșuate",
   "allRepacks": "Toate Repachetele",
   "home": "Acasă",
-  "pleaseEnterValidDirectory": "Te rog introdu un director valid"
+  "pleaseEnterValidDirectory": "Te rog introdu un director valid",
+  "normalInstall": "Instalare normală",
+  "silentInstall": "Instalare silențioasă",
+  "verySilentInstall": "Instalare foarte silențioasă",
+  "installModeSettingsTitle": "Setări Mod Instalare",
+  "changeInstallMode": "Schimbă modul de instalare",
+  "autoExtractSettingsTitle": "Setări Extragere Automată",
+  "autoExtract": "Extragere automată"
 }
