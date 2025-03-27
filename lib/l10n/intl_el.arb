@@ -14,8 +14,10 @@
   "newRepacks": "Νέα Πακέτα",
   "popularRepacks": "Δημοφιλή Repacks",
   "autoCheckForUpdatesAtStart": "Αυτόματος έλεγχος για ενημερώσεις στην αρχή",
-  "chooseDefaultDownloadFolder": "Επιλέξτε προεπιλεγμένο φάκελο λήψεων",
-  "defaultDownloadFolder": "Προεπιλεγμένος Φάκελος Λήψεων",
+  "chooseDefaultDownloadPath": "Επιλέξτε προεπιλεγμένη διαδρομή λήψης",
+  "chooseDefaultInstallPath": "Επιλέξτε προεπιλεγμένη διαδρομή εγκατάστασης",
+  "defaultDownloadFolder": "Προεπιλεγμένη Διαδρομή Λήψεων",
+  "defaultInstallFolder": "Προεπιλεγμένη Διαδρομή Εγκατάστασης",
   "maxConcurrentDownloads": "Μέγιστες Ταυτόχρονες Λήψεις",
   "current": "Τρέχων",
   "checkForUpdates": "Έλεγχος για ενημερώσεις",
@@ -60,5 +62,12 @@
   "failedRepacks": "Αποτυχημένα Πακέτα",
   "allRepacks": "Όλα Τα Repacks",
   "home": "Αρχική",
-  "pleaseEnterValidDirectory": "Παρακαλώ εισάγετε έναν έγκυρο κατάλογο"
+  "pleaseEnterValidDirectory": "Παρακαλώ εισάγετε έναν έγκυρο κατάλογο",
+  "normalInstall": "Κανονική Εγκατάσταση",
+  "silentInstall": "Αθόρυβη Εγκατάσταση",
+  "verySilentInstall": "Πολύ Σιωπηλή Εγκατάσταση",
+  "installModeSettingsTitle": "Ρυθμίσεις Λειτουργίας Εγκατάστασης",
+  "changeInstallMode": "Αλλαγή Λειτουργίας Εγκατάστασης",
+  "autoExtractSettingsTitle": "Ρυθμίσεις Αυτόματης Εξαγωγής",
+  "autoExtract": "Αυτόματη Εξαγωγή"
 }
