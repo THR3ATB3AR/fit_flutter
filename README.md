@@ -20,7 +20,7 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * **Torrent Support:** Download repacks using torrent files (requires a torrent client).
 * **Cross-Platform Support:** FitFlutter is designed to work seamlessly on Windows, Android and Linux.
 * **Caching Repacks:** Save scraped repacks to disk for faster loading.
-* **Auto Install Repacks:** Automatically install downloaded repacks to a specified directory, streamlining the setup process.
+* **Auto Install Repacks:** Automatically install downloaded repacks to a specified directory, streamlining the setup process (requires 7-Zip to be installed).
 
 ## Screenshots
 
