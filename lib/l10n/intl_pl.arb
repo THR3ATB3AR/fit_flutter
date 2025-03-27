@@ -14,8 +14,10 @@
   "newRepacks": "Nowe Repacki",
   "popularRepacks": "Popularne Repacki",
   "autoCheckForUpdatesAtStart": "Automatyczne sprawdzanie aktualizacji przy starcie",
-  "chooseDefaultDownloadFolder": "Wybierz domyślny folder pobierania",
+  "chooseDefaultDownloadPath": "Wybierz domyślny folder pobierania",
+  "chooseDefaultInstallPath": "Wybierz domyślny folder instalacji",
   "defaultDownloadFolder": "Domyślny Folder Pobierania",
+  "defaultInstallFolder": "Domyślna Folder Instalacji",
   "maxConcurrentDownloads": "Maksymalna Liczba Jednoczesnych Pobrań",
   "current": "Aktualnie",
   "checkForUpdates": "Sprawdź aktualizacje",
@@ -60,5 +62,12 @@
   "failedRepacks": "Zepsute Repacki",
   "allRepacks": "Wszystkie Repacki",
   "home": "Główna",
-  "pleaseEnterValidDirectory": "Wprowadź prawidłowy folder"
+  "pleaseEnterValidDirectory": "Wprowadź prawidłowy folder",
+  "normalInstall": "Normalna Instalacja",
+  "silentInstall": "Cicha Instalacja",
+  "verySilentInstall": "Bardzo Cicha Instalacja",
+  "installModeSettingsTitle": "Ustawienia Trybu Instalacji",
+  "changeInstallMode": "Zmień Tryb instalacji",
+  "autoExtractSettingsTitle": "Ustawienia Automatycznego Wyodrębniania",
+  "autoExtract": "Automatyczne Wyodrębnianie"
 }
