@@ -14,8 +14,10 @@
   "newRepacks": "Nové repozitáře",
   "popularRepacks": "Populární repozitáře",
   "autoCheckForUpdatesAtStart": "Automaticky kontrolovat aktualizace při startu",
-  "chooseDefaultDownloadFolder": "Vyberte výchozí složku pro stahování",
-  "defaultDownloadFolder": "Výchozí složka pro stahování",
+  "chooseDefaultDownloadPath": "Zvolte výchozí cestu ke stažení",
+  "chooseDefaultInstallPath": "Zvolte výchozí cestu k instalaci",
+  "defaultDownloadFolder": "Výchozí cesta ke stažení",
+  "defaultInstallFolder": "Výchozí cesta instalace",
   "maxConcurrentDownloads": "Maximální počet souběžných stahování",
   "current": "Aktuální",
   "checkForUpdates": "Zkontrolovat aktualizace",
@@ -60,5 +62,12 @@
   "failedRepacks": "Neúspěšné repozitáře",
   "allRepacks": "Všechny repozitáře",
   "home": "Domů",
-  "pleaseEnterValidDirectory": "Zadejte prosím platný adresář"
+  "pleaseEnterValidDirectory": "Zadejte prosím platný adresář",
+  "normalInstall": "Normální instalace",
+  "silentInstall": "Tichá instalace",
+  "verySilentInstall": "Velmi tichá instalace",
+  "installModeSettingsTitle": "Nastavení instalačního režimu",
+  "changeInstallMode": "Změnit instalační režim",
+  "autoExtractSettingsTitle": "Nastavení automatického extrahování",
+  "autoExtract": "Automatická extrakce"
 }
