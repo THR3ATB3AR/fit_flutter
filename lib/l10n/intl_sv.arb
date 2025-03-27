@@ -14,8 +14,10 @@
   "newRepacks": "Nya återfall",
   "popularRepacks": "Populära återfall",
   "autoCheckForUpdatesAtStart": "Sök automatiskt efter uppdateringar vid start",
-  "chooseDefaultDownloadFolder": "Välj standard nedladdningsmapp",
-  "defaultDownloadFolder": "Förvald nedladdningsmapp",
+  "chooseDefaultDownloadPath": "Välj förvald sökväg för nedladdning",
+  "chooseDefaultInstallPath": "Välj standardsökväg för installation",
+  "defaultDownloadFolder": "Standardsökväg för nedladdning",
+  "defaultInstallFolder": "Standardsökväg för installation",
   "maxConcurrentDownloads": "Max Samtidiga nedladdningar",
   "current": "Nuvarande",
   "checkForUpdates": "Sök efter uppdateringar",
@@ -60,5 +62,12 @@
   "failedRepacks": "Misslyckade återfall",
   "allRepacks": "Alla återfall",
   "home": "Hem",
-  "pleaseEnterValidDirectory": "Ange en giltig katalog"
+  "pleaseEnterValidDirectory": "Ange en giltig katalog",
+  "normalInstall": "Normal installation",
+  "silentInstall": "Tyst installation",
+  "verySilentInstall": "Mycket tyst installation",
+  "installModeSettingsTitle": "Installera inställningar för läge",
+  "changeInstallMode": "Ändra installationsläge",
+  "autoExtractSettingsTitle": "Inställningar för automatisk extrahering",
+  "autoExtract": "Extrahera automatiskt"
 }
