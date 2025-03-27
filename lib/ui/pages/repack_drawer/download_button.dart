@@ -33,7 +33,7 @@ class _DownloadButtonState extends State<DownloadButton> {
   final _formKey = GlobalKey<FormState>();
 
   void setDefaultDownloadFolder() async {
-    SettingsService().loadDownloadPathSettings().then((String? downloadPath) {
+    SettingsService.instance.loadDownloadPathSettings().then((String? downloadPath) {
       if (downloadPath != null) {
         directoryController.text = downloadPath;
         selectedDirectory = downloadPath;

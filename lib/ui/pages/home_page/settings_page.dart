@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:fit_flutter/data/install_mode.dart';
 import 'package:fit_flutter/services/settings_service.dart';
 import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/services/updater.dart';
@@ -21,8 +22,12 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  TextEditingController directoryController = TextEditingController();
-  String? selectedDirectory;
+  final _settingsService = SettingsService.instance;
+  TextEditingController downloadPathController = TextEditingController();
+  TextEditingController installPathController = TextEditingController();
+  String? downloadPath;
+  String? installPath;
+  InstallMode installMode = InstallMode.normal;
   int maxConcurrentDownloads = 2;
   String appVersion = '';
   String latestVersion = '';
@@ -32,15 +37,24 @@ class _SettingsPageState extends State<SettingsPage> {
   Updater updater = Updater();
   int theme = 0;
   bool win11 = true;
+  bool autoExtract = false;
 
   @override
   void initState() {
     super.initState();
     setWinVersion();
+    loadAutoExtract();
+    setDefaultInstallFolder();
+    setInstallMode();
     setDefaultDownloadFolder();
     loadMaxConcurrentDownloads();
     loadAutoCheckForUpdates();
     getSetVersion();
+  }
+
+  Future<void> loadAutoExtract() async {
+    autoExtract = await _settingsService.loadAutoExtract();
+    setState(() {});
   }
 
   Future<void> setWinVersion() async {
@@ -55,28 +69,59 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void loadSelectedTheme() {
-    SettingsService().loadSelectedTheme().then((int value) {
+    _settingsService.loadSelectedTheme().then((int value) {
       setState(() {
         theme = value;
       });
     });
   }
 
+  void saveAutoExtract(bool autoExtract) {
+    _settingsService.saveAutoExtract(autoExtract);
+  }
+
   void setDefaultDownloadFolder() {
-    SettingsService().loadDownloadPathSettings().then((String? downloadPath) {
-      if (downloadPath != null) {
-        directoryController.text = downloadPath;
-        selectedDirectory = downloadPath;
+    _settingsService
+        .loadDownloadPathSettings()
+        .then((String? selectedDownloadPath) {
+      if (selectedDownloadPath != null) {
+        downloadPathController.text = selectedDownloadPath;
+        downloadPath = selectedDownloadPath;
       }
     });
   }
 
   void saveDefaultDownloadFolder() {
-    SettingsService().saveDownloadPathSettings(selectedDirectory!);
+    _settingsService.saveDownloadPathSettings(downloadPath!);
+  }
+
+  void setInstallMode() {
+    _settingsService.loadInstallMode().then((InstallMode value) {
+      setState(() {
+        installMode = value;
+      });
+    });
+  }
+
+  void saveInstallMode(InstallMode value) {
+    _settingsService.saveInstallMode(value);
+  }
+
+  void setDefaultInstallFolder() {
+    _settingsService.loadInstallPath().then((String? selectedInstallPath) {
+      if (selectedInstallPath != null) {
+        installPathController.text = selectedInstallPath;
+        installPath = selectedInstallPath;
+      }
+    });
+  }
+
+  void saveDefaultInstallFolder() {
+    _settingsService.saveInstallPath(installPath!);
   }
 
   void loadMaxConcurrentDownloads() {
-    SettingsService().loadMaxTasksSettings().then((int value) {
+    _settingsService.loadMaxTasksSettings().then((int value) {
       setState(() {
         maxConcurrentDownloads = value;
       });
@@ -84,12 +129,12 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void saveMaxConcurrentDownloads(int value) {
-    SettingsService().saveMaxTasksSettings(value);
+    _settingsService.saveMaxTasksSettings(value);
     DdManager.instance.setMaxConcurrentDownloads(value);
   }
 
   void loadAutoCheckForUpdates() {
-    SettingsService().loadAutoCheckForUpdates().then((bool value) {
+    _settingsService.loadAutoCheckForUpdates().then((bool value) {
       setState(() {
         autoCheckForUpdates = value;
       });
@@ -97,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void saveAutoCheckForUpdates(bool value) {
-    SettingsService().saveAutoCheckForUpdates(value);
+    _settingsService.saveAutoCheckForUpdates(value);
   }
 
   Future<void> checkForUpdates() async {
@@ -114,7 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> setThemeMode(BuildContext context, int value) async {
-    SettingsService().saveSelectedTheme(value);
+    _settingsService.saveSelectedTheme(value);
     await DynamicTheme.of(context)!.setTheme(value);
     switch (value) {
       case 2:
@@ -153,22 +198,20 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
               SettingsSection(
-                title:
-                    AppLocalizations.of(context)!.chooseDefaultDownloadFolder,
+                title: AppLocalizations.of(context)!.chooseDefaultDownloadPath,
                 content: Stack(
                   clipBehavior: Clip.none,
                   children: [
                     TextField(
-                      controller: directoryController,
+                      controller: downloadPathController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText:
                             AppLocalizations.of(context)!.defaultDownloadFolder,
                       ),
                       onChanged: (String directory) {
-                        selectedDirectory = directory;
+                        downloadPath = directory;
                       },
                     ),
                     Positioned(
@@ -178,15 +221,15 @@ class _SettingsPageState extends State<SettingsPage> {
                         child: IconButton(
                           icon: const Icon(Icons.folder),
                           onPressed: () async {
-                            selectedDirectory =
+                            downloadPath =
                                 await FilePicker.platform.getDirectoryPath();
-                            if (selectedDirectory != null) {
-                              selectedDirectory =
-                                  selectedDirectory!.replaceAll('\\', '/');
-                              if (!selectedDirectory!.endsWith('/')) {
-                                selectedDirectory = '$selectedDirectory/';
+                            if (downloadPath != null) {
+                              downloadPath =
+                                  downloadPath!.replaceAll('\\', '/');
+                              if (!downloadPath!.endsWith('/')) {
+                                downloadPath = '$downloadPath/';
                               }
-                              directoryController.text = selectedDirectory!;
+                              downloadPathController.text = downloadPath!;
                               saveDefaultDownloadFolder();
                             }
                           },
@@ -196,6 +239,90 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
+              SettingsSection(
+                title: AppLocalizations.of(context)!.autoExtractSettingsTitle,
+                content: SwitchListTile(
+                  title: Text(AppLocalizations.of(context)!.autoExtract),
+                  value: autoExtract,
+                  onChanged: (bool value) {
+                    setState(() {
+                      autoExtract = value;
+                    });
+                    saveAutoExtract(value);
+                  },
+                ),
+              ),
+              if (autoExtract)
+              SettingsSection(
+                title: AppLocalizations.of(context)!.chooseDefaultInstallPath,
+                content: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    TextField(
+                      controller: installPathController,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText:
+                            AppLocalizations.of(context)!.defaultInstallFolder,
+                      ),
+                      onChanged: (String directory) {
+                        installPath = directory;
+                      },
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: const Icon(Icons.folder),
+                          onPressed: () async {
+                            installPath =
+                                await FilePicker.platform.getDirectoryPath();
+                            if (installPath != null) {
+                              installPath = installPath!.replaceAll('\\', '/');
+                              if (!installPath!.endsWith('/')) {
+                                installPath = '$installPath/';
+                              }
+                              installPathController.text = installPath!;
+                              saveDefaultInstallFolder();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (autoExtract)
+              SettingsSection(
+                  title: AppLocalizations.of(context)!.installModeSettingsTitle,
+                  content: DropdownButtonFormField<InstallMode>(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText:
+                            AppLocalizations.of(context)!.changeInstallMode,
+                      ),
+                      value: installMode,
+                      items: [
+                        DropdownMenuItem<InstallMode>(
+                            value: InstallMode.normal,
+                            child: Text(
+                                AppLocalizations.of(context)!.normalInstall)),
+                        DropdownMenuItem<InstallMode>(
+                            value: InstallMode.silent,
+                            child: Text(
+                                AppLocalizations.of(context)!.silentInstall)),
+                        DropdownMenuItem<InstallMode>(
+                            value: InstallMode.verysilent,
+                            child: Text(AppLocalizations.of(context)!
+                                .verySilentInstall)),
+                      ],
+                      onChanged: (InstallMode? value) {
+                        setState(() {
+                          installMode = value!;
+                        });
+                        saveInstallMode(installMode);
+                      })),
               SettingsSection(
                 title: AppLocalizations.of(context)!.maxConcurrentDownloads,
                 content: Column(
@@ -245,15 +372,15 @@ class _SettingsPageState extends State<SettingsPage> {
                               child: Text(
                                   AppLocalizations.of(context)!.acrylicTheme)),
                         if (!Platform.isAndroid)
-                        DropdownMenuItem<int>(
-                            value: 3,
-                            child: Text(AppLocalizations.of(context)!
-                                .transparentTheme)),
+                          DropdownMenuItem<int>(
+                              value: 3,
+                              child: Text(AppLocalizations.of(context)!
+                                  .transparentTheme)),
                         if (!Platform.isAndroid)
-                        DropdownMenuItem<int>(
-                            value: 4,
-                            child:
-                                Text(AppLocalizations.of(context)!.aeroTheme)),
+                          DropdownMenuItem<int>(
+                              value: 4,
+                              child: Text(
+                                  AppLocalizations.of(context)!.aeroTheme)),
                         if (win11 && !Platform.isAndroid)
                           DropdownMenuItem<int>(
                               value: 5,

@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:fit_flutter/data/download_info.dart';
+import 'package:fit_flutter/services/auto_extract.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
 
 class DdManager {
   final DownloadManager downloadManager = DownloadManager();
+  final AutoExtract autoExtract = AutoExtract.instance;
 
   DdManager._privateConstructor();
   Map<String, List<Map<String, dynamic>>> downloadTasks = {};
@@ -29,6 +33,10 @@ class DdManager {
       'fileName': ddInfo.fileName,
       'task': downloadManager.getDownload(ddInfo.downloadLink)!
     });
+    if (autoExtract.turnedOn && !Platform.isAndroid){
+      printSanitizedTitleWhenCompleted(
+        sanitizedTitle, '$downloadFolder$sanitizedTitle');
+    }
   }
 
   DownloadTask? getDownloadTask(DownloadInfo ddInfo) {
@@ -69,5 +77,62 @@ class DdManager {
 
   void setMaxConcurrentDownloads(int maxDownloads) {
     downloadManager.maxConcurrentTasks = maxDownloads;
+  }
+
+  void printSanitizedTitleWhenCompleted(
+      String sanitizedTitle, String downloadPath) {
+    if (!downloadTasks.containsKey(sanitizedTitle)) return;
+
+    final tasks = downloadTasks[sanitizedTitle]!;
+
+    // Podziel zadania na opcjonalne i pozostałe
+    final optionalTasks = tasks.where((task) {
+      final fileName = task['fileName'] as String;
+      return fileName.startsWith('fg-selective') ||
+          fileName.startsWith('fg-optional');
+    }).toList();
+
+    final mainTasks = tasks.where((task) {
+      final fileName = task['fileName'] as String;
+      return !fileName.startsWith('fg-selective') &&
+          !fileName.startsWith('fg-optional');
+    }).toList();
+
+    // Sprawdź, czy wszystkie główne zadania są ukończone
+    bool allMainTasksCompleted = mainTasks.every((task) =>
+        (task['task'] as DownloadTask).status.value ==
+        DownloadStatus.completed);
+
+    // Sprawdź, czy wszystkie opcjonalne zadania są ukończone
+    bool allOptionalTasksCompleted = optionalTasks.every((task) =>
+        (task['task'] as DownloadTask).status.value ==
+        DownloadStatus.completed);
+
+    if (allMainTasksCompleted) {
+      print('All main tasks for "$sanitizedTitle" are completed.');
+
+      mainTasks.forEach((task) {
+        tasks.remove(task);
+      });
+    }
+
+    if (allOptionalTasksCompleted) {
+      print('All optional tasks for "$sanitizedTitle" are completed.');
+
+      optionalTasks.forEach((task) {
+        tasks.remove(task);
+      });
+    }
+
+    // Sprawdź, czy wszystkie zadania są ukończone
+    if (tasks.isEmpty) {
+      print('All tasks for "$sanitizedTitle" are completed.');
+      autoExtract.extract(downloadPath);
+      downloadTasks.remove(sanitizedTitle);
+    } else {
+      Future.delayed(const Duration(seconds: 1), () {
+        printSanitizedTitleWhenCompleted(sanitizedTitle, downloadPath);
+      });
+    }
   }
 }

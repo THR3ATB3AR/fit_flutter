@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fit_flutter/services/auto_extract.dart';
 import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/services/repack_service.dart';
 import 'package:fit_flutter/services/settings_service.dart';
@@ -42,6 +43,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final accentColor = SystemTheme.accentColor.accent;
   final RepackService _repackService = RepackService.instance;
+  final SettingsService _settingsService = SettingsService.instance;
+  final AutoExtract _autoExtract = AutoExtract.instance;
   late Future<void> _initialization;
   String loadingMessage = '';
   final ScraperService _scraperService = ScraperService.instance;
@@ -72,7 +75,7 @@ class _MyAppState extends State<MyApp> {
           AppLocalizations.of(context)?.initializing ?? 'Initializing...';
     });
 
-    if (await SettingsService().loadAutoCheckForUpdates()) {
+    if (await _settingsService.loadAutoCheckForUpdates()) {
       await _checkForUpdates();
     }
 
@@ -131,10 +134,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _checkSettings() async {
-    await SettingsService().checkAndCopySettings();
+    await _settingsService.checkAndCopySettings();
+    _autoExtract.turnedOn= await _settingsService.loadAutoExtract();
     DdManager.instance.setMaxConcurrentDownloads(
-        await SettingsService().loadMaxTasksSettings());
-    selectedTheme = await SettingsService().loadSelectedTheme();
+        await _settingsService.loadMaxTasksSettings());
+    selectedTheme = await _settingsService.loadSelectedTheme();
     if (selectedTheme == 2) {
       Window.setEffect(effect: WindowEffect.acrylic);
     }
