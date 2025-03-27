@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fit_flutter/data/download_info.dart';
 import 'package:fit_flutter/services/auto_extract.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
@@ -31,9 +33,10 @@ class DdManager {
       'fileName': ddInfo.fileName,
       'task': downloadManager.getDownload(ddInfo.downloadLink)!
     });
-
-    printSanitizedTitleWhenCompleted(
+    if (autoExtract.turnedOn && !Platform.isAndroid){
+      printSanitizedTitleWhenCompleted(
         sanitizedTitle, '$downloadFolder$sanitizedTitle');
+    }
   }
 
   DownloadTask? getDownloadTask(DownloadInfo ddInfo) {

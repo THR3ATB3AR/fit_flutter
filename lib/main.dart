@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fit_flutter/services/auto_extract.dart';
 import 'package:fit_flutter/services/dd_manager.dart';
 import 'package:fit_flutter/services/repack_service.dart';
 import 'package:fit_flutter/services/settings_service.dart';
@@ -43,6 +44,7 @@ class _MyAppState extends State<MyApp> {
   final accentColor = SystemTheme.accentColor.accent;
   final RepackService _repackService = RepackService.instance;
   final SettingsService _settingsService = SettingsService.instance;
+  final AutoExtract _autoExtract = AutoExtract.instance;
   late Future<void> _initialization;
   String loadingMessage = '';
   final ScraperService _scraperService = ScraperService.instance;
@@ -133,6 +135,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _checkSettings() async {
     await _settingsService.checkAndCopySettings();
+    _autoExtract.turnedOn= await _settingsService.loadAutoExtract();
     DdManager.instance.setMaxConcurrentDownloads(
         await _settingsService.loadMaxTasksSettings());
     selectedTheme = await _settingsService.loadSelectedTheme();
