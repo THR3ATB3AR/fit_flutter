@@ -13,14 +13,14 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 * **Repack Details:** View detailed information about each repack, including game title, original size, repack size, compression details, and more.
 * **Screenshots:**  Browse screenshots of the game before downloading.
 * **"FuckingFast" Downloads:** Download repacks directly using the "FuckingFast" (direct download) links (if available).
-* **Popular Repacks:** See a list of the most popular repacks.
-* **New Repacks:**  Browse the latest repacks added to the site.
+* **New And Popular Repacks:** See a list of the latest repacks added to the site and the most popular repacks.
 * **Auto Updates:** The application can automatically check for and download updates to ensure you always have the latest features and fixes.
 * **Windows 11 Acrylic Design:** The app features a modern Windows 11 acrylic design for a sleek and visually appealing interface.
 * **Windows Accent Color:** The application adapts to the user's Windows accent color for a more integrated and personalized experience.
 * **Torrent Support:** Download repacks using torrent files (requires a torrent client).
 * **Cross-Platform Support:** FitFlutter is designed to work seamlessly on Windows, Android and Linux.
 * **Caching Repacks:** Save scraped repacks to disk for faster loading.
+* **Auto Install Repacks:** Automatically install downloaded repacks to a specified directory, streamlining the setup process.
 
 ## Screenshots
 
@@ -33,8 +33,6 @@ FitFlutter is a Flutter-based application designed to browse and download FitGir
 ## Roadmap & Future Enhancements 🚀
 
 FitFlutter is continuously evolving!  Here's a glimpse of what's coming:
-
-* [ ] ⬇️**Automatic installation:** Implement automatic extracting and installing repacks.
 
 I am open for contributions and suggestions!
 
